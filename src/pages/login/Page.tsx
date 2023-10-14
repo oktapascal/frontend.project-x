@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { FC } from "react";
+import { useCookies } from "react-cookie";
 import {
   Box,
   Button,
@@ -25,6 +26,12 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const http = setupInterceptors(axios);
 
+interface Response {
+  access_token: string;
+  refresh_token: string;
+  user: unknown;
+}
+
 const Page: FC = () => {
   const {
     control,
@@ -38,16 +45,44 @@ const Page: FC = () => {
     },
   });
 
+  const [, setSessionCookie] = useCookies(["session-token"]);
+  const [, setSessionRefreshCookie] = useCookies(["session-refresh-token"]);
+
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     try {
-      const response = await http.post(`${BASE_URL}/auth/login`, data, {
+      const request = await http.post(`${BASE_URL}/auth/login`, data, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
 
-      console.log(response);
+      const response = request.data as Response;
+
+      const accessDate = new Date();
+      const refreshDate = new Date();
+
+      const minutes = 60 * 1000;
+      const oneDay = 60 * 60 * 24 * 1000;
+
+      const expiresAccess = accessDate.getTime() + minutes * 14;
+      const expiresRefresh = refreshDate.getTime() + oneDay * 7;
+
+      accessDate.setTime(expiresAccess);
+      refreshDate.setTime(expiresRefresh);
+
+      setSessionCookie("session-token", response.access_token, {
+        expires: accessDate,
+      });
+
+      setSessionRefreshCookie("session-refresh-token", response.refresh_token, {
+        expires: refreshDate,
+      });
+
+      window.localStorage.setItem(
+        "session-user",
+        JSON.stringify(response.user)
+      );
     } catch (error) {
       if (error instanceof AxiosError) {
         const response = error.response?.data as FormError;
@@ -58,6 +93,12 @@ const Page: FC = () => {
               setError("username", { message: response.message[0].username });
             if (response.message[0].password)
               setError("password", { message: response.message[0].password });
+            break;
+          case 401:
+            setError("password", { message: response.message[0].password });
+            break;
+          case 404:
+            setError("username", { message: response.message[0].username });
             break;
           default:
             alert("Error Unknown");
@@ -106,6 +147,7 @@ const Page: FC = () => {
                         type="text"
                         placeholder="Your username..."
                         paddingLeft={8}
+                        autoComplete="off"
                         isReadOnly={isLoading}
                         {...field}
                       />
