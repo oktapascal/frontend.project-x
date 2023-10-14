@@ -16,11 +16,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { FormError, FormInput } from "./types";
-import { setupInterceptors } from "../../utils";
-import { BackgroundOverlay } from "./components";
-import Background from "../../assets/images/background-login.webp";
-import Logo from "../../assets/images/logo.webp";
+import { FormError, FormInput } from "@/pages/login/types";
+import { setupInterceptors } from "@/utils";
+import { BackgroundOverlay } from "@/pages/login/components";
+import Background from "@/assets/images/background-login.webp";
+import Logo from "@/assets/images/logo.webp";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
