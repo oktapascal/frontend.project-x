@@ -8,14 +8,11 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   Button,
-  Center,
   Container,
-  Flex,
   Heading,
-  Image,
   Text,
 } from "@chakra-ui/react";
-import Logo from "@/assets/images/logo.webp";
+import { Navbar } from "./components";
 
 import "./styles/styles.min.css";
 
@@ -26,27 +23,7 @@ const Page: FC = () => {
   return (
     <>
       <div className="bg-main">
-        <nav className="shadow-md bg-white-80 px-4 py-2">
-          <Flex flexDirection="row">
-            <Center flex="1">
-              <Image alt="logo" src={Logo} width="4rem" />
-            </Center>
-            <Center>
-              <Button
-                variant="outline"
-                borderColor="#dc2626"
-                color="#dc2626"
-                _hover={{
-                  backgroundColor: "#dc2626",
-                  color: "#ffffff",
-                }}
-                onClick={onOpen}
-              >
-                Sign Out
-              </Button>
-            </Center>
-          </Flex>
-        </nav>
+        <Navbar onToggleAlert={onOpen} />
         <Container maxWidth="100%">
           <div>ini halaman main</div>
         </Container>
