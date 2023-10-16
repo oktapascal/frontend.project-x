@@ -4,12 +4,19 @@ import {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import { Cookies } from "react-cookie";
 
 const onRequest = (
   config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
+  const cookies = new Cookies();
+
+  if (cookies.get("session-token"))
+    config.headers["Authorization"] = `Bearer ${cookies.get("session-token")}`;
+
   if (import.meta.env.DEV)
     console.info(`[request] [${JSON.stringify(config)}]`);
+
   return config;
 };
 

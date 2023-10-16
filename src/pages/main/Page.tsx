@@ -1,6 +1,8 @@
+import axios from "axios";
 import { FC, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { setupInterceptors } from "@/utils";
 import {
   useDisclosure,
   AlertDialog,
@@ -18,6 +20,10 @@ import { Navbar } from "./components";
 
 import "./styles/styles.min.css";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+const http = setupInterceptors(axios);
+
 const Page: FC = () => {
   const cancelRef = useRef<HTMLButtonElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,13 +35,26 @@ const Page: FC = () => {
     "session-refresh-token",
   ]);
 
-  const onSignOut = () => {
-    window.localStorage.removeItem("session");
+  const onSignOut = async () => {
+    const response = await http.patch(
+      `${BASE_URL}/auth/logout`,
+      {},
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    removeCookieSessionToken("session-token");
-    removeCookieSessionRefreshToken("session-refresh-token");
+    if (response.status === 200) {
+      window.localStorage.removeItem("session");
 
-    navigate("/login");
+      removeCookieSessionToken("session-token");
+      removeCookieSessionRefreshToken("session-refresh-token");
+
+      navigate("/login");
+    }
   };
 
   return (
