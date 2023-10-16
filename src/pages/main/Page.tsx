@@ -1,4 +1,6 @@
 import { FC, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import {
   useDisclosure,
   AlertDialog,
@@ -19,6 +21,22 @@ import "./styles/styles.min.css";
 const Page: FC = () => {
   const cancelRef = useRef<HTMLButtonElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const navigate = useNavigate();
+
+  const [, , removeCookieSessionToken] = useCookies(["session-token"]);
+  const [, , removeCookieSessionRefreshToken] = useCookies([
+    "session-refresh-token",
+  ]);
+
+  const onSignOut = () => {
+    window.localStorage.removeItem("session");
+
+    removeCookieSessionToken("session-token");
+    removeCookieSessionRefreshToken("session-refresh-token");
+
+    navigate("/login");
+  };
 
   return (
     <>
@@ -50,7 +68,7 @@ const Page: FC = () => {
               </Button>
               <Button
                 ref={cancelRef}
-                onClick={onClose}
+                onClick={onSignOut}
                 type="button"
                 marginLeft="0.5rem"
                 backgroundColor="#0058e4"

@@ -16,6 +16,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks";
 import { setupInterceptors } from "@/utils";
 import Background from "@/assets/images/background-login.webp";
@@ -34,6 +35,8 @@ interface Response {
 }
 
 const Page: FC = () => {
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
@@ -82,6 +85,8 @@ const Page: FC = () => {
       });
 
       setSession(response.user);
+
+      navigate("/main");
     } catch (error) {
       if (error instanceof AxiosError) {
         const response = error.response?.data as FormError;
