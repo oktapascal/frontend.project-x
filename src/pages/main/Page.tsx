@@ -48,7 +48,7 @@ const Page: FC = () => {
     );
 
     if (response.status === 200) {
-      window.localStorage.removeItem("session");
+      localStorage.removeItem("session");
 
       removeCookieSessionToken("session-token");
       removeCookieSessionRefreshToken("session-refresh-token");

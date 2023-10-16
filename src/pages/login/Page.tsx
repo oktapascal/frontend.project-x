@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import {
   Box,
@@ -41,7 +41,7 @@ const Page: FC = () => {
     control,
     handleSubmit,
     setError,
-    formState: { errors, isLoading },
+    formState: { errors, isSubmitting, isSubmitted },
   } = useForm({
     defaultValues: {
       username: "",
@@ -49,9 +49,14 @@ const Page: FC = () => {
     },
   });
 
-  const [, setSession] = useLocalStorage("session", {});
+  const [user, setUser] = useLocalStorage("session");
   const [, setSessionCookie] = useCookies(["session-token"]);
   const [, setSessionRefreshCookie] = useCookies(["session-refresh-token"]);
+
+  useEffect(() => {
+    if (user !== null) navigate("/main");
+    if (isSubmitted && Object.keys(errors).length === 0) navigate("/main");
+  }, [user, errors, isSubmitted, navigate]);
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     try {
@@ -84,9 +89,7 @@ const Page: FC = () => {
         expires: refreshDate,
       });
 
-      setSession(response.user);
-
-      navigate("/main");
+      setUser(response.user);
     } catch (error) {
       if (error instanceof AxiosError) {
         const response = error.response?.data as FormError;
@@ -152,7 +155,7 @@ const Page: FC = () => {
                         placeholder="Your username..."
                         paddingLeft={8}
                         autoComplete="off"
-                        isReadOnly={isLoading}
+                        isReadOnly={isSubmitting}
                         {...field}
                       />
                     )}
@@ -176,7 +179,7 @@ const Page: FC = () => {
                         type="password"
                         placeholder="Your password..."
                         paddingLeft={8}
-                        isReadOnly={isLoading}
+                        isReadOnly={isSubmitting}
                         {...field}
                       />
                     )}
@@ -189,8 +192,7 @@ const Page: FC = () => {
                   backgroundColor="#0058e4"
                   color="#ffffff"
                   type="submit"
-                  isLoading={isLoading}
-                  isDisabled={isLoading}
+                  isDisabled={isSubmitting}
                   _hover={{ backgroundColor: "#004fcd" }}
                   _active={{ backgroundColor: "#0046b6" }}
                 >

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { OnlyDekstopAccess } from "@/components/others";
+import { OnlyDekstopAccess, ProtectedRoutes } from "@/components/others";
 import { LoginPage, MainPage } from "./pages";
 
 function App() {
@@ -30,7 +30,9 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/main" element={<MainPage />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/main" element={<MainPage />} />
+        </Route>
       </Routes>
     </Router>
   );
