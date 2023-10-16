@@ -16,6 +16,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useLocalStorage } from "@/hooks";
 import { setupInterceptors } from "@/utils";
 import Background from "@/assets/images/background-login.webp";
 import Logo from "@/assets/images/logo.webp";
@@ -45,6 +46,7 @@ const Page: FC = () => {
     },
   });
 
+  const [, setSession] = useLocalStorage("session", {});
   const [, setSessionCookie] = useCookies(["session-token"]);
   const [, setSessionRefreshCookie] = useCookies(["session-refresh-token"]);
 
@@ -79,10 +81,7 @@ const Page: FC = () => {
         expires: refreshDate,
       });
 
-      window.localStorage.setItem(
-        "session-user",
-        JSON.stringify(response.user)
-      );
+      setSession(response.user);
     } catch (error) {
       if (error instanceof AxiosError) {
         const response = error.response?.data as FormError;
