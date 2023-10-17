@@ -3,6 +3,7 @@ import { FC, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { setupInterceptors } from "@/utils";
+import { useLocalStorage } from "@/hooks";
 import {
   useDisclosure,
   AlertDialog,
@@ -30,6 +31,8 @@ const Page: FC = () => {
 
   const navigate = useNavigate();
 
+  const [, , removeSession] = useLocalStorage("session");
+
   const [, , removeCookieSessionToken] = useCookies(["session-token"]);
   const [, , removeCookieSessionRefreshToken] = useCookies([
     "session-refresh-token",
@@ -48,7 +51,7 @@ const Page: FC = () => {
     );
 
     if (response.status === 200) {
-      localStorage.removeItem("session");
+      removeSession("session");
 
       removeCookieSessionToken("session-token");
       removeCookieSessionRefreshToken("session-refresh-token");

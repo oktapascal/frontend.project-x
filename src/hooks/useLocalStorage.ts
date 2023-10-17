@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const useLocalStorage = <T>(
   key: string,
   defaultValue = null
-): [T, (value: T) => void] => {
+): [T, (value: T) => void, (key: string) => void] => {
   const [value, setValue] = useState(() => {
     try {
       const saved = localStorage.getItem(key);
@@ -22,7 +22,11 @@ const useLocalStorage = <T>(
     localStorage.setItem(key, rawValue);
   }, [key, value]);
 
-  return [value, setValue];
+  const removeLocalStorage = () => {
+    localStorage.removeItem(key);
+  };
+
+  return [value, setValue, removeLocalStorage];
 };
 
 export default useLocalStorage;
