@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FC, useRef } from "react";
+import { FC, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useLocalStorage } from "@/hooks";
@@ -23,6 +23,8 @@ import "./styles/styles.min.css";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Page: FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const cancelRef = useRef<HTMLButtonElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -36,6 +38,8 @@ const Page: FC = () => {
   ]);
 
   const onSignOut = async () => {
+    setLoading(true);
+
     const response = await axios.patch(
       `${BASE_URL}/auth/logout`,
       {},
@@ -46,6 +50,8 @@ const Page: FC = () => {
         },
       }
     );
+
+    setLoading(false);
 
     if (response.status === 200) {
       removeSession("session");
@@ -92,6 +98,7 @@ const Page: FC = () => {
                 marginLeft="0.5rem"
                 backgroundColor="#0058e4"
                 color="#ffffff"
+                disabled={loading}
                 _hover={{ backgroundColor: "#004fcd" }}
                 _active={{ backgroundColor: "#0046b6" }}
               >
