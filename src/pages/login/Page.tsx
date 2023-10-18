@@ -18,15 +18,12 @@ import {
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks";
-import { setupInterceptors } from "@/utils";
 import Background from "@/assets/images/background-login.webp";
 import Logo from "@/assets/images/logo.webp";
 import { FormError, FormInput } from "./types";
 import { BackgroundOverlay } from "./components";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-const http = setupInterceptors(axios);
 
 interface Response {
   access_token: string;
@@ -60,7 +57,7 @@ const Page: FC = () => {
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     try {
-      const request = await http.post(`${BASE_URL}/auth/login`, data, {
+      const request = await axios.post(`${BASE_URL}/auth/login`, data, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

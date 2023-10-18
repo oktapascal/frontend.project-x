@@ -2,7 +2,6 @@ import axios from "axios";
 import { FC, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { setupInterceptors } from "@/utils";
 import { useLocalStorage } from "@/hooks";
 import {
   useDisclosure,
@@ -23,8 +22,6 @@ import "./styles/styles.min.css";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const http = setupInterceptors(axios);
-
 const Page: FC = () => {
   const cancelRef = useRef<HTMLButtonElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,7 +36,7 @@ const Page: FC = () => {
   ]);
 
   const onSignOut = async () => {
-    const response = await http.patch(
+    const response = await axios.patch(
       `${BASE_URL}/auth/logout`,
       {},
       {

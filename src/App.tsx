@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { OnlyDekstopAccess, ProtectedRoutes } from "@/components/others";
+import {
+  AxiosNavigation,
+  OnlyDekstopAccess,
+  ProtectedRoutes,
+} from "@/components/others";
 import { LoginPage, MainPage } from "./pages";
 
 function App() {
@@ -28,6 +32,7 @@ function App() {
 
   return (
     <Router>
+      <AxiosNavigation />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route element={<ProtectedRoutes />}>
