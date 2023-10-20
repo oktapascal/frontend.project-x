@@ -1,28 +1,24 @@
 import { FC } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
+import { ModuleResponses } from "../types";
 import CardModule from "./CardModule";
 
-const ListModules: FC = () => {
+interface Props {
+  modules?: ModuleResponses[];
+}
+
+const ListModules: FC<Props> = ({ modules }) => {
+  if (!modules) return <div>no data</div>;
+
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={8}>
-      <GridItem>
-        <CardModule label="Test 1" />
-      </GridItem>
-      <GridItem>
-        <CardModule label="Test 2" />
-      </GridItem>
-      <GridItem>
-        <CardModule label="Test 3" />
-      </GridItem>
-      <GridItem>
-        <CardModule label="Test 4" />
-      </GridItem>
-      <GridItem>
-        <CardModule label="Test 5" />
-      </GridItem>
-      <GridItem>
-        <CardModule label="Test 6" />
-      </GridItem>
+      {modules.map((data) => {
+        return (
+          <GridItem key={data.module_id}>
+            <CardModule label={data.name} icon={data.module_icon} />
+          </GridItem>
+        );
+      })}
     </Grid>
   );
 };

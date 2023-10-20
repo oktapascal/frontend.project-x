@@ -3,9 +3,10 @@ import { Box, Card, CardBody, Flex, Center, Text } from "@chakra-ui/react";
 
 interface Props {
   label: string;
+  icon: string;
 }
 
-const CardModule: FC<Props> = ({ label }) => {
+const CardModule: FC<Props> = ({ label, icon }) => {
   return (
     <Card
       as="button"
@@ -16,10 +17,10 @@ const CardModule: FC<Props> = ({ label }) => {
       <CardBody width="100%">
         <Flex>
           <Center>
-            <i className="ri-bank-fill icon-large"></i>
+            <i className={`${icon} icon-large`}></i>
           </Center>
           <Box flex="1" paddingLeft={4} display="flex" alignItems="center">
-            <Text>{label}</Text>
+            <Text fontWeight="semibold">{label}</Text>
           </Box>
           <Center>
             <i className="ri-signal-tower-fill icon-small"></i>

@@ -88,7 +88,7 @@ const useAxiosInterceptor = () => {
                   const minutes = 60 * 1000;
                   const oneDay = 60 * 60 * 24 * 1000;
 
-                  const expiresAccess = accessDate.getTime() + minutes * 15;
+                  const expiresAccess = accessDate.getTime() + minutes * 14.5;
                   const expiresRefresh = refreshDate.getTime() + oneDay * 7;
 
                   accessDate.setTime(expiresAccess);
