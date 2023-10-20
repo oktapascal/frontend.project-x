@@ -38,6 +38,7 @@ const Page: FC = () => {
     control,
     handleSubmit,
     setError,
+    reset,
     formState: { errors, isSubmitting, isSubmitted },
   } = useForm({
     defaultValues: {
@@ -51,9 +52,9 @@ const Page: FC = () => {
   const [, setSessionRefreshCookie] = useCookies(["session-refresh-token"]);
 
   useEffect(() => {
+    reset({}, { keepValues: true, keepErrors: true });
     if (user !== null) navigate("/main");
-    if (isSubmitted && Object.keys(errors).length === 0) navigate("/main");
-  }, [user, errors, isSubmitted, navigate]);
+  }, [user, isSubmitted, navigate, reset]);
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     try {
@@ -72,7 +73,7 @@ const Page: FC = () => {
       const minutes = 60 * 1000;
       const oneDay = 60 * 60 * 24 * 1000;
 
-      const expiresAccess = accessDate.getTime() + minutes * 14;
+      const expiresAccess = accessDate.getTime() + minutes * 15;
       const expiresRefresh = refreshDate.getTime() + oneDay * 7;
 
       accessDate.setTime(expiresAccess);
@@ -97,9 +98,6 @@ const Page: FC = () => {
               setError("username", { message: response.message[0].username });
             if (response.message[0].password)
               setError("password", { message: response.message[0].password });
-            break;
-          case 401:
-            setError("password", { message: response.message[0].password });
             break;
           case 404:
             setError("username", { message: response.message[0].username });
