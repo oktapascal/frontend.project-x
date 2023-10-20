@@ -52,6 +52,8 @@ const Page: FC = () => {
   const [, setSessionRefreshCookie] = useCookies(["session-refresh-token"]);
 
   useEffect(() => {
+    document.title = "Project-X | Login";
+
     reset({}, { keepValues: true, keepErrors: true });
     if (user !== null) navigate("/main");
   }, [user, isSubmitted, navigate, reset]);
