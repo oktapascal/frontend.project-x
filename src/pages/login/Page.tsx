@@ -18,6 +18,7 @@ import {
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks";
+import { IUser } from "@/types";
 import Background from "@/assets/images/background-login.webp";
 import Logo from "@/assets/images/logo.webp";
 import { FormError, FormInput } from "./types";
@@ -28,7 +29,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 interface Response {
   access_token: string;
   refresh_token: string;
-  user: unknown;
+  user: IUser;
 }
 
 const Page: FC = () => {
