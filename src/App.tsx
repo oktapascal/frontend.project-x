@@ -7,6 +7,7 @@ import {
   OnlyDekstopAccess,
   ProtectedRoutes,
 } from "@/components/others";
+import { PrivateLayout } from "@/pages/private";
 import { LoginPage, MainPage } from "./pages";
 
 function App() {
@@ -41,6 +42,9 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route element={<ProtectedRoutes />}>
             <Route path="/main" element={<MainPage />} />
+          </Route>
+          <Route element={<PrivateLayout />}>
+            <Route path="/private" element={<div>ini halaman private</div>} />
           </Route>
         </Routes>
       </Router>
