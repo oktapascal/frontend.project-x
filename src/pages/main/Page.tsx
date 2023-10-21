@@ -1,11 +1,9 @@
 import axios from "axios";
 import { FC, useEffect } from "react";
-import { useDisclosure, Container } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { Navbar, SignOutAlert, ListModules, Loading } from "./components";
+import { ListModules, Loading } from "./components";
 import { ModuleResponses } from "./types";
-
-import "./styles/styles.min.css";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -21,8 +19,6 @@ const fetchModules = async () => {
 };
 
 const Page: FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   const { data, isLoading, error } = useQuery({
     queryKey: ["modules"],
     queryFn: fetchModules,
@@ -35,16 +31,9 @@ const Page: FC = () => {
   if (error) return <div>unknown error {error.message}</div>;
 
   return (
-    <>
-      <div className="bg-main">
-        <Navbar onToggleAlert={onOpen} />
-        <Container maxWidth="100%" paddingTop="1rem">
-          {isLoading ? <Loading /> : <ListModules modules={data} />}
-        </Container>
-      </div>
-
-      <SignOutAlert isOpen={isOpen} onClose={onClose} />
-    </>
+    <Container maxWidth="100%" paddingTop="1rem">
+      {isLoading ? <Loading /> : <ListModules modules={data} />}
+    </Container>
   );
 };
 

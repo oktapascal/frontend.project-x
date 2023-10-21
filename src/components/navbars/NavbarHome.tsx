@@ -6,7 +6,7 @@ interface NavbarProps {
   onToggleAlert: () => void;
 }
 
-const Navbar: FC<NavbarProps> = ({ onToggleAlert }) => {
+const NavbarHome: FC<NavbarProps> = ({ onToggleAlert }) => {
   return (
     <nav className="shadow-md bg-white-80 px-4 py-2">
       <Flex flexDirection="row">
@@ -32,4 +32,4 @@ const Navbar: FC<NavbarProps> = ({ onToggleAlert }) => {
   );
 };
 
-export default Navbar;
+export default NavbarHome;

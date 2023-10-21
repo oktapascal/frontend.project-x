@@ -2,12 +2,8 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import {
-  AxiosNavigation,
-  OnlyDekstopAccess,
-  ProtectedRoutes,
-} from "@/components/others";
-import { PrivateLayout } from "@/pages/private";
+import { AxiosNavigation, OnlyDekstopAccess } from "@/components/others";
+import { ProtectedLayout } from "@/components/layouts";
 import { LoginPage, MainPage } from "./pages";
 
 function App() {
@@ -40,11 +36,12 @@ function App() {
         <AxiosNavigation />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route element={<ProtectedRoutes />}>
+          <Route element={<ProtectedLayout />}>
             <Route path="/main" element={<MainPage />} />
-          </Route>
-          <Route element={<PrivateLayout />}>
-            <Route path="/private" element={<div>ini halaman private</div>} />
+            <Route
+              path="/settings/modules"
+              element={<div>ini halaman modules</div>}
+            />
           </Route>
         </Routes>
       </Router>
