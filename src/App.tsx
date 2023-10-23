@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useMediaQuery } from "@chakra-ui/react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AxiosNavigation, OnlyDekstopAccess } from "@/components/others";
 import { ProtectedLayout } from "@/components/layouts";
@@ -16,29 +17,16 @@ function App() {
 
   const queryClient = new QueryClient();
 
-  const [windowSize, setWindowSize] = useState([
-    window.innerWidth,
-    window.innerHeight,
-  ]);
+  const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
 
   useEffect(() => {
-    const onWindowResize = () => {
-      setWindowSize([window.innerWidth, window.innerHeight]);
-    };
-
-    window.addEventListener("resize", onWindowResize);
-
     if (pathname === "/") {
       if (user_id === null) navRef.current("/login");
       if (user_id !== null) navRef.current("/main");
     }
-
-    return () => {
-      window.removeEventListener("resize", onWindowResize);
-    };
   }, [user_id, pathname]);
 
-  if (windowSize[0] < 600) {
+  if (!isLargerThan600) {
     return <OnlyDekstopAccess />;
   }
 
