@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
 import { useUserStore } from "@/stores";
@@ -8,7 +8,7 @@ import { SignOutAlert } from "../alerts";
 import "@/assets/styles/app.min.css";
 
 const ProtectedLayout: FC = () => {
-  const navigate = useNavigate();
+  const navRef = useRef(useNavigate());
 
   const user_id = useUserStore((state) => state.user_id);
 
@@ -16,8 +16,8 @@ const ProtectedLayout: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    if (user_id === null) navigate("/login");
-  }, [navigate, user_id]);
+    if (user_id === null) navRef.current("/login");
+  }, [user_id]);
 
   return (
     <>
