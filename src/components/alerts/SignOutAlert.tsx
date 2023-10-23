@@ -28,9 +28,7 @@ const SignOutAlert: FC<Props> = ({ isOpen, onClose }) => {
   const cancelRef = useRef<HTMLButtonElement>(null);
 
   const [, , removeCookieSessionToken] = useCookies(["session-token"]);
-  const [, , removeCookieSessionRefreshToken] = useCookies([
-    "session-refresh-token",
-  ]);
+  const [, , removeCookieSessionRefreshToken] = useCookies(["session-refresh-token"]);
 
   const navigate = useNavigate();
 
@@ -55,19 +53,15 @@ const SignOutAlert: FC<Props> = ({ isOpen, onClose }) => {
     if (response.status === 200) {
       resetUser();
 
-      removeCookieSessionToken("session-token");
-      removeCookieSessionRefreshToken("session-refresh-token");
+      removeCookieSessionToken("session-token", { path: "/" });
+      removeCookieSessionRefreshToken("session-refresh-token", { path: "/" });
 
       navigate("/login");
     }
   };
 
   return (
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-    >
+    <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader>

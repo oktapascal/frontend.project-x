@@ -1,9 +1,11 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
+import { AnimatePresence } from "framer-motion";
 import { useUserStore } from "@/stores";
 import { NavbarApp, NavbarHome } from "../navbars";
 import { SignOutAlert } from "../alerts";
+import { SidebarParentApp } from "../sidebars";
 
 import "@/assets/styles/app.min.css";
 
@@ -13,24 +15,32 @@ const ProtectedLayout: FC = () => {
   const user_id = useUserStore((state) => state.user_id);
 
   const { pathname } = useLocation();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isOpenAlert, onOpen: onOpenAlert, onClose: onCloseAlert } = useDisclosure();
+  const { isOpen: isOpenParentSidebar, onToggle: onToggleParentSidebar, onClose: onCloseParentSidebar } = useDisclosure();
+
+  const [shouldRenderSidebar, setShouldRenderSidebar] = useState<boolean>(false);
 
   useEffect(() => {
     if (user_id === null) navRef.current("/login");
-  }, [user_id]);
+    setShouldRenderSidebar(isOpenParentSidebar && pathname !== "/main");
+  }, [user_id, isOpenParentSidebar, pathname]);
 
   return (
     <>
       <div className={pathname === "/main" ? "bg-main" : "bg-private"}>
         {pathname === "/main" ? (
-          <NavbarHome onToggleAlert={onOpen} />
+          <NavbarHome onToggleAlert={onOpenAlert} />
         ) : (
-          <NavbarApp onToggleAlert={onOpen} />
+          <NavbarApp onToggleAlert={onOpenAlert} onToggleSidebar={onToggleParentSidebar} />
         )}
         <Outlet />
       </div>
 
-      <SignOutAlert isOpen={isOpen} onClose={onClose} />
+      <AnimatePresence mode="wait" initial={false}>
+        {shouldRenderSidebar && <SidebarParentApp onHideSidebar={onCloseParentSidebar} />}
+      </AnimatePresence>
+
+      <SignOutAlert isOpen={isOpenAlert} onClose={onCloseAlert} />
     </>
   );
 };
