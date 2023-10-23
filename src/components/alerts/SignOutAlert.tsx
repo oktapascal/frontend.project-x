@@ -13,7 +13,7 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { useLocalStorage } from "@/hooks";
+import { useUserStore } from "@/stores";
 
 interface Props {
   isOpen: boolean;
@@ -27,14 +27,14 @@ const SignOutAlert: FC<Props> = ({ isOpen, onClose }) => {
 
   const cancelRef = useRef<HTMLButtonElement>(null);
 
-  const [, , removeSession] = useLocalStorage("session");
-
   const [, , removeCookieSessionToken] = useCookies(["session-token"]);
   const [, , removeCookieSessionRefreshToken] = useCookies([
     "session-refresh-token",
   ]);
 
   const navigate = useNavigate();
+
+  const resetUser = useUserStore((state) => state.reset);
 
   const onSignOut = async () => {
     setLoading(true);
@@ -53,7 +53,7 @@ const SignOutAlert: FC<Props> = ({ isOpen, onClose }) => {
     setLoading(false);
 
     if (response.status === 200) {
-      removeSession("session");
+      resetUser();
 
       removeCookieSessionToken("session-token");
       removeCookieSessionRefreshToken("session-refresh-token");

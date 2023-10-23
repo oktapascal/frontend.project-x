@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from "@/hooks";
+import { useUserStore } from "@/stores";
 import { IUser } from "@/types";
 import Background from "@/assets/images/background-login.webp";
 import Logo from "@/assets/images/logo.webp";
@@ -35,6 +35,9 @@ interface Response {
 const Page: FC = () => {
   const navigate = useNavigate();
 
+  const user_id = useUserStore((state) => state.user_id);
+  const updateUserStore = useUserStore((state) => state.update);
+
   const {
     control,
     handleSubmit,
@@ -48,7 +51,6 @@ const Page: FC = () => {
     },
   });
 
-  const [user, setUser] = useLocalStorage("session");
   const [, setSessionCookie] = useCookies(["session-token"]);
   const [, setSessionRefreshCookie] = useCookies(["session-refresh-token"]);
 
@@ -56,8 +58,8 @@ const Page: FC = () => {
     document.title = "Project-X | Login";
 
     reset({}, { keepValues: true, keepErrors: true });
-    if (user !== null) navigate("/main");
-  }, [user, isSubmitted, navigate, reset]);
+    if (user_id !== null) navigate("/main");
+  }, [user_id, isSubmitted, navigate, reset]);
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     try {
@@ -90,7 +92,7 @@ const Page: FC = () => {
         expires: refreshDate,
       });
 
-      setUser(response.user);
+      updateUserStore(response.user);
     } catch (error) {
       if (error instanceof AxiosError) {
         const response = error.response?.data as FormError;

@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
-import { useLocalStorage } from "@/hooks";
+import { useUserStore } from "@/stores";
 import { NavbarApp, NavbarHome } from "../navbars";
 import { SignOutAlert } from "../alerts";
 
@@ -10,14 +10,14 @@ import "@/assets/styles/app.min.css";
 const ProtectedLayout: FC = () => {
   const navigate = useNavigate();
 
+  const user_id = useUserStore((state) => state.user_id);
+
   const { pathname } = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [user] = useLocalStorage("session");
-
   useEffect(() => {
-    if (user === null) navigate("/login");
-  }, [navigate, user]);
+    if (user_id === null) navigate("/login");
+  }, [navigate, user_id]);
 
   return (
     <>

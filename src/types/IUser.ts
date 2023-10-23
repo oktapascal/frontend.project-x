@@ -1,10 +1,11 @@
 interface IRole {
-  flag_read: boolean;
-  flag_insert: boolean;
-  flag_update: boolean;
-  flag_delete: boolean;
+  flag_read: boolean | null;
+  flag_insert: boolean | null;
+  flag_update: boolean | null;
+  flag_delete: boolean | null;
 }
 export interface IUser {
-  user_id: string;
+  user_id: string | null;
+  username: string | null;
   role: IRole;
 }
