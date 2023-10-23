@@ -1,10 +1,7 @@
 import { FC } from "react";
 import { Button, Center, Flex, Image } from "@chakra-ui/react";
 import Logo from "@/assets/images/logo.webp";
-
-interface NavbarProps {
-  onToggleAlert: () => void;
-}
+import { NavbarProps } from "./types";
 
 const NavbarHome: FC<NavbarProps> = ({ onToggleAlert }) => {
   return (

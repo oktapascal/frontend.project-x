@@ -1,24 +1,29 @@
 import { FC } from "react";
-import { Center, Flex, Image } from "@chakra-ui/react";
+import { Box, Center, Flex, Image } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
+import { UserProfile } from "./components";
 import Logo from "@/assets/images/logo.webp";
+import { NavbarProps } from "./types";
 
-const NavbarApp: FC = () => {
+const NavbarApp: FC<NavbarProps> = ({ onToggleAlert }) => {
   return (
     <nav className="shadow-md bg-white-80 px-4 py-2">
       <Flex flexDirection="row" justifyContent="space-between">
-        <Center>
+        <Box width="33.3333333333%">
           <ButtonIcon
             label="Toggle Menu"
             tooltipPlacement="right"
             icon={<i className="ri-menu-fill icon-small" />}
           />
-        </Center>
-        <Center>
+        </Box>
+        <Center width="33.3333333333%">
           <Image alt="logo" src={Logo} width="4rem" />
         </Center>
-        <Center>
-          <Flex flexDirection="row">
+        <Box width="33.3333333333%">
+          <Flex flexDirection="row" justifyContent="flex-end">
+            <Center>
+              <UserProfile onToggleAlert={onToggleAlert} />
+            </Center>
             <Center>
               <ButtonIcon
                 label="Notification"
@@ -48,7 +53,7 @@ const NavbarApp: FC = () => {
               />
             </Center>
           </Flex>
-        </Center>
+        </Box>
       </Flex>
     </nav>
   );

@@ -25,7 +25,7 @@ const ProtectedLayout: FC = () => {
         {pathname === "/main" ? (
           <NavbarHome onToggleAlert={onOpen} />
         ) : (
-          <NavbarApp />
+          <NavbarApp onToggleAlert={onOpen} />
         )}
         <Outlet />
       </div>
