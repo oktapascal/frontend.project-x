@@ -7,6 +7,7 @@ import styles from "./styles/sidebar-parent-app.module.css";
 interface Props {
   children?: ReactNode;
   onHideSidebar: () => void;
+  onShowChildSidebar: () => void;
 }
 
 const framerSidebarBackground = {
@@ -23,14 +24,14 @@ const framerSidebarPanel = {
   transition: { duration: 0.3 },
 };
 
-const SidebarParentApp: FC<Props> = ({ onHideSidebar }) => {
+const SidebarParentApp: FC<Props> = ({ onHideSidebar, onShowChildSidebar }) => {
   return (
     <>
       <motion.div {...framerSidebarBackground} aria-hidden="true" className={styles.sidebar__app__backdrop} onClick={onHideSidebar}></motion.div>
       <motion.div {...framerSidebarPanel} className={styles.sidebar__app__parent}>
         <List spacing={2} id="menu__parent">
           <ListItem>
-            <NavLink to="settings">
+            <NavLink to="settings" onClick={onShowChildSidebar}>
               <div className="menu__parent__mark"></div>
               <div className="menu__parent__group">
                 <i className="ri-settings-3-line icon-small menu__parent__icon"></i>
@@ -39,7 +40,6 @@ const SidebarParentApp: FC<Props> = ({ onHideSidebar }) => {
                 </Text>
               </div>
             </NavLink>
-            {/* <div className={styles.sidebar__app__parent__mark}></div> */}
           </ListItem>
           <ListItem>Menu 2</ListItem>
           <ListItem>Menu 3</ListItem>

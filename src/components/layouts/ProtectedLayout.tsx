@@ -16,8 +16,8 @@ const ProtectedLayout: FC = () => {
 
   const { pathname } = useLocation();
   const { isOpen: isOpenAlert, onOpen: onOpenAlert, onClose: onCloseAlert } = useDisclosure();
-  const { isOpen: isOpenParentSidebar, onToggle: onToggleParentSidebar, onClose: onCloseParentSidebar } = useDisclosure();
-  const { isOpen: isOpenChildSidebar } = useDisclosure();
+  const { isOpen: isOpenParentSidebar, onOpen: onOpenParentSidebar, onClose: onCloseParentSidebar } = useDisclosure();
+  const { isOpen: isOpenChildSidebar, onOpen: onOpenChildSidebar, onClose: onCloseChildSidebar } = useDisclosure();
 
   const [shouldRenderParentSidebar, setShouldRenderParentSidebar] = useState<boolean>(false);
   const [shouldRenderChildSidebar, setShouldRenderChildSidebar] = useState<boolean>(false);
@@ -28,22 +28,43 @@ const ProtectedLayout: FC = () => {
     setShouldRenderChildSidebar(isOpenChildSidebar && pathname !== "/main");
   }, [user_id, isOpenParentSidebar, isOpenChildSidebar, pathname]);
 
+  const onHideSidebar = () => {
+    if (isOpenChildSidebar) {
+      onCloseChildSidebar();
+      return;
+    }
+
+    onCloseParentSidebar();
+  };
+
+  const onToggleSidebar = () => {
+    if (isOpenParentSidebar) {
+      onCloseChildSidebar();
+      onCloseParentSidebar();
+      return;
+    }
+
+    onOpenParentSidebar();
+  };
+
   return (
     <>
       <div className={pathname === "/main" ? "bg-main" : "bg-private"}>
         {pathname === "/main" ? (
           <NavbarHome onToggleAlert={onOpenAlert} />
         ) : (
-          <NavbarApp onToggleAlert={onOpenAlert} onToggleSidebar={onToggleParentSidebar} />
+          <NavbarApp onToggleAlert={onOpenAlert} onToggleSidebar={onToggleSidebar} />
         )}
         <Outlet />
       </div>
 
       <AnimatePresence mode="wait" initial={false}>
-        {shouldRenderParentSidebar && <SidebarParentApp onHideSidebar={onCloseParentSidebar} />}
+        {shouldRenderParentSidebar && <SidebarParentApp onHideSidebar={onHideSidebar} onShowChildSidebar={onOpenChildSidebar} />}
       </AnimatePresence>
 
-      {shouldRenderChildSidebar && <SidebarChildApp />}
+      <AnimatePresence mode="wait" initial={false}>
+        {shouldRenderChildSidebar && <SidebarChildApp />}
+      </AnimatePresence>
 
       <SignOutAlert isOpen={isOpenAlert} onClose={onCloseAlert} />
     </>
