@@ -19,3 +19,6 @@
   right: 0;
   z-index: 30;
 }
+.sidebar__app__parent_active {
+  box-shadow: none;
+}

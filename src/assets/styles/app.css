@@ -44,3 +44,34 @@
 .relative {
   position: relative;
 }
+#menu__parent a {
+  display: flex;
+  align-items: center;
+}
+#menu__parent .menu__parent__mark {
+  display: none;
+  width: 0.4rem;
+  border-radius: 10px;
+  height: 1.25rem;
+  background-color: #0058e4;
+}
+#menu__parent .menu__parent__group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 0.8rem;
+}
+#menu__parent .active {
+  display: flex;
+  flex-direction: row;
+}
+#menu__parent .active .menu__parent__mark {
+  display: block;
+}
+#menu__parent .active .menu__parent__text {
+  color: #0058e4;
+  font-weight: 600;
+}
+#menu__parent .active .menu__parent__icon {
+  color: #0058e4;
+}

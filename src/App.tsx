@@ -34,13 +34,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AxiosNavigation />
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="login" element={<LoginPage />} />
         <Route element={<ProtectedLayout />}>
-          <Route path="/main" element={<MainPage />} />
-          <Route
-            path="/settings/modules"
-            element={<div>ini halaman modules</div>}
-          />
+          <Route path="main" element={<MainPage />} />
+          <Route path="settings">
+            <Route path="modules" element={<div>ini halaman modules</div>} />
+          </Route>
         </Route>
       </Routes>
       <ReactQueryDevtools />
