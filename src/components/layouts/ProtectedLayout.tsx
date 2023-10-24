@@ -63,7 +63,7 @@ const ProtectedLayout: FC = () => {
       </AnimatePresence>
 
       <AnimatePresence mode="wait" initial={false}>
-        {shouldRenderChildSidebar && <SidebarChildApp />}
+        {shouldRenderChildSidebar && <SidebarChildApp onHideSidebar={onToggleSidebar} />}
       </AnimatePresence>
 
       <SignOutAlert isOpen={isOpenAlert} onClose={onCloseAlert} />

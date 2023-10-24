@@ -1,12 +1,11 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { List, ListItem, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { SidebarProps } from "./types";
 import styles from "./styles/sidebar-parent-app.module.css";
 
-interface Props {
-  children?: ReactNode;
-  onHideSidebar: () => void;
+interface Props extends SidebarProps {
   onShowChildSidebar: () => void;
 }
 

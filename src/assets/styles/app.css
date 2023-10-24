@@ -51,8 +51,8 @@
 #menu__parent .menu__parent__mark {
   display: none;
   width: 0.4rem;
-  border-radius: 10px;
   height: 1.25rem;
+  border-radius: 10px;
   background-color: #0058e4;
 }
 #menu__parent .menu__parent__group {
@@ -73,5 +73,33 @@
   font-weight: 600;
 }
 #menu__parent .active .menu__parent__icon {
+  color: #0058e4;
+}
+#menu__child a {
+  display: flex;
+  align-items: center;
+}
+#menu__child .menu__child__mark {
+  display: none;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 10px;
+  background-color: #0058e4;
+  margin-right: 0.2rem;
+}
+#menu__child .menu__child__group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 0.8rem;
+}
+#menu__child .active .menu__child__mark {
+  display: block;
+}
+#menu__child .active .menu__child__text {
+  color: #0058e4;
+  font-weight: 600;
+}
+#menu__child .active .menu__child__icon {
   color: #0058e4;
 }

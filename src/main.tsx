@@ -14,6 +14,7 @@ const router = createBrowserRouter(
       <Route element={<ProtectedLayout />}>
         <Route path="main" element={<MainPage />} />
         <Route path="settings">
+          <Route index element={<div>ini halaman modules</div>} />
           <Route path="modules" element={<div>ini halaman modules</div>} />
         </Route>
       </Route>
