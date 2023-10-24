@@ -1,12 +1,10 @@
 import { useEffect, useRef } from "react";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useMediaQuery } from "@chakra-ui/react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AxiosNavigation, OnlyDekstopAccess } from "@/components/others";
-import { ProtectedLayout } from "@/components/layouts";
 import { useUserStore } from "@/stores";
-import { LoginPage, MainPage } from "@/pages";
 
 function App() {
   const navRef = useRef(useNavigate());
@@ -33,16 +31,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AxiosNavigation />
-      <Routes>
-        <Route path="login" element={<LoginPage />} />
-        <Route element={<ProtectedLayout />}>
-          <Route path="main" element={<MainPage />} />
-          <Route path="settings">
-            <Route path="modules" element={<div>ini halaman modules</div>} />
-          </Route>
-        </Route>
-      </Routes>
       <ReactQueryDevtools />
+      <Outlet />
     </QueryClientProvider>
   );
 }
