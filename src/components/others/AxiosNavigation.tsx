@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useAxiosInterceptor } from "@/hooks";
+import { useAxiosInterceptor } from "./hooks";
 
 const AxiosNavigation: FC = () => {
   useAxiosInterceptor();
