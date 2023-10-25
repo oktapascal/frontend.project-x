@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
-import { List, ListItem, Text } from "@chakra-ui/react";
+import { Button, List, ListItem, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { SidebarProps } from "./types";
 import styles from "./styles/sidebar-parent-app.module.css";
@@ -30,7 +29,7 @@ const SidebarParentApp: FC<Props> = ({ onHideSidebar, onShowChildSidebar }) => {
       <motion.div {...framerSidebarPanel} className={styles.sidebar__app__parent}>
         <List spacing={2} id="menu__parent">
           <ListItem>
-            <NavLink to="settings" onClick={onShowChildSidebar}>
+            <Button paddingLeft={0} width="100%" justifyContent="start" borderRadius={0} className="active" onClick={onShowChildSidebar}>
               <div className="menu__parent__mark"></div>
               <div className="menu__parent__group">
                 <i className="ri-settings-3-line icon-small menu__parent__icon"></i>
@@ -38,7 +37,7 @@ const SidebarParentApp: FC<Props> = ({ onHideSidebar, onShowChildSidebar }) => {
                   Settings
                 </Text>
               </div>
-            </NavLink>
+            </Button>
           </ListItem>
           <ListItem>Menu 2</ListItem>
           <ListItem>Menu 3</ListItem>
