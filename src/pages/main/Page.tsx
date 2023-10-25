@@ -21,7 +21,7 @@ const fetchModules = async (): Promise<ModuleResponses[]> => {
 const Page: FC = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["modules"],
-    queryFn: fetchModules,
+    queryFn: () => fetchModules(),
   });
 
   useEffect(() => {
