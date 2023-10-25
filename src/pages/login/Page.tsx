@@ -58,7 +58,7 @@ const Page: FC = () => {
     document.title = "Project-X | Login";
 
     reset({}, { keepValues: true, keepErrors: true });
-    if (user_id !== null) navigate("/main");
+    if (user_id !== null) navigate("/main", { replace: true });
   }, [user_id, isSubmitted, navigate, reset]);
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
@@ -99,10 +99,8 @@ const Page: FC = () => {
 
         switch (response.statusCode) {
           case 400:
-            if (response.message[0].username)
-              setError("username", { message: response.message[0].username });
-            if (response.message[0].password)
-              setError("password", { message: response.message[0].password });
+            if (response.message[0].username) setError("username", { message: response.message[0].username });
+            if (response.message[0].password) setError("password", { message: response.message[0].password });
             break;
           case 404:
             setError("username", { message: response.message[0].username });
@@ -118,12 +116,7 @@ const Page: FC = () => {
   return (
     <Flex flexDirection="row" height="100vh">
       <Box width="70%" position="relative">
-        <Image
-          alt="background"
-          src={Background}
-          height="100%"
-          objectFit="cover"
-        />
+        <Image alt="background" src={Background} height="100%" objectFit="cover" />
         <BackgroundOverlay />
       </Box>
       <Box width="30%">
@@ -150,19 +143,10 @@ const Page: FC = () => {
                     name="username"
                     control={control}
                     render={({ field }) => (
-                      <Input
-                        type="text"
-                        placeholder="Your username..."
-                        paddingLeft={8}
-                        autoComplete="off"
-                        isReadOnly={isSubmitting}
-                        {...field}
-                      />
+                      <Input type="text" placeholder="Your username..." paddingLeft={8} autoComplete="off" isReadOnly={isSubmitting} {...field} />
                     )}
                   />
-                  <FormErrorMessage>
-                    {errors.username?.message}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
                 </FormControl>
                 <FormControl marginBottom={4} isInvalid={!!errors.password}>
                   <FormLabel>Password</FormLabel>
@@ -175,18 +159,10 @@ const Page: FC = () => {
                     name="password"
                     control={control}
                     render={({ field }) => (
-                      <Input
-                        type="password"
-                        placeholder="Your password..."
-                        paddingLeft={8}
-                        isReadOnly={isSubmitting}
-                        {...field}
-                      />
+                      <Input type="password" placeholder="Your password..." paddingLeft={8} isReadOnly={isSubmitting} {...field} />
                     )}
                   />
-                  <FormErrorMessage>
-                    {errors.password?.message}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
                 </FormControl>
                 <Button
                   backgroundColor="#0058e4"

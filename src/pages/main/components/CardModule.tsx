@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, Card, CardBody, Flex, Center, Text } from "@chakra-ui/react";
 import { useModuleStore } from "@/stores";
 
@@ -13,10 +14,12 @@ const CardModule: FC<Props> = ({ label, icon, module_id }) => {
   const moduleId = useModuleStore((state) => state.module_id);
   const updateModule = useModuleStore((state) => state.update);
 
-  const onClickCard = (module_id: string) => {
-    alert(module_id);
+  const navigate = useNavigate();
 
+  const onClickCard = (module_id: string) => {
     updateModule({ module_id });
+
+    navigate("/settings/modules", { replace: true });
   };
 
   return (

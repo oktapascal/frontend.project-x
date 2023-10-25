@@ -58,7 +58,7 @@ const SignOutAlert: FC<Props> = ({ isOpen, onClose }) => {
       removeCookieSessionToken("session-token", { path: "/" });
       removeCookieSessionRefreshToken("session-refresh-token", { path: "/" });
 
-      navigate("/login");
+      navigate("/login", { replace: true });
     }
   };
 
