@@ -7,7 +7,7 @@ import { ModuleResponses } from "./types";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const fetchModules = async () => {
+const fetchModules = async (): Promise<ModuleResponses[]> => {
   const result = await axios.get(`${BASE_URL}/module/user`, {
     headers: {
       Accept: "application/json",
@@ -15,7 +15,7 @@ const fetchModules = async () => {
     },
   });
 
-  return result.data as ModuleResponses[];
+  return result.data;
 };
 
 const Page: FC = () => {
