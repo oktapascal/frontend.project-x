@@ -6,9 +6,10 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { CookiesProvider } from "react-cookie";
 import App from "./App.tsx";
 import { ProtectedLayout } from "@/components/layouts";
-import { MainPage } from "@/pages";
+import { LoadingPage } from "@/components/others";
 
 const LoginPage = React.lazy(() => import("./pages/login/Page.tsx"));
+const MainPage = React.lazy(() => import("./pages/main/Page.tsx"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,13 +17,20 @@ const router = createBrowserRouter(
       <Route
         path="login"
         element={
-          <React.Suspense fallback={<div>ini loading page</div>}>
+          <React.Suspense fallback={<LoadingPage />}>
             <LoginPage />
           </React.Suspense>
         }
       />
       <Route element={<ProtectedLayout />}>
-        <Route path="main" element={<MainPage />} />
+        <Route
+          path="main"
+          element={
+            <React.Suspense fallback={<LoadingPage />}>
+              <MainPage />
+            </React.Suspense>
+          }
+        />
         <Route path="settings">
           <Route index element={<div>ini halaman modules</div>} />
           <Route path="modules" element={<div>ini halaman modules</div>} />
