@@ -1,11 +1,8 @@
+import axios, { AxiosResponse, AxiosError, InternalAxiosRequestConfig } from "axios";
 import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import axios, {
-  AxiosResponse,
-  AxiosError,
-  InternalAxiosRequestConfig,
-} from "axios";
+import { useModuleStore, useUserStore } from "@/stores";
 
 interface ExtendInternalAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry: boolean;
@@ -21,31 +18,31 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const instance = axios.create();
 
 const useAxiosInterceptor = () => {
-  const navRef = useRef(useNavigate());
-
   const [cookieSession, setSessionCookie] = useCookies(["session-token"]);
-  const [cookieRefreshSession, setSessionRefreshCookie] = useCookies([
-    "session-refresh-token",
-  ]);
+  const [cookieRefreshSession, setSessionRefreshCookie] = useCookies(["session-refresh-token"]);
+
+  const resetUser = useUserStore((state) => state.reset);
+  const resetModule = useModuleStore((state) => state.reset);
+
+  const navRef = useRef(useNavigate());
+  const sessionCookieRef = useRef(setSessionCookie);
+  const sessionRefreshRef = useRef(setSessionRefreshCookie);
+  const resetUserRef = useRef(resetUser);
+  const resetModuleRef = useRef(resetModule);
 
   useEffect(() => {
     const interceptorRequest = axios.interceptors.request.use(
       (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
         console.log(cookieSession["session-token"]);
 
-        if (cookieSession["session-token"])
-          config.headers[
-            "Authorization"
-          ] = `Bearer ${cookieSession["session-token"]}`;
+        if (cookieSession["session-token"]) config.headers["Authorization"] = `Bearer ${cookieSession["session-token"]}`;
 
-        if (import.meta.env.DEV)
-          console.info(`[request] [${JSON.stringify(config)}]`);
+        if (import.meta.env.DEV) console.info(`[request] [${JSON.stringify(config)}]`);
 
         return config;
       },
       (error: AxiosError): Promise<AxiosError> => {
-        if (import.meta.env.DEV)
-          console.error(`[request error] [${JSON.stringify(error)}]`);
+        if (import.meta.env.DEV) console.error(`[request error] [${JSON.stringify(error)}]`);
 
         return Promise.reject(error);
       }
@@ -53,14 +50,12 @@ const useAxiosInterceptor = () => {
 
     const interceptorResponse = axios.interceptors.response.use(
       (response: AxiosResponse): AxiosResponse => {
-        if (import.meta.env.DEV)
-          console.info(`[response] [${JSON.stringify(response)}]`);
+        if (import.meta.env.DEV) console.info(`[response] [${JSON.stringify(response)}]`);
 
         return response;
       },
       async (error: AxiosError) => {
-        const originalRequest =
-          error.config as ExtendInternalAxiosRequestConfig;
+        const originalRequest = error.config as ExtendInternalAxiosRequestConfig;
 
         switch (error.response?.status) {
           case 401:
@@ -94,27 +89,27 @@ const useAxiosInterceptor = () => {
                   accessDate.setTime(expiresAccess);
                   refreshDate.setTime(expiresRefresh);
 
-                  setSessionCookie("session-token", response.access_token, {
+                  sessionCookieRef.current("session-token", response.access_token, {
                     expires: accessDate,
                   });
 
-                  setSessionRefreshCookie(
-                    "session-refresh-token",
-                    response.refresh_token,
-                    {
-                      expires: refreshDate,
-                    }
-                  );
+                  sessionRefreshRef.current("session-refresh-token", response.refresh_token, {
+                    expires: refreshDate,
+                  });
 
-                  originalRequest.headers[
-                    "Authorization"
-                  ] = `Bearer ${response.access_token}`;
+                  originalRequest.headers["Authorization"] = `Bearer ${response.access_token}`;
 
                   return instance(originalRequest);
                 } catch {
+                  resetUserRef.current();
+                  resetModuleRef.current();
+
                   navRef.current("/login");
                 }
               } else {
+                resetUserRef.current();
+                resetModuleRef.current();
+
                 navRef.current("/login");
               }
             }
@@ -123,8 +118,7 @@ const useAxiosInterceptor = () => {
             break;
         }
 
-        if (import.meta.env.DEV)
-          console.error(`[response error] [${JSON.stringify(error)}]`);
+        if (import.meta.env.DEV) console.error(`[response error] [${JSON.stringify(error)}]`);
 
         return Promise.reject(error);
       }
