@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
@@ -9,7 +9,7 @@ import { SidebarParentApp, SidebarChildApp } from "../sidebars";
 
 import "@/assets/styles/app.min.css";
 
-const ProtectedLayout: FC = () => {
+export default function ProtectedLayout() {
   const navRef = useRef(useNavigate());
 
   const user_id = useUserStore((state) => state.user_id);
@@ -69,6 +69,4 @@ const ProtectedLayout: FC = () => {
       <SignOutAlert isOpen={isOpenAlert} onClose={onCloseAlert} />
     </>
   );
-};
-
-export default ProtectedLayout;
+}

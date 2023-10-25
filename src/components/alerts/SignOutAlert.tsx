@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FC, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import {
@@ -22,7 +22,7 @@ interface Props {
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const SignOutAlert: FC<Props> = ({ isOpen, onClose }) => {
+export default function SignOutAlert({ isOpen, onClose }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const cancelRef = useRef<HTMLButtonElement>(null);
@@ -96,6 +96,4 @@ const SignOutAlert: FC<Props> = ({ isOpen, onClose }) => {
       </AlertDialogOverlay>
     </AlertDialog>
   );
-};
-
-export default SignOutAlert;
+}

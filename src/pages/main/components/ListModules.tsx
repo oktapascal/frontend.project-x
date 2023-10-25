@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { ModuleResponses } from "../types";
 import CardModule from "./CardModule";
@@ -7,7 +6,7 @@ interface Props {
   modules?: ModuleResponses[];
 }
 
-const ListModules: FC<Props> = ({ modules }) => {
+export default function ListModules({ modules }: Props) {
   if (!modules) return <div>no data</div>;
 
   return (
@@ -21,6 +20,4 @@ const ListModules: FC<Props> = ({ modules }) => {
       })}
     </Grid>
   );
-};
-
-export default ListModules;
+}

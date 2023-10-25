@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react";
+import { ReactElement } from "react";
 import { IconButton, Tooltip, PlacementWithLogical } from "@chakra-ui/react";
 
 interface Props {
@@ -8,17 +8,10 @@ interface Props {
   onClick?: () => void;
 }
 
-const ButtonIcon: FC<Props> = ({ label, icon, tooltipPlacement, onClick }) => {
+export default function ButtonIcon({ label, icon, tooltipPlacement, onClick }: Props) {
   return (
     <Tooltip label={label} placement={tooltipPlacement}>
-      <IconButton
-        backgroundColor="transparent"
-        aria-label={label}
-        icon={icon}
-        onClick={onClick}
-      />
+      <IconButton backgroundColor="transparent" aria-label={label} icon={icon} onClick={onClick} />
     </Tooltip>
   );
-};
-
-export default ButtonIcon;
+}

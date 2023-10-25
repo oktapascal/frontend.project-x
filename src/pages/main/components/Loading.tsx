@@ -1,7 +1,6 @@
-import { FC } from "react";
 import { Flex, Spinner, Center, Text } from "@chakra-ui/react";
 
-const Loading: FC = () => {
+export default function Loading() {
   return (
     <Flex flexDirection="column" height="25rem" justifyContent="center">
       <Center>
@@ -14,6 +13,4 @@ const Loading: FC = () => {
       </Center>
     </Flex>
   );
-};
-
-export default Loading;
+}

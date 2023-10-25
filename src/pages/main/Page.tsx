@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FC, useEffect } from "react";
+import { useEffect } from "react";
 import { Container } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { ListModules, Loading } from "./components";
@@ -18,7 +18,7 @@ const fetchModules = async (): Promise<ModuleResponses[]> => {
   return result.data;
 };
 
-const Page: FC = () => {
+export default function Page() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["modules"],
     queryFn: () => fetchModules(),
@@ -35,6 +35,4 @@ const Page: FC = () => {
       {isLoading ? <Loading /> : <ListModules modules={data} />}
     </Container>
   );
-};
-
-export default Page;
+}

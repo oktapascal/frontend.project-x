@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { FC, useEffect } from "react";
+import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import {
   Box,
@@ -32,7 +32,7 @@ interface Response {
   user: IUser;
 }
 
-const Page: FC = () => {
+export default function Page() {
   const navigate = useNavigate();
 
   const user_id = useUserStore((state) => state.user_id);
@@ -181,6 +181,4 @@ const Page: FC = () => {
       </Box>
     </Flex>
   );
-};
-
-export default Page;
+}

@@ -1,8 +1,7 @@
-import { FC } from "react";
 import { Card, CardBody, Center, Heading, Image, Text } from "@chakra-ui/react";
 import Logo from "@/assets/images/logo.webp";
 
-const OnlyDekstopAccess: FC = () => {
+export default function OnlyDekstopAccess() {
   return (
     <Center height="100vh">
       <Card backgroundColor="#f5f5f5" maxWidth="70%">
@@ -15,19 +14,11 @@ const OnlyDekstopAccess: FC = () => {
               Access On Dekstop
             </Heading>
           </Center>
-          <Text
-            color="#525252"
-            fontSize="xl"
-            align="center"
-            fontWeight="medium"
-          >
-            Esaku works best on dekstop screens. Please come back and access on
-            dekstop.
+          <Text color="#525252" fontSize="xl" align="center" fontWeight="medium">
+            Esaku works best on dekstop screens. Please come back and access on dekstop.
           </Text>
         </CardBody>
       </Card>
     </Center>
   );
-};
-
-export default OnlyDekstopAccess;
+}

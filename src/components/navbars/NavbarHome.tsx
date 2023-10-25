@@ -1,9 +1,8 @@
-import { FC } from "react";
 import { Button, Center, Flex, Image } from "@chakra-ui/react";
 import Logo from "@/assets/images/logo.webp";
 import { NavbarProps } from "./types";
 
-const NavbarHome: FC<NavbarProps> = ({ onToggleAlert }) => {
+export default function NavbarHome({ onToggleAlert }: NavbarProps) {
   return (
     <nav className="shadow-md bg-white-80 px-4 py-2">
       <Flex flexDirection="row">
@@ -27,6 +26,4 @@ const NavbarHome: FC<NavbarProps> = ({ onToggleAlert }) => {
       </Flex>
     </nav>
   );
-};
-
-export default NavbarHome;
+}

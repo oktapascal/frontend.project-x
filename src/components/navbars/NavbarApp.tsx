@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { Box, Center, Flex, Image } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
 import { useUserStore } from "@/stores";
@@ -10,7 +9,7 @@ interface Props extends NavbarProps {
   onToggleSidebar: () => void;
 }
 
-const NavbarApp: FC<Props> = ({ onToggleAlert, onToggleSidebar }) => {
+export default function NavbarApp({ onToggleAlert, onToggleSidebar }: Props) {
   const username = useUserStore((state) => state.username);
 
   return (
@@ -44,6 +43,4 @@ const NavbarApp: FC<Props> = ({ onToggleAlert, onToggleSidebar }) => {
       </Flex>
     </nav>
   );
-};
-
-export default NavbarApp;
+}

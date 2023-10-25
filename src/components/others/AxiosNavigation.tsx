@@ -1,10 +1,7 @@
-import { FC } from "react";
 import { useAxiosInterceptor } from "./hooks";
 
-const AxiosNavigation: FC = () => {
+export default function AxiosNavigation() {
   useAxiosInterceptor();
 
   return <></>;
-};
-
-export default AxiosNavigation;
+}

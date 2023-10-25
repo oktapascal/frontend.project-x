@@ -17,7 +17,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const instance = axios.create();
 
-const useAxiosInterceptor = () => {
+export default function useAxiosInterceptor() {
   const [cookieSession, setSessionCookie] = useCookies(["session-token"]);
   const [cookieRefreshSession, setSessionRefreshCookie] = useCookies(["session-refresh-token"]);
 
@@ -129,6 +129,4 @@ const useAxiosInterceptor = () => {
       axios.interceptors.response.eject(interceptorResponse);
     };
   }, [cookieSession, cookieRefreshSession]);
-};
-
-export default useAxiosInterceptor;
+}

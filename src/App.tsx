@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AxiosNavigation, OnlyDekstopAccess } from "@/components/others";
 import { useUserStore } from "@/stores";
 
-function App() {
+export default function App() {
   const navRef = useRef(useNavigate());
 
   const { pathname } = useLocation();
@@ -36,5 +36,3 @@ function App() {
     </QueryClientProvider>
   );
 }
-
-export default App;

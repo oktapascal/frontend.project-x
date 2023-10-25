@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { motion } from "framer-motion";
 import { List, ListItem, Text } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
@@ -12,7 +11,7 @@ const framerSidebarPanel = {
   transition: { duration: 0.1 },
 };
 
-const SidebarChildApp: FC<SidebarProps> = ({ onHideSidebar }) => {
+export default function SidebarChildApp({ onHideSidebar }: SidebarProps) {
   return (
     <motion.div {...framerSidebarPanel} className={styles.sidebar__app__child}>
       <List spacing={2} id="menu__child">
@@ -34,6 +33,4 @@ const SidebarChildApp: FC<SidebarProps> = ({ onHideSidebar }) => {
       </List>
     </motion.div>
   );
-};
-
-export default SidebarChildApp;
+}

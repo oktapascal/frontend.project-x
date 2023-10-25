@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Card, CardBody, Flex, Center, Text } from "@chakra-ui/react";
 import { useModuleStore } from "@/stores";
@@ -10,7 +9,7 @@ interface Props {
   default_view?: string | null;
 }
 
-const CardModule: FC<Props> = ({ label, icon, module_id }) => {
+export default function CardModule({ label, icon, module_id }: Props) {
   const moduleId = useModuleStore((state) => state.module_id);
   const updateModule = useModuleStore((state) => state.update);
 
@@ -47,6 +46,4 @@ const CardModule: FC<Props> = ({ label, icon, module_id }) => {
       </CardBody>
     </Card>
   );
-};
-
-export default CardModule;
+}

@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { Button, List, ListItem, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { SidebarProps } from "./types";
@@ -22,7 +21,7 @@ const framerSidebarPanel = {
   transition: { duration: 0.3 },
 };
 
-const SidebarParentApp: FC<Props> = ({ onHideSidebar, onShowChildSidebar }) => {
+export default function SidebarParentApp({ onHideSidebar, onShowChildSidebar }: Props) {
   return (
     <>
       <motion.div {...framerSidebarBackground} aria-hidden="true" className={styles.sidebar__app__backdrop} onClick={onHideSidebar}></motion.div>
@@ -47,6 +46,4 @@ const SidebarParentApp: FC<Props> = ({ onHideSidebar, onShowChildSidebar }) => {
       </motion.div>
     </>
   );
-};
-
-export default SidebarParentApp;
+}
