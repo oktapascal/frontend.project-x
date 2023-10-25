@@ -15,7 +15,7 @@ const ListModules: FC<Props> = ({ modules }) => {
       {modules.map((data) => {
         return (
           <GridItem key={data.module_id}>
-            <CardModule label={data.name} icon={data.module_icon} />
+            <CardModule label={data.name} icon={data.module_icon} module_id={data.module_id} default_view={data.default_view} />
           </GridItem>
         );
       })}
