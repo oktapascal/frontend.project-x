@@ -13,7 +13,7 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { useUserStore } from "@/stores";
+import { useUserStore, useModuleStore } from "@/stores";
 
 interface Props {
   isOpen: boolean;
@@ -33,6 +33,7 @@ const SignOutAlert: FC<Props> = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
 
   const resetUser = useUserStore((state) => state.reset);
+  const resetModule = useModuleStore((state) => state.reset);
 
   const onSignOut = async () => {
     setLoading(true);
@@ -52,6 +53,7 @@ const SignOutAlert: FC<Props> = ({ isOpen, onClose }) => {
 
     if (response.status === 200) {
       resetUser();
+      resetModule();
 
       removeCookieSessionToken("session-token", { path: "/" });
       removeCookieSessionRefreshToken("session-refresh-token", { path: "/" });
