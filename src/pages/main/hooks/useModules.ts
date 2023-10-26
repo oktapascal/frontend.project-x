@@ -6,7 +6,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function useModules() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["modules"],
+    queryKey: ["fetch.modules"],
     queryFn: async () => {
       const result = await axios.get(`${BASE_URL}/module/user`, {
         headers: {
