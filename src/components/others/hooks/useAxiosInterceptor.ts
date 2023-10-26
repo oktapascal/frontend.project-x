@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosError, InternalAxiosRequestConfig } from "axios";
+import { AxiosResponse, AxiosError, InternalAxiosRequestConfig } from "axios";
 import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -13,8 +13,6 @@ interface Response {
   access_token: string;
   refresh_token: string;
 }
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function useAxiosInterceptor() {
   const [cookieSession, setSessionCookie] = useCookies(["session-token"]);
@@ -63,8 +61,8 @@ export default function useAxiosInterceptor() {
 
               if (cookieRefreshSession["session-refresh-token"]) {
                 try {
-                  const request = await axios.patch(
-                    `${BASE_URL}/auth/refresh`,
+                  const request = await axiosInstance.patch(
+                    "/auth/refresh",
                     {},
                     {
                       headers: {
