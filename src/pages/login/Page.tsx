@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useCookies } from "react-cookie";
 import {
   Box,
@@ -33,7 +33,7 @@ interface Response {
 }
 
 export default function Page() {
-  const navigate = useNavigate();
+  const navRef = useRef(useNavigate());
 
   const user_id = useUserStore((state) => state.user_id);
   const updateUserStore = useUserStore((state) => state.update);
@@ -42,7 +42,6 @@ export default function Page() {
     control,
     handleSubmit,
     setError,
-    reset,
     formState: { errors, isSubmitting, isSubmitted },
   } = useForm({
     defaultValues: {
@@ -56,10 +55,8 @@ export default function Page() {
 
   useEffect(() => {
     document.title = "Project-X | Login";
-
-    reset({}, { keepValues: true, keepErrors: true });
-    if (user_id !== null) navigate("/main", { replace: true });
-  }, [user_id, isSubmitted, navigate, reset]);
+    if (user_id !== null) navRef.current("/main", { replace: true });
+  }, [user_id, isSubmitted]);
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     try {
