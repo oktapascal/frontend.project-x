@@ -1,28 +1,10 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { Container } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
 import { ListModules, Loading } from "./components";
-import { ModuleResponses } from "./types";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-const fetchModules = async (): Promise<ModuleResponses[]> => {
-  const result = await axios.get(`${BASE_URL}/module/user`, {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
-
-  return result.data;
-};
+import { useFetchModules } from "./hooks";
 
 export default function Page() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["modules"],
-    queryFn: () => fetchModules(),
-  });
+  const { data, isLoading, error } = useFetchModules();
 
   useEffect(() => {
     document.title = "Project-X | Home";
