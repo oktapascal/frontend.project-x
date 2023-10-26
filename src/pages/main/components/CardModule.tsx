@@ -35,7 +35,9 @@ export default function CardModule({ label, icon, module_id }: Props) {
             <i className={`${icon} icon-large`}></i>
           </Center>
           <Box flex="1" paddingLeft={4} display="flex" alignItems="center">
-            <Text fontWeight="semibold">{label}</Text>
+            <Text fontWeight="semibold" fontSize="1.25rem">
+              {label}
+            </Text>
           </Box>
           {moduleId === module_id && (
             <Center>
