@@ -1,14 +1,12 @@
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { axiosInstance } from "@/utils";
 import { ModuleResponses } from "../types";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function useModules() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["fetch.modules"],
     queryFn: async () => {
-      const result = await axios.get(`${BASE_URL}/module/user`, {
+      const result = await axiosInstance.get("/module/user", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

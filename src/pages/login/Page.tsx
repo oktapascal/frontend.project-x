@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { useEffect, useRef } from "react";
 import { useCookies } from "react-cookie";
 import {
@@ -17,14 +17,13 @@ import {
 } from "@chakra-ui/react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { axiosInstance } from "@/utils";
 import { useUserStore } from "@/stores";
 import { IUser } from "@/types";
 import Background from "@/assets/images/background-login.webp";
 import Logo from "@/assets/images/logo.webp";
 import { FormError, FormInput } from "./types";
 import { BackgroundOverlay } from "./components";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 interface Response {
   access_token: string;
@@ -60,7 +59,7 @@ export default function Page() {
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     try {
-      const request = await axios.post(`${BASE_URL}/auth/login`, data, {
+      const request = await axiosInstance.post("/auth/login", data, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

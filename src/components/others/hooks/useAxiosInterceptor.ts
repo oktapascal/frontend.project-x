@@ -3,6 +3,7 @@ import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useModuleStore, useUserStore } from "@/stores";
+import { axiosInstance } from "@/utils";
 
 interface ExtendInternalAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry: boolean;
@@ -14,8 +15,6 @@ interface Response {
 }
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-const instance = axios.create();
 
 export default function useAxiosInterceptor() {
   const [cookieSession, setSessionCookie] = useCookies(["session-token"]);
@@ -31,7 +30,7 @@ export default function useAxiosInterceptor() {
   const resetModuleRef = useRef(resetModule);
 
   useEffect(() => {
-    const interceptorRequest = axios.interceptors.request.use(
+    const interceptorRequest = axiosInstance.interceptors.request.use(
       (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
         console.log(cookieSession["session-token"]);
 
@@ -48,7 +47,7 @@ export default function useAxiosInterceptor() {
       }
     );
 
-    const interceptorResponse = axios.interceptors.response.use(
+    const interceptorResponse = axiosInstance.interceptors.response.use(
       (response: AxiosResponse): AxiosResponse => {
         if (import.meta.env.DEV) console.info(`[response] [${JSON.stringify(response)}]`);
 
@@ -99,7 +98,7 @@ export default function useAxiosInterceptor() {
 
                   originalRequest.headers["Authorization"] = `Bearer ${response.access_token}`;
 
-                  return instance(originalRequest);
+                  return axiosInstance(originalRequest);
                 } catch {
                   resetUserRef.current();
                   resetModuleRef.current();
@@ -125,8 +124,8 @@ export default function useAxiosInterceptor() {
     );
 
     return () => {
-      axios.interceptors.request.eject(interceptorRequest);
-      axios.interceptors.response.eject(interceptorResponse);
+      axiosInstance.interceptors.request.eject(interceptorRequest);
+      axiosInstance.interceptors.response.eject(interceptorResponse);
     };
   }, [cookieSession, cookieRefreshSession]);
 }

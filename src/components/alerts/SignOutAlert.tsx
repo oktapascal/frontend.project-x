@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -13,14 +12,13 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
+import { axiosInstance } from "@/utils";
 import { useUserStore, useModuleStore } from "@/stores";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function SignOutAlert({ isOpen, onClose }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
@@ -38,8 +36,8 @@ export default function SignOutAlert({ isOpen, onClose }: Props) {
   const onSignOut = async () => {
     setLoading(true);
 
-    const response = await axios.patch(
-      `${BASE_URL}/auth/logout`,
+    const response = await axiosInstance.patch(
+      "/auth/logout",
       {},
       {
         headers: {
