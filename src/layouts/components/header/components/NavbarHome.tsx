@@ -1,8 +1,8 @@
 import { Button, Center, Flex, Image } from "@chakra-ui/react";
 import Logo from "@/assets/images/logo.webp";
-import { NavbarProps } from "./types";
+import { HeaderProps } from "../types/types";
 
-export default function NavbarHome({ onToggleAlert }: NavbarProps) {
+export default function NavbarHome({ onOpenAlert }: Partial<HeaderProps>) {
   return (
     <nav className="shadow-md bg-white-80 px-4 py-2">
       <Flex flexDirection="row">
@@ -18,7 +18,7 @@ export default function NavbarHome({ onToggleAlert }: NavbarProps) {
               backgroundColor: "#dc2626",
               color: "#ffffff",
             }}
-            onClick={onToggleAlert}
+            onClick={onOpenAlert}
           >
             Sign Out
           </Button>

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -25,10 +25,10 @@ export default function SignOutAlert({ isOpen, onClose }: Props) {
 
   const cancelRef = useRef<HTMLButtonElement>(null);
 
+  const navigate = useNavigate();
+
   const [, , removeCookieSessionToken] = useCookies(["session-token"]);
   const [, , removeCookieSessionRefreshToken] = useCookies(["session-refresh-token"]);
-
-  const navigate = useNavigate();
 
   const resetUser = useUserStore((state) => state.reset);
   const resetModule = useModuleStore((state) => state.reset);

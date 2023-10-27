@@ -1,17 +1,10 @@
 import { Box, Center, Flex, Image } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
-import { useUserStore } from "@/stores";
-import { UserProfile } from "./components";
+import UserProfile from "./UserProfile";
 import Logo from "@/assets/images/logo.webp";
-import { NavbarProps } from "./types";
+import { NavbarAppProps } from "../types/types";
 
-interface Props extends NavbarProps {
-  onToggleSidebar: () => void;
-}
-
-export default function NavbarApp({ onToggleAlert, onToggleSidebar }: Props) {
-  const username = useUserStore((state) => state.username);
-
+export default function NavbarApp({ username, onOpenAlert, onToggleSidebar }: NavbarAppProps) {
   return (
     <nav className="shadow-md bg-white px-4 py-2 z-50 relative">
       <Flex flexDirection="row" justifyContent="space-between">
@@ -24,7 +17,7 @@ export default function NavbarApp({ onToggleAlert, onToggleSidebar }: Props) {
         <Box width="33.3333333333%">
           <Flex flexDirection="row" justifyContent="flex-end">
             <Center>
-              <UserProfile username={username} onToggleAlert={onToggleAlert} />
+              <UserProfile username={username} onOpenAlert={onOpenAlert} />
             </Center>
             <Center>
               <ButtonIcon label="Notification" tooltipPlacement="bottom" icon={<i className="ri-notification-2-fill icon-small" />} />

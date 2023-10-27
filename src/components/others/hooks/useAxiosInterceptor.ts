@@ -1,9 +1,9 @@
 import { AxiosResponse, AxiosError, InternalAxiosRequestConfig } from "axios";
 import { useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useModuleStore, useUserStore } from "@/stores";
 import { axiosInstance } from "@/utils";
+import { router } from "@/router";
 
 interface ExtendInternalAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry: boolean;
@@ -21,7 +21,6 @@ export default function useAxiosInterceptor() {
   const resetUser = useUserStore((state) => state.reset);
   const resetModule = useModuleStore((state) => state.reset);
 
-  const navRef = useRef(useNavigate());
   const sessionCookieRef = useRef(setSessionCookie);
   const sessionRefreshRef = useRef(setSessionRefreshCookie);
   const resetUserRef = useRef(resetUser);
@@ -101,13 +100,13 @@ export default function useAxiosInterceptor() {
                   resetUserRef.current();
                   resetModuleRef.current();
 
-                  navRef.current("/login");
+                  router.navigate("/login");
                 }
               } else {
                 resetUserRef.current();
                 resetModuleRef.current();
 
-                navRef.current("/login");
+                router.navigate("/login");
               }
             }
             break;

@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import {
   Box,
@@ -16,7 +17,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "@/utils";
 import { useUserStore } from "@/stores";
 import { IUser } from "@/types";
@@ -32,10 +32,10 @@ interface Response {
 }
 
 export default function Page() {
-  const navRef = useRef(useNavigate());
-
   const user_id = useUserStore((state) => state.user_id);
   const updateUserStore = useUserStore((state) => state.update);
+
+  const navRef = useRef(useNavigate());
 
   const {
     control,

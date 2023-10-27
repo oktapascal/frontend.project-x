@@ -1,12 +1,8 @@
 import { Button, Flex, Image, Menu, MenuButton, MenuDivider, MenuList, MenuItem, Text } from "@chakra-ui/react";
-import { NavbarProps } from "../types";
+import { NavbarAppProps } from "../types/types";
 import avatar from "@/assets/images/avatar.webp";
 
-interface Props extends NavbarProps {
-  username: string | null;
-}
-
-export default function UserProfile({ onToggleAlert, username }: Props) {
+export default function UserProfile({ onOpenAlert, username }: Partial<NavbarAppProps>) {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<i className="ri-arrow-down-s-fill icon-small" />} minWidth="9.37rem">
@@ -28,7 +24,7 @@ export default function UserProfile({ onToggleAlert, username }: Props) {
           </Text>
         </MenuItem>
         <MenuDivider />
-        <MenuItem onClick={onToggleAlert}>
+        <MenuItem onClick={onOpenAlert}>
           <i className="ri-logout-box-line icon-extra-small" />
           <Text as="span" marginLeft={2} fontSize="0.9rem">
             Sign Out

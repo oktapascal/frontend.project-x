@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import { Box, Card, CardBody, Flex, Center, Text } from "@chakra-ui/react";
 import { useModuleStore } from "@/stores";
+import { router } from "@/router";
 
 interface Props {
   label: string;
@@ -13,12 +13,10 @@ export default function CardModule({ label, icon, module_id }: Props) {
   const moduleId = useModuleStore((state) => state.module_id);
   const updateModule = useModuleStore((state) => state.update);
 
-  const navigate = useNavigate();
-
   const onClickCard = (module_id: string) => {
     updateModule({ module_id });
 
-    navigate("/settings/modules", { replace: true });
+    router.navigate("/settings/modules", { replace: true });
   };
 
   return (

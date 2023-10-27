@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { List, ListItem, Text } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
-import { SidebarProps } from "./types";
-import styles from "./styles/sidebar-child-app.module.css";
+import { SidebarProps } from "../types/types";
+import styles from "../styles/sidebar-child-app.module.css";
 
 const framerSidebarPanel = {
   initial: { x: "-100%" },
@@ -11,12 +11,12 @@ const framerSidebarPanel = {
   transition: { duration: 0.1 },
 };
 
-export default function SidebarChildApp({ onHideSidebar }: SidebarProps) {
+export default function SidebarChildApp({ onCloseAllSidebar }: Partial<SidebarProps>) {
   return (
     <motion.div {...framerSidebarPanel} className={styles.sidebar__app__child}>
       <List spacing={2} id="menu__child">
         <ListItem>
-          <NavLink to="settings/modules" onClick={onHideSidebar}>
+          <NavLink to="settings/modules" onClick={onCloseAllSidebar}>
             <div className="menu__child__group">
               <div className="menu__child__mark"></div>
               <i className="ri-settings-3-line icon-small menu__child__icon"></i>
