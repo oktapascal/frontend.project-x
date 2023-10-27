@@ -11,7 +11,7 @@ interface Props {
 export default function ButtonIcon({ label, icon, tooltipPlacement, onClick }: Props) {
   return (
     <Tooltip label={label} placement={tooltipPlacement}>
-      <IconButton backgroundColor="transparent" aria-label={label} icon={icon} onClick={onClick} />
+      <IconButton type="button" backgroundColor="transparent" aria-label={label} icon={icon} onClick={onClick} />
     </Tooltip>
   );
 }

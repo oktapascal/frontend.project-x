@@ -1,6 +1,22 @@
-import { Box, Center, Flex, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Divider,
+  Flex,
+  Image,
+  Link,
+  Popover,
+  PopoverTrigger,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
+  PopoverContent,
+  Text,
+} from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
 import { ButtonIcon } from "@/components/buttons";
 import UserProfile from "./UserProfile";
+import ListModules from "./ListModules";
 import Logo from "@/assets/images/logo.webp";
 import { NavbarAppProps } from "../types/types";
 
@@ -29,7 +45,30 @@ export default function NavbarApp({ username, onOpenAlert, onToggleSidebar }: Na
               <ButtonIcon label="Fullscreen" tooltipPlacement="bottom" icon={<i className="ri-fullscreen-fill icon-small" />} />
             </Center>
             <Center>
-              <ButtonIcon label="Modules" tooltipPlacement="bottom" icon={<i className="ri-command-line icon-small" />} />
+              <Popover>
+                <PopoverTrigger>
+                  <ButtonIcon label="Modules" tooltipPlacement="bottom" icon={<i className="ri-command-line icon-small" />} />
+                </PopoverTrigger>
+                <PopoverContent position="fixed" right="0.8rem" top="3.8rem">
+                  <PopoverCloseButton />
+                  <PopoverHeader>
+                    <Text as="h4" fontWeight="semibold" fontSize="1.2rem">
+                      Modules
+                    </Text>
+                  </PopoverHeader>
+                  <PopoverBody paddingInlineStart="0" paddingInlineEnd="0">
+                    <ListModules />
+                    <Divider />
+                    <Flex justifyContent="center">
+                      <Center>
+                        <Link as={NavLink} to="/main" fontSize="1rem" paddingTop="0.3rem" paddingBottom="0.3rem" fontWeight="medium">
+                          Show All Modules
+                        </Link>
+                      </Center>
+                    </Flex>
+                  </PopoverBody>
+                </PopoverContent>
+              </Popover>
             </Center>
           </Flex>
         </Box>
