@@ -19,17 +19,10 @@ import {
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { axiosInstance } from "@/utils";
 import { useUserStore } from "@/stores";
-import { IUser } from "@/types";
+import { FormError, FormInput, LoginResponse } from "@/types";
 import Background from "@/assets/images/background-login.webp";
 import Logo from "@/assets/images/logo.webp";
-import { FormError, FormInput } from "./types";
 import { BackgroundOverlay } from "./components";
-
-interface Response {
-  access_token: string;
-  refresh_token: string;
-  user: IUser;
-}
 
 export default function Page() {
   const user_id = useUserStore((state) => state.user_id);
@@ -66,7 +59,7 @@ export default function Page() {
         },
       });
 
-      const response = request.data as Response;
+      const response = request.data as LoginResponse;
 
       const accessDate = new Date();
       const refreshDate = new Date();
