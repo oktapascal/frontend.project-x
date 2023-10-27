@@ -1,6 +1,7 @@
 import { AxiosResponse, AxiosError, InternalAxiosRequestConfig } from "axios";
 import { useRef, useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { useToast } from "@chakra-ui/react";
 import { useModuleStore, useUserStore } from "@/stores";
 import { axiosInstance } from "@/utils";
 import { router } from "@/router";
@@ -17,6 +18,8 @@ interface Response {
 export default function useAxiosInterceptor() {
   const [cookieSession, setSessionCookie] = useCookies(["session-token"]);
   const [cookieRefreshSession, setSessionRefreshCookie] = useCookies(["session-refresh-token"]);
+
+  const toastRef = useRef(useToast());
 
   const resetUser = useUserStore((state) => state.reset);
   const resetModule = useModuleStore((state) => state.reset);
@@ -111,6 +114,11 @@ export default function useAxiosInterceptor() {
             }
             break;
           default:
+            toastRef.current({
+              title: "Unknown error, please contact admin",
+              status: "error",
+              variant: "solid",
+            });
             break;
         }
 

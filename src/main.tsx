@@ -7,7 +7,7 @@ import App from "./App.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider toastOptions={{ defaultOptions: { position: "top" } }}>
       <CookiesProvider defaultSetOptions={{ path: "/" }}>
         <App />
       </CookiesProvider>

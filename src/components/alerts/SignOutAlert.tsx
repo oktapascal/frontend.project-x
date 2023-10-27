@@ -11,6 +11,7 @@ import {
   Button,
   Heading,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { axiosInstance } from "@/utils";
 import { useUserStore, useModuleStore } from "@/stores";
@@ -26,6 +27,8 @@ export default function SignOutAlert({ isOpen, onClose }: Props) {
   const cancelRef = useRef<HTMLButtonElement>(null);
 
   const navigate = useNavigate();
+
+  const toast = useToast();
 
   const [, , removeCookieSessionToken] = useCookies(["session-token"]);
   const [, , removeCookieSessionRefreshToken] = useCookies(["session-refresh-token"]);
@@ -55,6 +58,12 @@ export default function SignOutAlert({ isOpen, onClose }: Props) {
 
       removeCookieSessionToken("session-token", { path: "/" });
       removeCookieSessionRefreshToken("session-refresh-token", { path: "/" });
+
+      toast({
+        title: "Kamu berhasil keluar",
+        variant: "solid",
+        status: "info",
+      });
 
       navigate("/login", { replace: true });
     }
