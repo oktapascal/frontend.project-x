@@ -34,7 +34,8 @@ const useUserStore = create<IState & IActions>()(
         name: "session-user",
         storage: createJSONStorage(() => localStorage),
       }
-    )
+    ),
+    { enabled: true }
   )
 );
 

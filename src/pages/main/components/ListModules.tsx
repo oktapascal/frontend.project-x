@@ -1,9 +1,9 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import { ModuleResponses } from "../types";
+import { ModulesUser } from "@/types";
 import CardModule from "./CardModule";
 
 interface Props {
-  modules?: ModuleResponses[];
+  modules?: ModulesUser[];
 }
 
 export default function ListModules({ modules }: Props) {

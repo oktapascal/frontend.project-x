@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/utils";
-import { ModuleResponses } from "../types";
+import { ModulesUser } from "@/types";
 
 export default function useModules() {
   const { data, isLoading, error } = useQuery({
@@ -13,7 +13,7 @@ export default function useModules() {
         },
       });
 
-      return result.data as ModuleResponses[];
+      return result.data as ModulesUser[];
     },
   });
 

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Container } from "@chakra-ui/react";
 import { ListModules, Loading } from "./components";
-import { useFetchModules } from "./hooks";
+import { useFetchModules } from "@/features/moduleUser";
 
 export default function Page() {
   const { data, isLoading, error } = useFetchModules();

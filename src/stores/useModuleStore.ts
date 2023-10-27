@@ -26,7 +26,8 @@ const useModuleStore = create<IState & IActions>()(
         name: "session-module",
         storage: createJSONStorage(() => localStorage),
       }
-    )
+    ),
+    { enabled: true }
   )
 );
 
