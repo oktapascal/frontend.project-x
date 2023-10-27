@@ -1,4 +1,4 @@
-import { useAxiosInterceptor } from "./hooks";
+import { useAxiosInterceptor } from "@/hooks";
 
 export default function AxiosNavigation() {
   useAxiosInterceptor();
