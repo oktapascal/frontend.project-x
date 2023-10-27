@@ -1,4 +1,4 @@
-import { IMenuParent } from "@/types";
+import { IMenu, IMenuChild, IMenuParent } from "@/types";
 
 export interface SidebarProps {
   isOpenParentSidebar: boolean;
@@ -9,5 +9,10 @@ export interface SidebarProps {
 }
 
 export interface SidebarParentAppProps extends Partial<SidebarProps> {
-  menus: IMenuParent[];
+  parentMenus: IMenuParent[];
+  onSetChildMenus: (menus: IMenu[]) => void;
+}
+
+export interface SidebarChildAppProps extends Partial<SidebarProps> {
+  childMenus: IMenuChild[];
 }

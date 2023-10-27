@@ -17,15 +17,22 @@ const framerSidebarPanel = {
   transition: { duration: 0.3 },
 };
 
-export default function SidebarParentApp({ menus, onCloseSidebar, onOpenChildSidebar }: SidebarParentAppProps) {
+export default function SidebarParentApp({ parentMenus, onCloseSidebar, onSetChildMenus }: SidebarParentAppProps) {
   return (
     <>
       <motion.div {...framerSidebarBackground} aria-hidden="true" className={styles.sidebar__app__backdrop} onClick={onCloseSidebar}></motion.div>
       <motion.div {...framerSidebarPanel} className={styles.sidebar__app__parent}>
         <List spacing={2} id="menu__parent">
-          {menus.map((menu) => (
+          {parentMenus.map((menu) => (
             <ListItem key={menu.serial_number}>
-              <Button paddingLeft={0} width="100%" justifyContent="start" borderRadius={0} className="active" onClick={onOpenChildSidebar}>
+              <Button
+                paddingLeft={0}
+                width="100%"
+                justifyContent="start"
+                borderRadius={0}
+                className="active"
+                onClick={() => onSetChildMenus(menu.children)}
+              >
                 <div className="menu__parent__mark"></div>
                 <div className="menu__parent__group">
                   <i className={`${menu.menu_icon} icon-small menu__parent__icon`}></i>

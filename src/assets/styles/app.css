@@ -93,6 +93,12 @@
   align-items: center;
   padding-left: 0.8rem;
 }
+#menu__child .active .menu__child__group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 0.4rem;
+}
 #menu__child .active .menu__child__mark {
   display: block;
 }
