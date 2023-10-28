@@ -1,4 +1,23 @@
-import { Box, Button, Card, CardHeader, CardBody, Divider, Flex, HStack, Center, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  Divider,
+  Flex,
+  HStack,
+  IconButton,
+  Center,
+  Text,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+} from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
 
 export default function Page() {
@@ -32,7 +51,42 @@ export default function Page() {
           </Flex>
         </CardHeader>
         <Divider />
-        <CardBody>ini halaman modules</CardBody>
+        <CardBody>
+          <TableContainer>
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th>Module ID</Th>
+                  <Th>Module Name</Th>
+                  <Th textAlign="center">Actions</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>MDL.001</Td>
+                  <Td>Settings</Td>
+                  <Td textAlign="center">
+                    <IconButton aria-label="Actions Button" icon={<i className="ri-more-fill icon-extra-small" />} height="2rem" width="2rem" />
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>MDL.002</Td>
+                  <Td>Lands</Td>
+                  <Td textAlign="center">
+                    <IconButton aria-label="Actions Button" icon={<i className="ri-more-fill icon-extra-small" />} height="2rem" width="2rem" />
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>MDL.003</Td>
+                  <Td>Buildings</Td>
+                  <Td textAlign="center">
+                    <IconButton aria-label="Actions Button" icon={<i className="ri-more-fill icon-extra-small" />} height="2rem" width="2rem" />
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </CardBody>
       </Card>
     </Box>
   );
