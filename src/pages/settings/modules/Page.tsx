@@ -17,6 +17,11 @@ import {
   Th,
   Td,
   TableContainer,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverBody,
+  VStack,
 } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
 
@@ -66,7 +71,25 @@ export default function Page() {
                   <Td>MDL.001</Td>
                   <Td>Settings</Td>
                   <Td textAlign="center">
-                    <IconButton aria-label="Actions Button" icon={<i className="ri-more-fill icon-extra-small" />} height="2rem" width="2rem" />
+                    <Popover>
+                      <PopoverTrigger>
+                        <IconButton
+                          aria-label="Actions Button"
+                          type="button"
+                          icon={<i className="ri-more-fill icon-extra-small" />}
+                          height="2rem"
+                          width="2rem"
+                        />
+                      </PopoverTrigger>
+                      <PopoverContent>
+                        <PopoverBody>
+                          <VStack>
+                            <Box>untuk edit</Box>
+                            <Box>untuk delete</Box>
+                          </VStack>
+                        </PopoverBody>
+                      </PopoverContent>
+                    </Popover>
                   </Td>
                 </Tr>
                 <Tr>
