@@ -5,13 +5,14 @@ interface Props {
   label: string;
   tooltipPlacement: PlacementWithLogical;
   icon: ReactElement;
+  backgroundColor?: string;
   onClick?: () => void;
 }
 
-export default function ButtonIcon({ label, icon, tooltipPlacement, onClick }: Props) {
+export default function ButtonIcon({ label, icon, tooltipPlacement, backgroundColor = "transparent", onClick }: Props) {
   return (
     <Tooltip label={label} placement={tooltipPlacement}>
-      <IconButton type="button" backgroundColor="transparent" aria-label={label} icon={icon} onClick={onClick} />
+      <IconButton type="button" backgroundColor={backgroundColor} aria-label={label} icon={icon} onClick={onClick} />
     </Tooltip>
   );
 }
