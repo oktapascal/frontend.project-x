@@ -114,7 +114,7 @@ export default function Page() {
               <Input type="text" placeholder="Search Data..." size="sm" />
             </Box>
           </Flex>
-          <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 11.5rem)">
+          <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 13.8rem)">
             <Table variant="simple">
               <Thead position="sticky" top={0} zIndex={5} backgroundColor="#2563eb">
                 <Tr>
