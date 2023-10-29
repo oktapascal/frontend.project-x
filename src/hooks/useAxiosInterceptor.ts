@@ -24,11 +24,6 @@ export default function useAxiosInterceptor() {
   const resetUser = useUserStore((state) => state.reset);
   const resetModule = useModuleStore((state) => state.reset);
 
-  const sessionCookieRef = useRef(setSessionCookie);
-  const sessionRefreshRef = useRef(setSessionRefreshCookie);
-  const resetUserRef = useRef(resetUser);
-  const resetModuleRef = useRef(resetModule);
-
   useEffect(() => {
     const interceptorRequest = axiosInstance.interceptors.request.use(
       (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
@@ -88,11 +83,11 @@ export default function useAxiosInterceptor() {
                   accessDate.setTime(expiresAccess);
                   refreshDate.setTime(expiresRefresh);
 
-                  sessionCookieRef.current("session-token", response.access_token, {
+                  setSessionCookie("session-token", response.access_token, {
                     expires: accessDate,
                   });
 
-                  sessionRefreshRef.current("session-refresh-token", response.refresh_token, {
+                  setSessionRefreshCookie("session-refresh-token", response.refresh_token, {
                     expires: refreshDate,
                   });
 
@@ -100,14 +95,14 @@ export default function useAxiosInterceptor() {
 
                   return axiosInstance(originalRequest);
                 } catch {
-                  resetUserRef.current();
-                  resetModuleRef.current();
+                  resetUser();
+                  resetModule();
 
                   router.navigate("/login");
                 }
               } else {
-                resetUserRef.current();
-                resetModuleRef.current();
+                resetUser();
+                resetModule();
 
                 router.navigate("/login");
               }
