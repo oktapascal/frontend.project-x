@@ -16,6 +16,7 @@ import {
   Th,
   Td,
   TableContainer,
+  Input,
 } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
 import data from "./fakeData";
@@ -52,13 +53,20 @@ export default function Page() {
         </CardHeader>
         <Divider />
         <CardBody>
-          <TableContainer>
+          <Flex flexDirection="row" justifyContent="end">
+            <Box width="14rem">
+              <Input type="text" size="sm" placeholder="Search Data..." />
+            </Box>
+          </Flex>
+          <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 11.5rem)">
             <Table variant="simple">
-              <Thead>
+              <Thead position="sticky" top={0} zIndex={5} backgroundColor="#2563eb">
                 <Tr>
-                  <Th width="10%">Module ID</Th>
-                  <Th>Module Name</Th>
-                  <Th textAlign="center" width="10%">
+                  <Th width="10%" color="#ffffff">
+                    Module ID
+                  </Th>
+                  <Th color="#ffffff">Module Name</Th>
+                  <Th textAlign="center" width="10%" color="#ffffff">
                     Actions
                   </Th>
                 </Tr>

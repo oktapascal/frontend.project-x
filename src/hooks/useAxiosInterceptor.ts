@@ -98,11 +98,23 @@ export default function useAxiosInterceptor() {
                   resetUser();
                   resetModule();
 
+                  toastRef.current({
+                    title: "Your token was expired, please login again",
+                    status: "error",
+                    variant: "solid",
+                  });
+
                   router.navigate("/login");
                 }
               } else {
                 resetUser();
                 resetModule();
+
+                toastRef.current({
+                  title: "Your token was expired, please login again",
+                  status: "error",
+                  variant: "solid",
+                });
 
                 router.navigate("/login");
               }
