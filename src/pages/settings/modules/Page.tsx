@@ -18,10 +18,11 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
+import data from "./fakeData";
 
 export default function Page() {
   return (
-    <Box paddingLeft={2} paddingRight={2} height="90%">
+    <Box paddingLeft={2} paddingRight={2}>
       <Card height="100%" width="100%">
         <CardHeader>
           <Flex flexDirection="row" justifyContent="space-between">
@@ -63,57 +64,25 @@ export default function Page() {
                 </Tr>
               </Thead>
               <Tbody>
-                <Tr>
-                  <Td>MDL.001</Td>
-                  <Td>Settings</Td>
-                  <Td textAlign="center">
-                    <HStack justifyContent="center">
-                      <Box>
-                        <ButtonIcon label="Show Data" tooltipPlacement="bottom" icon={<i className="ri-information-fill icon-extra-small" />} />
-                      </Box>
-                      <Box>
-                        <ButtonIcon label="Edit Data" tooltipPlacement="bottom" icon={<i className="ri-edit-box-line icon-extra-small" />} />
-                      </Box>
-                      <Box>
-                        <ButtonIcon label="Delete Data" tooltipPlacement="bottom" icon={<i className="ri-delete-bin-5-fill icon-extra-small" />} />
-                      </Box>
-                    </HStack>
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td>MDL.002</Td>
-                  <Td>Lands</Td>
-                  <Td textAlign="center">
-                    <HStack justifyContent="center">
-                      <Box>
-                        <ButtonIcon label="Show Data" tooltipPlacement="bottom" icon={<i className="ri-information-fill icon-extra-small" />} />
-                      </Box>
-                      <Box>
-                        <ButtonIcon label="Edit Data" tooltipPlacement="bottom" icon={<i className="ri-edit-box-line icon-extra-small" />} />
-                      </Box>
-                      <Box>
-                        <ButtonIcon label="Delete Data" tooltipPlacement="bottom" icon={<i className="ri-delete-bin-5-fill icon-extra-small" />} />
-                      </Box>
-                    </HStack>
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td>MDL.003</Td>
-                  <Td>Buildings</Td>
-                  <Td textAlign="center">
-                    <HStack justifyContent="center">
-                      <Box>
-                        <ButtonIcon label="Show Data" tooltipPlacement="bottom" icon={<i className="ri-information-fill icon-extra-small" />} />
-                      </Box>
-                      <Box>
-                        <ButtonIcon label="Edit Data" tooltipPlacement="bottom" icon={<i className="ri-edit-box-line icon-extra-small" />} />
-                      </Box>
-                      <Box>
-                        <ButtonIcon label="Delete Data" tooltipPlacement="bottom" icon={<i className="ri-delete-bin-5-fill icon-extra-small" />} />
-                      </Box>
-                    </HStack>
-                  </Td>
-                </Tr>
+                {data.map((dt) => (
+                  <Tr key={dt.module_id}>
+                    <Td>{dt.module_id}</Td>
+                    <Td>{dt.module_name}</Td>
+                    <Td textAlign="center">
+                      <HStack justifyContent="center">
+                        <Box>
+                          <ButtonIcon label="Show Data" tooltipPlacement="bottom" icon={<i className="ri-information-fill icon-extra-small" />} />
+                        </Box>
+                        <Box>
+                          <ButtonIcon label="Edit Data" tooltipPlacement="bottom" icon={<i className="ri-edit-box-line icon-extra-small" />} />
+                        </Box>
+                        <Box>
+                          <ButtonIcon label="Delete Data" tooltipPlacement="bottom" icon={<i className="ri-delete-bin-5-fill icon-extra-small" />} />
+                        </Box>
+                      </HStack>
+                    </Td>
+                  </Tr>
+                ))}
               </Tbody>
             </Table>
           </TableContainer>

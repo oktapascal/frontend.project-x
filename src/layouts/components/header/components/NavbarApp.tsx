@@ -6,12 +6,12 @@ import {
   Image,
   Link,
   Popover,
-  PopoverTrigger,
   PopoverCloseButton,
   PopoverHeader,
   PopoverBody,
   PopoverContent,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import { ButtonIcon } from "@/components/buttons";
@@ -21,6 +21,8 @@ import Logo from "@/assets/images/logo.webp";
 import { NavbarAppProps } from "../types/types";
 
 export default function NavbarApp({ username, onOpenAlert, onToggleSidebar }: NavbarAppProps) {
+  const { isOpen, onToggle, onClose } = useDisclosure();
+
   return (
     <nav className="shadow-md bg-white px-4 py-2 z-50 relative">
       <Flex flexDirection="row" justifyContent="space-between">
@@ -45,10 +47,8 @@ export default function NavbarApp({ username, onOpenAlert, onToggleSidebar }: Na
               <ButtonIcon label="Fullscreen" tooltipPlacement="bottom" icon={<i className="ri-fullscreen-fill icon-small" />} />
             </Center>
             <Center>
-              <Popover>
-                <PopoverTrigger>
-                  <ButtonIcon label="Modules" tooltipPlacement="bottom" icon={<i className="ri-command-line icon-small" />} />
-                </PopoverTrigger>
+              <ButtonIcon label="Modules" tooltipPlacement="bottom" icon={<i className="ri-command-line icon-small" />} onClick={onToggle} />
+              <Popover isOpen={isOpen} onClose={onClose}>
                 <PopoverContent position="fixed" right="0.8rem" top="3.8rem">
                   <PopoverCloseButton />
                   <PopoverHeader>
