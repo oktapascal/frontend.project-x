@@ -110,8 +110,8 @@ export default function Page() {
                 </Box>
               </HStack>
             </Box>
-            <Box width="20%">
-              <Input type="text" placeholder="Search Data..." size="sm" />
+            <Box>
+              <Input type="text" placeholder="Search Data..." size="sm" htmlSize={30} width="auto" />
             </Box>
           </Flex>
           <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 13.8rem)">
