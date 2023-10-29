@@ -8,6 +8,7 @@ import {
   Flex,
   HStack,
   Center,
+  Select,
   Text,
   Table,
   Thead,
@@ -16,7 +17,6 @@ import {
   Th,
   Td,
   TableContainer,
-  Input,
 } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
 import data from "./fakeData";
@@ -53,10 +53,22 @@ export default function Page() {
         </CardHeader>
         <Divider />
         <CardBody>
-          <Flex flexDirection="row" justifyContent="end">
-            <Box width="14rem">
-              <Input type="text" size="sm" placeholder="Search Data..." />
-            </Box>
+          <Flex flexDirection="row">
+            <HStack>
+              <Box>
+                <Text as={"span"} fontSize="0.8rem" fontWeight="semibold">
+                  Rows Per Page :
+                </Text>
+              </Box>
+              <Box>
+                <Select size="xs">
+                  <option value={10}>10</option>
+                  <option value={25}>25</option>
+                  <option value={50}>50</option>
+                  <option value={100}>100</option>
+                </Select>
+              </Box>
+            </HStack>
           </Flex>
           <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 11.5rem)">
             <Table variant="simple">
