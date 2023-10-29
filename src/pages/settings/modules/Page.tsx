@@ -7,6 +7,7 @@ import {
   Divider,
   Flex,
   HStack,
+  IconButton,
   Center,
   Select,
   Text,
@@ -61,12 +62,51 @@ export default function Page() {
                 </Text>
               </Box>
               <Box>
-                <Select size="xs">
+                <Select size="xs" fontWeight="bold">
                   <option value={10}>10</option>
                   <option value={25}>25</option>
                   <option value={50}>50</option>
                   <option value={100}>100</option>
                 </Select>
+              </Box>
+            </HStack>
+            <HStack marginLeft="1rem">
+              <Box>
+                <Text as="span" fontSize="0.8rem" fontWeight="semibold">
+                  1 - 5 of 300
+                </Text>
+              </Box>
+              <Box>
+                <IconButton
+                  aria-label="First Page"
+                  icon={<i className="ri-arrow-left-double-line icon-extra-small" />}
+                  size="xs"
+                  backgroundColor="transparent"
+                />
+              </Box>
+              <Box>
+                <IconButton
+                  aria-label="First Page"
+                  icon={<i className="ri-arrow-drop-left-line icon-small" />}
+                  size="xs"
+                  backgroundColor="transparent"
+                />
+              </Box>
+              <Box>
+                <IconButton
+                  aria-label="First Page"
+                  icon={<i className="ri-arrow-drop-right-line icon-small" />}
+                  size="xs"
+                  backgroundColor="transparent"
+                />
+              </Box>
+              <Box>
+                <IconButton
+                  aria-label="First Page"
+                  icon={<i className="ri-arrow-right-double-line icon-extra-small" />}
+                  size="xs"
+                  backgroundColor="transparent"
+                />
               </Box>
             </HStack>
           </Flex>
