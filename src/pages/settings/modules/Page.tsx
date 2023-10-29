@@ -7,7 +7,6 @@ import {
   Divider,
   Flex,
   HStack,
-  IconButton,
   Center,
   Text,
   Table,
@@ -17,11 +16,6 @@ import {
   Th,
   Td,
   TableContainer,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  VStack,
 } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
 
@@ -61,9 +55,11 @@ export default function Page() {
             <Table variant="simple">
               <Thead>
                 <Tr>
-                  <Th>Module ID</Th>
+                  <Th width="10%">Module ID</Th>
                   <Th>Module Name</Th>
-                  <Th textAlign="center">Actions</Th>
+                  <Th textAlign="center" width="10%">
+                    Actions
+                  </Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -71,39 +67,51 @@ export default function Page() {
                   <Td>MDL.001</Td>
                   <Td>Settings</Td>
                   <Td textAlign="center">
-                    <Popover>
-                      <PopoverTrigger>
-                        <IconButton
-                          aria-label="Actions Button"
-                          type="button"
-                          icon={<i className="ri-more-fill icon-extra-small" />}
-                          height="2rem"
-                          width="2rem"
-                        />
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <PopoverBody>
-                          <VStack>
-                            <Box>untuk edit</Box>
-                            <Box>untuk delete</Box>
-                          </VStack>
-                        </PopoverBody>
-                      </PopoverContent>
-                    </Popover>
+                    <HStack justifyContent="center">
+                      <Box>
+                        <ButtonIcon label="Show Data" tooltipPlacement="bottom" icon={<i className="ri-information-fill icon-extra-small" />} />
+                      </Box>
+                      <Box>
+                        <ButtonIcon label="Edit Data" tooltipPlacement="bottom" icon={<i className="ri-edit-box-line icon-extra-small" />} />
+                      </Box>
+                      <Box>
+                        <ButtonIcon label="Delete Data" tooltipPlacement="bottom" icon={<i className="ri-delete-bin-5-fill icon-extra-small" />} />
+                      </Box>
+                    </HStack>
                   </Td>
                 </Tr>
                 <Tr>
                   <Td>MDL.002</Td>
                   <Td>Lands</Td>
                   <Td textAlign="center">
-                    <IconButton aria-label="Actions Button" icon={<i className="ri-more-fill icon-extra-small" />} height="2rem" width="2rem" />
+                    <HStack justifyContent="center">
+                      <Box>
+                        <ButtonIcon label="Show Data" tooltipPlacement="bottom" icon={<i className="ri-information-fill icon-extra-small" />} />
+                      </Box>
+                      <Box>
+                        <ButtonIcon label="Edit Data" tooltipPlacement="bottom" icon={<i className="ri-edit-box-line icon-extra-small" />} />
+                      </Box>
+                      <Box>
+                        <ButtonIcon label="Delete Data" tooltipPlacement="bottom" icon={<i className="ri-delete-bin-5-fill icon-extra-small" />} />
+                      </Box>
+                    </HStack>
                   </Td>
                 </Tr>
                 <Tr>
                   <Td>MDL.003</Td>
                   <Td>Buildings</Td>
                   <Td textAlign="center">
-                    <IconButton aria-label="Actions Button" icon={<i className="ri-more-fill icon-extra-small" />} height="2rem" width="2rem" />
+                    <HStack justifyContent="center">
+                      <Box>
+                        <ButtonIcon label="Show Data" tooltipPlacement="bottom" icon={<i className="ri-information-fill icon-extra-small" />} />
+                      </Box>
+                      <Box>
+                        <ButtonIcon label="Edit Data" tooltipPlacement="bottom" icon={<i className="ri-edit-box-line icon-extra-small" />} />
+                      </Box>
+                      <Box>
+                        <ButtonIcon label="Delete Data" tooltipPlacement="bottom" icon={<i className="ri-delete-bin-5-fill icon-extra-small" />} />
+                      </Box>
+                    </HStack>
                   </Td>
                 </Tr>
               </Tbody>
