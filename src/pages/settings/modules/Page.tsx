@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { PaginationState, createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 import {
   Box,
   Button,
@@ -93,11 +93,13 @@ const columns = [
 
 export default function Page() {
   const [value] = useState(() => [...data]);
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
 
-  const table = useReactTable({
+  const { getHeaderGroups, getRowModel, getState, getPageCount, setPageSize } = useReactTable({
     data: value,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (
@@ -140,7 +142,7 @@ export default function Page() {
                   </Text>
                 </Box>
                 <Box>
-                  <Select size="xs" fontWeight="bold">
+                  <Select size="xs" fontWeight="bold" onChange={(event) => setPageSize(Number(event.target.value))}>
                     <option value={10}>10</option>
                     <option value={25}>25</option>
                     <option value={50}>50</option>
@@ -149,7 +151,7 @@ export default function Page() {
                 </Box>
                 <Box>
                   <Text as="span" fontSize="0.8rem" fontWeight="semibold">
-                    1 - 10 of 300
+                    {getState().pagination.pageIndex + 1} of {getPageCount()}
                   </Text>
                 </Box>
                 <Box>
@@ -193,7 +195,7 @@ export default function Page() {
           <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 12.6rem)">
             <Table variant="simple">
               <Thead position="sticky" top={0} zIndex={5} backgroundColor="#2563eb">
-                {table.getHeaderGroups().map((headerGroup) => (
+                {getHeaderGroups().map((headerGroup) => (
                   <Tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       const meta = header.column.columnDef.meta as MetaTypes;
@@ -208,7 +210,7 @@ export default function Page() {
                 ))}
               </Thead>
               <Tbody>
-                {table.getRowModel().rows.map((row) => (
+                {getRowModel().rows.map((row) => (
                   <Tr key={row.id}>
                     {row.getVisibleCells().map((cell) => {
                       const meta = cell.column.columnDef.meta as MetaTypes;
