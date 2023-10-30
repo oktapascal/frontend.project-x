@@ -21,31 +21,72 @@ import {
   Th,
   Td,
   TableContainer,
+  ResponsiveValue,
 } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
 import data, { IData } from "./fakeData";
 
 type MetaTypes = {
   width: string;
+  textAlign: ResponsiveValue<"center" | "end" | "justify" | "left" | "match-parent" | "right" | "start">;
 };
 
 const columnHelper = createColumnHelper<IData>();
 
 const columns = [
   columnHelper.accessor("module_id", {
-    id: "module-id",
+    id: "modules-id",
     header: "Module ID",
     cell: (info) => info.getValue(),
     meta: {
       width: "10%",
+      textAlign: "left",
     },
   }),
   columnHelper.accessor("module_name", {
-    id: "module-name",
+    id: "modules-name",
     header: "Module Name",
     cell: (info) => info.getValue(),
     meta: {
       width: "auto",
+      textAlign: "left",
+    },
+  }),
+  columnHelper.display({
+    id: "modules-actions",
+    header: "Actions",
+    cell: ({ row }) => (
+      <>
+        <HStack justifyContent="center">
+          <Box>
+            <ButtonIcon
+              label="Show Data"
+              tooltipPlacement="bottom"
+              icon={<i className="ri-information-fill icon-extra-small" onClick={() => alert(JSON.stringify(row.original))} />}
+            />
+          </Box>
+          <Box>
+            <ButtonIcon
+              label="Edit Data"
+              tooltipPlacement="bottom"
+              icon={<i className="ri-edit-box-line icon-extra-small" />}
+              onClick={() => alert(JSON.stringify(row.original))}
+            />
+          </Box>
+          <Box>
+            <ButtonIcon
+              label="Delete Data"
+              tooltipPlacement="bottom"
+              icon={<i className="ri-delete-bin-5-fill icon-extra-small" />}
+              onClick={() => alert(JSON.stringify(row.original))}
+            />
+          </Box>
+        </HStack>
+      </>
+    ),
+    meta: {
+      width: "10%",
+      textAlign: "center",
     },
   }),
 ];
@@ -158,7 +199,7 @@ export default function Page() {
                       const meta = header.column.columnDef.meta as MetaTypes;
 
                       return (
-                        <Th key={header.id} width={meta.width} color="#ffffff">
+                        <Th key={header.id} width={meta.width} textAlign={meta.textAlign} color="#ffffff">
                           {flexRender(header.column.columnDef.header, header.getContext())}
                         </Th>
                       );
@@ -169,9 +210,15 @@ export default function Page() {
               <Tbody>
                 {table.getRowModel().rows.map((row) => (
                   <Tr key={row.id}>
-                    {row.getVisibleCells().map((cell) => (
-                      <Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Td>
-                    ))}
+                    {row.getVisibleCells().map((cell) => {
+                      const meta = cell.column.columnDef.meta as MetaTypes;
+
+                      return (
+                        <Td key={cell.id} textAlign={meta.textAlign}>
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </Td>
+                      );
+                    })}
                   </Tr>
                 ))}
               </Tbody>
