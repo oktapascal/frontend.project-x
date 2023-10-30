@@ -1,4 +1,4 @@
-interface IData {
+export interface IData {
   module_id: string;
   module_name: string;
 }

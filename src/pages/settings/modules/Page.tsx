@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import {
   Box,
   Button,
@@ -21,9 +23,42 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
-import data from "./fakeData";
+import data, { IData } from "./fakeData";
+
+type MetaTypes = {
+  width: string;
+};
+
+const columnHelper = createColumnHelper<IData>();
+
+const columns = [
+  columnHelper.accessor("module_id", {
+    id: "module-id",
+    header: "Module ID",
+    cell: (info) => info.getValue(),
+    meta: {
+      width: "10%",
+    },
+  }),
+  columnHelper.accessor("module_name", {
+    id: "module-name",
+    header: "Module Name",
+    cell: (info) => info.getValue(),
+    meta: {
+      width: "auto",
+    },
+  }),
+];
 
 export default function Page() {
+  const [value] = useState(() => [...data]);
+
+  const table = useReactTable({
+    data: value,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
   return (
     <Box paddingLeft={2} paddingRight={2}>
       <Card height="100%" width="100%">
@@ -54,7 +89,7 @@ export default function Page() {
           </Flex>
         </CardHeader>
         <Divider />
-        <CardBody>
+        <CardBody paddingBottom={0}>
           <Flex flexDirection="row" justifyContent="space-between">
             <Box>
               <HStack spacing={3}>
@@ -114,37 +149,29 @@ export default function Page() {
               <Input type="text" placeholder="Search Data..." size="sm" htmlSize={30} width="auto" />
             </Box>
           </Flex>
-          <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 13.8rem)">
+          <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 12.6rem)">
             <Table variant="simple">
               <Thead position="sticky" top={0} zIndex={5} backgroundColor="#2563eb">
-                <Tr>
-                  <Th width="10%" color="#ffffff">
-                    Module ID
-                  </Th>
-                  <Th color="#ffffff">Module Name</Th>
-                  <Th textAlign="center" width="10%" color="#ffffff">
-                    Actions
-                  </Th>
-                </Tr>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <Tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
+                      const meta = header.column.columnDef.meta as MetaTypes;
+
+                      return (
+                        <Th key={header.id} width={meta.width} color="#ffffff">
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                        </Th>
+                      );
+                    })}
+                  </Tr>
+                ))}
               </Thead>
               <Tbody>
-                {data.map((dt) => (
-                  <Tr key={dt.module_id}>
-                    <Td>{dt.module_id}</Td>
-                    <Td>{dt.module_name}</Td>
-                    <Td textAlign="center">
-                      <HStack justifyContent="center">
-                        <Box>
-                          <ButtonIcon label="Show Data" tooltipPlacement="bottom" icon={<i className="ri-information-fill icon-extra-small" />} />
-                        </Box>
-                        <Box>
-                          <ButtonIcon label="Edit Data" tooltipPlacement="bottom" icon={<i className="ri-edit-box-line icon-extra-small" />} />
-                        </Box>
-                        <Box>
-                          <ButtonIcon label="Delete Data" tooltipPlacement="bottom" icon={<i className="ri-delete-bin-5-fill icon-extra-small" />} />
-                        </Box>
-                      </HStack>
-                    </Td>
+                {table.getRowModel().rows.map((row) => (
+                  <Tr key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Td>
+                    ))}
                   </Tr>
                 ))}
               </Tbody>
