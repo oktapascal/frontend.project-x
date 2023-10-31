@@ -9,14 +9,9 @@ import {
   Divider,
   Flex,
   HStack,
-  IconButton,
   Input,
   Center,
-  Select,
   Text,
-  Table,
-  Thead,
-  Tbody,
   Tr,
   Th,
   Td,
@@ -24,6 +19,7 @@ import {
   ResponsiveValue,
 } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
+import { DataTable, DataTableController } from "@/components/datatables";
 import data, { IData } from "./fakeData";
 
 type MetaTypes = {
@@ -117,6 +113,9 @@ export default function Page() {
     debugTable: import.meta.env.DEV,
   });
 
+  const onSetPageIndex = (index: number) => setPageIndex(index);
+  const onSetPageSize = (size: number) => setPageSize(size);
+
   return (
     <Box paddingLeft={2} paddingRight={2}>
       <Card height="100%" width="100%">
@@ -149,105 +148,49 @@ export default function Page() {
         <Divider />
         <CardBody paddingBottom={0}>
           <Flex flexDirection="row" justifyContent="space-between">
-            <Box>
-              <HStack spacing={3}>
-                <Box>
-                  <Text as={"span"} fontSize="0.8rem" fontWeight="semibold">
-                    Rows Per Page :
-                  </Text>
-                </Box>
-                <Box>
-                  <Select size="xs" fontWeight="bold" onChange={(event) => setPageSize(Number(event.target.value))}>
-                    <option value={10}>10</option>
-                    <option value={25}>25</option>
-                    <option value={50}>50</option>
-                    <option value={100}>100</option>
-                  </Select>
-                </Box>
-                <Box>
-                  <Text as="span" fontSize="0.8rem" fontWeight="semibold">
-                    {getState().pagination.pageIndex + 1} of {getPageCount()}
-                  </Text>
-                </Box>
-                <Box>
-                  <IconButton
-                    aria-label="First Page"
-                    icon={<i className="ri-arrow-left-double-line icon-extra-small" />}
-                    size="xs"
-                    backgroundColor="transparent"
-                    disabled={!getCanPreviousPage()}
-                    onClick={() => setPageIndex(0)}
-                  />
-                </Box>
-                <Box>
-                  <IconButton
-                    aria-label="Previous Page"
-                    icon={<i className="ri-arrow-drop-left-line icon-small" />}
-                    size="xs"
-                    backgroundColor="transparent"
-                    disabled={!getCanPreviousPage()}
-                    onClick={() => previousPage()}
-                  />
-                </Box>
-                <Box>
-                  <IconButton
-                    aria-label="Next Page"
-                    icon={<i className="ri-arrow-drop-right-line icon-small" />}
-                    size="xs"
-                    backgroundColor="transparent"
-                    disabled={!getCanNextPage()}
-                    onClick={() => nextPage()}
-                  />
-                </Box>
-                <Box>
-                  <IconButton
-                    aria-label="Last Page"
-                    icon={<i className="ri-arrow-right-double-line icon-extra-small" />}
-                    size="xs"
-                    backgroundColor="transparent"
-                    disabled={!getCanNextPage()}
-                    onClick={() => setPageIndex(getPageCount() - 1)}
-                  />
-                </Box>
-              </HStack>
-            </Box>
+            <DataTableController
+              getState={getState}
+              getPageCount={getPageCount}
+              getCanNextPage={getCanNextPage}
+              getCanPreviousPage={getCanPreviousPage}
+              nextPage={nextPage}
+              previousPage={previousPage}
+              setPageSize={onSetPageSize}
+              setPageIndex={onSetPageIndex}
+            />
             <Box>
               <Input type="text" placeholder="Search Data..." size="sm" htmlSize={30} width="auto" />
             </Box>
           </Flex>
           <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 12.6rem)">
-            <Table variant="simple">
-              <Thead position="sticky" top={0} zIndex={5} backgroundColor="#2563eb">
-                {getHeaderGroups().map((headerGroup) => (
-                  <Tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      const meta = header.column.columnDef.meta as MetaTypes;
+            <DataTable
+              tablehead={getHeaderGroups().map((headerGroup) => (
+                <Tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    const meta = header.column.columnDef.meta as MetaTypes;
 
-                      return (
-                        <Th key={header.id} width={meta.width} textAlign={meta.textAlign} color="#ffffff">
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                        </Th>
-                      );
-                    })}
-                  </Tr>
-                ))}
-              </Thead>
-              <Tbody>
-                {getRowModel().rows.map((row) => (
-                  <Tr key={row.id}>
-                    {row.getVisibleCells().map((cell) => {
-                      const meta = cell.column.columnDef.meta as MetaTypes;
+                    return (
+                      <Th key={header.id} width={meta.width} textAlign={meta.textAlign} color="#ffffff">
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                      </Th>
+                    );
+                  })}
+                </Tr>
+              ))}
+              tablebody={getRowModel().rows.map((row) => (
+                <Tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => {
+                    const meta = cell.column.columnDef.meta as MetaTypes;
 
-                      return (
-                        <Td key={cell.id} textAlign={meta.textAlign}>
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </Td>
-                      );
-                    })}
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
+                    return (
+                      <Td key={cell.id} textAlign={meta.textAlign}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </Td>
+                    );
+                  })}
+                </Tr>
+              ))}
+            />
           </TableContainer>
         </CardBody>
       </Card>

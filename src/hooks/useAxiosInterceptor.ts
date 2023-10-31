@@ -139,5 +139,5 @@ export default function useAxiosInterceptor() {
       axiosInstance.interceptors.request.eject(interceptorRequest);
       axiosInstance.interceptors.response.eject(interceptorResponse);
     };
-  }, [cookieSession, cookieRefreshSession, resetModule, resetUser, setSessionCookie, setSessionRefreshCookie]);
+  }, [cookieSession, cookieRefreshSession]);
 }
