@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
+import { ColumnDef, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 import {
   Box,
   Button,
@@ -9,7 +9,6 @@ import {
   Divider,
   Flex,
   HStack,
-  Input,
   Center,
   Text,
   Tr,
@@ -19,7 +18,7 @@ import {
   ResponsiveValue,
 } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
-import { DataTable, DataTableController } from "@/components/datatables";
+import { DataTable, DataTableController, DataTableSearch } from "@/components/datatables";
 import data, { IData } from "./fakeData";
 
 type MetaTypes = {
@@ -29,7 +28,9 @@ type MetaTypes = {
 
 export default function Page() {
   const [value] = useState(() => [...data]);
+  const [globalFilter, setGlobalFilter] = useState<string>("");
 
+  console.log(globalFilter);
   const columns = useMemo<ColumnDef<IData>[]>(
     () => [
       {
@@ -108,8 +109,13 @@ export default function Page() {
   } = useReactTable({
     data: value ?? defaultData,
     columns,
+    state: {
+      globalFilter,
+    },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
     debugTable: import.meta.env.DEV,
   });
 
@@ -158,9 +164,7 @@ export default function Page() {
               setPageSize={onSetPageSize}
               setPageIndex={onSetPageIndex}
             />
-            <Box>
-              <Input type="text" placeholder="Search Data..." size="sm" htmlSize={30} width="auto" />
-            </Box>
+            <DataTableSearch value={globalFilter} onChange={(value) => setGlobalFilter(String(value))} />
           </Flex>
           <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 12.6rem)">
             <DataTable

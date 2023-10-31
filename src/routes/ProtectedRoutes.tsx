@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { RouteObject } from "react-router-dom";
+import { RouteObject, Navigate } from "react-router-dom";
 import { Layout } from "@/layouts";
 
 const MainPage = lazy(() => import("../pages/main/Page.tsx"));
@@ -16,6 +16,10 @@ export default function ProtectedRoutes(): RouteObject {
       {
         path: "/settings/modules",
         element: <ModulesListPage />,
+      },
+      {
+        path: "/settings/*",
+        element: <Navigate to="/settings/modules" replace />,
       },
     ],
   };
