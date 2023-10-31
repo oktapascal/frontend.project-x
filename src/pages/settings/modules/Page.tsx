@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { PaginationState, createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
+import { useState, useMemo } from "react";
+import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 import {
   Box,
   Button,
@@ -31,75 +31,90 @@ type MetaTypes = {
   textAlign: ResponsiveValue<"center" | "end" | "justify" | "left" | "match-parent" | "right" | "start">;
 };
 
-const columnHelper = createColumnHelper<IData>();
-
-const columns = [
-  columnHelper.accessor("module_id", {
-    id: "modules-id",
-    header: "Module ID",
-    cell: (info) => info.getValue(),
-    meta: {
-      width: "10%",
-      textAlign: "left",
-    },
-  }),
-  columnHelper.accessor("module_name", {
-    id: "modules-name",
-    header: "Module Name",
-    cell: (info) => info.getValue(),
-    meta: {
-      width: "auto",
-      textAlign: "left",
-    },
-  }),
-  columnHelper.display({
-    id: "modules-actions",
-    header: "Actions",
-    cell: ({ row }) => (
-      <>
-        <HStack justifyContent="center">
-          <Box>
-            <ButtonIcon
-              label="Show Data"
-              tooltipPlacement="bottom"
-              icon={<i className="ri-information-fill icon-extra-small" onClick={() => alert(JSON.stringify(row.original))} />}
-            />
-          </Box>
-          <Box>
-            <ButtonIcon
-              label="Edit Data"
-              tooltipPlacement="bottom"
-              icon={<i className="ri-edit-box-line icon-extra-small" />}
-              onClick={() => alert(JSON.stringify(row.original))}
-            />
-          </Box>
-          <Box>
-            <ButtonIcon
-              label="Delete Data"
-              tooltipPlacement="bottom"
-              icon={<i className="ri-delete-bin-5-fill icon-extra-small" />}
-              onClick={() => alert(JSON.stringify(row.original))}
-            />
-          </Box>
-        </HStack>
-      </>
-    ),
-    meta: {
-      width: "10%",
-      textAlign: "center",
-    },
-  }),
-];
-
 export default function Page() {
   const [value] = useState(() => [...data]);
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
 
-  const { getHeaderGroups, getRowModel, getState, getPageCount, setPageSize } = useReactTable({
-    data: value,
+  const columns = useMemo<ColumnDef<IData>[]>(
+    () => [
+      {
+        accessorKey: "module_id",
+        id: "modules-id",
+        header: "Module ID",
+        cell: (info) => info.getValue(),
+        meta: {
+          width: "10%",
+          textAlign: "left",
+        },
+      },
+      {
+        accessorKey: "module_name",
+        id: "modules-name",
+        header: "Module Name",
+        cell: (info) => info.getValue(),
+        meta: {
+          width: "auto",
+          textAlign: "left",
+        },
+      },
+      {
+        id: "modules-actions",
+        header: "Actions",
+        meta: {
+          width: "10%",
+          textAlign: "center",
+        },
+        cell: ({ row }) => (
+          <>
+            <HStack justifyContent="center">
+              <Box>
+                <ButtonIcon
+                  label="Show Data"
+                  tooltipPlacement="bottom"
+                  icon={<i className="ri-information-fill icon-extra-small" onClick={() => alert(JSON.stringify(row.original))} />}
+                />
+              </Box>
+              <Box>
+                <ButtonIcon
+                  label="Edit Data"
+                  tooltipPlacement="bottom"
+                  icon={<i className="ri-edit-box-line icon-extra-small" />}
+                  onClick={() => alert(JSON.stringify(row.original))}
+                />
+              </Box>
+              <Box>
+                <ButtonIcon
+                  label="Delete Data"
+                  tooltipPlacement="bottom"
+                  icon={<i className="ri-delete-bin-5-fill icon-extra-small" />}
+                  onClick={() => alert(JSON.stringify(row.original))}
+                />
+              </Box>
+            </HStack>
+          </>
+        ),
+      },
+    ],
+    []
+  );
+  const defaultData = useMemo(() => [], []);
+
+  const {
+    previousPage,
+    nextPage,
+    getHeaderGroups,
+    getRowModel,
+    getState,
+    getPageCount,
+    getCanPreviousPage,
+    getCanNextPage,
+    setPageSize,
+    setPageIndex,
+  } = useReactTable({
+    data: value ?? defaultData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    debugTable: import.meta.env.DEV,
   });
 
   return (
@@ -160,30 +175,38 @@ export default function Page() {
                     icon={<i className="ri-arrow-left-double-line icon-extra-small" />}
                     size="xs"
                     backgroundColor="transparent"
+                    disabled={!getCanPreviousPage()}
+                    onClick={() => setPageIndex(0)}
                   />
                 </Box>
                 <Box>
                   <IconButton
-                    aria-label="First Page"
+                    aria-label="Previous Page"
                     icon={<i className="ri-arrow-drop-left-line icon-small" />}
                     size="xs"
                     backgroundColor="transparent"
+                    disabled={!getCanPreviousPage()}
+                    onClick={() => previousPage()}
                   />
                 </Box>
                 <Box>
                   <IconButton
-                    aria-label="First Page"
+                    aria-label="Next Page"
                     icon={<i className="ri-arrow-drop-right-line icon-small" />}
                     size="xs"
                     backgroundColor="transparent"
+                    disabled={!getCanNextPage()}
+                    onClick={() => nextPage()}
                   />
                 </Box>
                 <Box>
                   <IconButton
-                    aria-label="First Page"
+                    aria-label="Last Page"
                     icon={<i className="ri-arrow-right-double-line icon-extra-small" />}
                     size="xs"
                     backgroundColor="transparent"
+                    disabled={!getCanNextPage()}
+                    onClick={() => setPageIndex(getPageCount() - 1)}
                   />
                 </Box>
               </HStack>
