@@ -8,7 +8,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useQuery } from "@tanstack/react-query";
 import {
   Box,
   Button,
@@ -28,9 +27,8 @@ import {
 } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
 import { DataTable, DataTableController, DataTableSearch, DataTableRowNotFound, DataTableRowLoading } from "@/components/datatables";
-import { axiosInstance } from "@/utils";
+import { useFetchModules } from "@/features/modules";
 import { IModule } from "@/types";
-// import data, { IData } from "./fakeData";
 
 type MetaTypes = {
   width: string;
@@ -38,6 +36,8 @@ type MetaTypes = {
 };
 
 export default function Page() {
+  const { data, isLoading, error } = useFetchModules();
+
   const [globalFilter, setGlobalFilter] = useState<string>("");
 
   const columns = useMemo<ColumnDef<IModule>[]>(
@@ -105,20 +105,6 @@ export default function Page() {
     []
   );
   const defaultData = useMemo(() => [], []);
-
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["fetch.modules"],
-    queryFn: async () => {
-      const result = await axiosInstance.get("/module/all", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-
-      return result.data as IModule[];
-    },
-  });
 
   const {
     previousPage,
