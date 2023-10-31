@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
+import { useSignal } from "@preact/signals-react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import {
@@ -22,7 +23,7 @@ interface Props {
 }
 
 export default function SignOutAlert({ isOpen, onClose }: Props) {
-  const [loading, setLoading] = useState<boolean>(false);
+  const isLoading = useSignal<boolean>(false);
 
   const cancelRef = useRef<HTMLButtonElement>(null);
 
@@ -37,7 +38,7 @@ export default function SignOutAlert({ isOpen, onClose }: Props) {
   const resetModule = useModuleStore((state) => state.reset);
 
   const onSignOut = async () => {
-    setLoading(true);
+    isLoading.value = true;
 
     const response = await axiosInstance.patch(
       "/auth/logout",
@@ -50,7 +51,7 @@ export default function SignOutAlert({ isOpen, onClose }: Props) {
       }
     );
 
-    setLoading(false);
+    isLoading.value = false;
 
     if (response.status === 200) {
       resetUser();
@@ -92,7 +93,7 @@ export default function SignOutAlert({ isOpen, onClose }: Props) {
               marginLeft="0.5rem"
               backgroundColor="#0058e4"
               color="#ffffff"
-              disabled={loading}
+              disabled={isLoading.value}
               _hover={{ backgroundColor: "#004fcd" }}
               _active={{ backgroundColor: "#0046b6" }}
             >
