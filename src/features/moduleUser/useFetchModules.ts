@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/utils";
-import { ModulesUser } from "@/types";
+import { IModulesUser } from "@/types";
 
 export default function useModules() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["fetch.modules"],
+    queryKey: ["fetch.usermodules"],
     queryFn: async () => {
       const result = await axiosInstance.get("/module/user", {
         headers: {
@@ -13,7 +13,7 @@ export default function useModules() {
         },
       });
 
-      return result.data as ModulesUser[];
+      return result.data as IModulesUser[];
     },
   });
 

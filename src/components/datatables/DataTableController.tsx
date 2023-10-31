@@ -49,7 +49,7 @@ export default function DataTableController({
             icon={<i className="ri-arrow-left-double-line icon-extra-small" />}
             size="xs"
             backgroundColor="transparent"
-            disabled={!getCanPreviousPage()}
+            isDisabled={!getCanPreviousPage()}
             onClick={() => setPageIndex(0)}
           />
         </Box>
@@ -59,7 +59,7 @@ export default function DataTableController({
             icon={<i className="ri-arrow-drop-left-line icon-small" />}
             size="xs"
             backgroundColor="transparent"
-            disabled={!getCanPreviousPage()}
+            isDisabled={!getCanPreviousPage()}
             onClick={() => previousPage()}
           />
         </Box>
@@ -69,9 +69,10 @@ export default function DataTableController({
             icon={<i className="ri-arrow-drop-right-line icon-small" />}
             size="xs"
             backgroundColor="transparent"
-            disabled={!getCanNextPage()}
+            isDisabled={!getCanNextPage()}
             onClick={() => nextPage()}
           />
+          {getCanNextPage()}
         </Box>
         <Box>
           <IconButton
@@ -79,7 +80,7 @@ export default function DataTableController({
             icon={<i className="ri-arrow-right-double-line icon-extra-small" />}
             size="xs"
             backgroundColor="transparent"
-            disabled={!getCanNextPage()}
+            isDisabled={!getCanNextPage()}
             onClick={() => setPageIndex(getPageCount() - 1)}
           />
         </Box>

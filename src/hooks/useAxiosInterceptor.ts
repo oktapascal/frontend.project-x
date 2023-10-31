@@ -105,6 +105,8 @@ export default function useAxiosInterceptor() {
                   });
 
                   router.navigate("/login");
+
+                  return Promise.reject(error);
                 }
               } else {
                 resetUser();

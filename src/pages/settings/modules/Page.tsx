@@ -8,6 +8,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { useQuery } from "@tanstack/react-query";
 import {
   Box,
   Button,
@@ -26,8 +27,10 @@ import {
   ResponsiveValue,
 } from "@chakra-ui/react";
 import { ButtonIcon } from "@/components/buttons";
-import { DataTable, DataTableController, DataTableSearch } from "@/components/datatables";
-import data, { IData } from "./fakeData";
+import { DataTable, DataTableController, DataTableSearch, DataTableRowNotFound, DataTableRowLoading } from "@/components/datatables";
+import { axiosInstance } from "@/utils";
+import { IModule } from "@/types";
+// import data, { IData } from "./fakeData";
 
 type MetaTypes = {
   width: string;
@@ -35,11 +38,9 @@ type MetaTypes = {
 };
 
 export default function Page() {
-  const [value] = useState(() => [...data]);
   const [globalFilter, setGlobalFilter] = useState<string>("");
 
-  console.log(globalFilter);
-  const columns = useMemo<ColumnDef<IData>[]>(
+  const columns = useMemo<ColumnDef<IModule>[]>(
     () => [
       {
         accessorKey: "module_id",
@@ -52,7 +53,7 @@ export default function Page() {
         },
       },
       {
-        accessorKey: "module_name",
+        accessorKey: "name",
         id: "modules-name",
         header: "Module Name",
         cell: (info) => info.getValue(),
@@ -105,6 +106,20 @@ export default function Page() {
   );
   const defaultData = useMemo(() => [], []);
 
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["fetch.modules"],
+    queryFn: async () => {
+      const result = await axiosInstance.get("/module/all", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      return result.data as IModule[];
+    },
+  });
+
   const {
     previousPage,
     nextPage,
@@ -117,7 +132,7 @@ export default function Page() {
     setPageSize,
     setPageIndex,
   } = useReactTable({
-    data: value ?? defaultData,
+    data: data ?? defaultData,
     columns,
     state: {
       globalFilter,
@@ -132,6 +147,8 @@ export default function Page() {
 
   const onSetPageIndex = (index: number) => setPageIndex(index);
   const onSetPageSize = (size: number) => setPageSize(size);
+
+  if (error) return <div>Error unknown : {error.message}</div>;
 
   return (
     <Box paddingLeft={2} paddingRight={2}>
@@ -204,19 +221,27 @@ export default function Page() {
                   })}
                 </Tr>
               ))}
-              tablebody={getRowModel().rows.map((row) => (
-                <Tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => {
-                    const meta = cell.column.columnDef.meta as MetaTypes;
+              tablebody={
+                isLoading ? (
+                  <DataTableRowLoading colSpan={3} />
+                ) : getRowModel().rows.length === 0 ? (
+                  <DataTableRowNotFound colSpan={3} />
+                ) : (
+                  getRowModel().rows.map((row) => (
+                    <Tr key={row.id}>
+                      {row.getVisibleCells().map((cell) => {
+                        const meta = cell.column.columnDef.meta as MetaTypes;
 
-                    return (
-                      <Td key={cell.id} textAlign={meta.textAlign}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </Td>
-                    );
-                  })}
-                </Tr>
-              ))}
+                        return (
+                          <Td key={cell.id} textAlign={meta.textAlign}>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </Td>
+                        );
+                      })}
+                    </Tr>
+                  ))
+                )
+              }
             />
           </TableContainer>
         </CardBody>
