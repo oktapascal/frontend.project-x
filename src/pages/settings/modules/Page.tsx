@@ -1,5 +1,13 @@
 import { useState, useMemo } from "react";
-import { ColumnDef, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import {
   Box,
   Button,
@@ -56,6 +64,8 @@ export default function Page() {
       {
         id: "modules-actions",
         header: "Actions",
+        enableGlobalFilter: false,
+        enableSorting: false,
         meta: {
           width: "10%",
           textAlign: "center",
@@ -115,6 +125,7 @@ export default function Page() {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     onGlobalFilterChange: setGlobalFilter,
     debugTable: import.meta.env.DEV,
   });
@@ -174,8 +185,20 @@ export default function Page() {
                     const meta = header.column.columnDef.meta as MetaTypes;
 
                     return (
-                      <Th key={header.id} width={meta.width} textAlign={meta.textAlign} color="#ffffff">
+                      <Th
+                        key={header.id}
+                        width={meta.width}
+                        textAlign={meta.textAlign}
+                        color="#ffffff"
+                        className={header.column.getCanSort() ? "select-none cursor-pointer" : ""}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
                         {flexRender(header.column.columnDef.header, header.getContext())}
+                        {!header.column.getIsSorted() ? null : header.column.getIsSorted().toString() === "asc" ? (
+                          <i className="ri-arrow-drop-up-fill icon-extra-small" />
+                        ) : (
+                          <i className="ri-arrow-drop-down-fill icon-extra-small" />
+                        )}
                       </Th>
                     );
                   })}
