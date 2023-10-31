@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   ColumnDef,
   flexRender,
@@ -39,6 +40,8 @@ export default function Page() {
   const { data, isLoading, error } = useFetchModules();
 
   const [globalFilter, setGlobalFilter] = useState<string>("");
+
+  const queryClient = useQueryClient();
 
   const columns = useMemo<ColumnDef<IModule>[]>(
     () => [
@@ -134,6 +137,10 @@ export default function Page() {
   const onSetPageIndex = (index: number) => setPageIndex(index);
   const onSetPageSize = (size: number) => setPageSize(size);
 
+  const reloadData = () => {
+    queryClient.invalidateQueries({ queryKey: ["fetch.modules"] });
+  };
+
   if (error) return <div>Error unknown : {error.message}</div>;
 
   return (
@@ -154,6 +161,7 @@ export default function Page() {
                     tooltipPlacement="bottom"
                     backgroundColor="#e5e7eb"
                     icon={<i className="ri-loop-left-line icon-icon-small" />}
+                    onClick={reloadData}
                   />
                 </Box>
                 <Box>
