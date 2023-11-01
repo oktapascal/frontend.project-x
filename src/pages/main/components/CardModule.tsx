@@ -1,6 +1,6 @@
+import router from "@/router";
 import { Box, Card, CardBody, Flex, Center, Text } from "@chakra-ui/react";
 import { useModuleStore } from "@/stores";
-import { router } from "@/router";
 
 interface Props {
   label: string;

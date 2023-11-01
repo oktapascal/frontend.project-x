@@ -1,6 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import { IModulesUser } from "@/types";
-import CardModule from "./CardModule";
+import { CardModule } from "@/pages/main/components";
 
 interface Props {
   modules?: IModulesUser[];
