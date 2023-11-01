@@ -71,24 +71,12 @@ export default function useAxiosInterceptor() {
 
                   const response = request.data as Response;
 
-                  const accessDate = new Date();
-                  const refreshDate = new Date();
-
-                  const minutes = 60 * 1000;
-                  const oneDay = 60 * 60 * 24 * 1000;
-
-                  const expiresAccess = accessDate.getTime() + minutes * 14.5;
-                  const expiresRefresh = refreshDate.getTime() + oneDay * 7;
-
-                  accessDate.setTime(expiresAccess);
-                  refreshDate.setTime(expiresRefresh);
-
                   setSessionCookie("session-token", response.access_token, {
-                    expires: accessDate,
+                    maxAge: 900, // 15 menit
                   });
 
                   setSessionRefreshCookie("session-refresh-token", response.refresh_token, {
-                    expires: refreshDate,
+                    maxAge: 604800, // 7 hari
                   });
 
                   originalRequest.headers["Authorization"] = `Bearer ${response.access_token}`;
@@ -105,8 +93,6 @@ export default function useAxiosInterceptor() {
                   });
 
                   router.navigate("/login");
-
-                  return Promise.reject(error);
                 }
               } else {
                 resetUser();

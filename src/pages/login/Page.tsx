@@ -61,24 +61,12 @@ export default function Page() {
 
       const response = request.data as LoginResponse;
 
-      const accessDate = new Date();
-      const refreshDate = new Date();
-
-      const minutes = 60 * 1000;
-      const oneDay = 60 * 60 * 24 * 1000;
-
-      const expiresAccess = accessDate.getTime() + minutes * 15;
-      const expiresRefresh = refreshDate.getTime() + oneDay * 7;
-
-      accessDate.setTime(expiresAccess);
-      refreshDate.setTime(expiresRefresh);
-
       setSessionCookie("session-token", response.access_token, {
-        expires: accessDate,
+        maxAge: 900, // 15 menit
       });
 
       setSessionRefreshCookie("session-refresh-token", response.refresh_token, {
-        expires: refreshDate,
+        maxAge: 604800, // 7 hari
       });
 
       updateUserStore(response.user);
