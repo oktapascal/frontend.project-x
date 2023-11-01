@@ -2,7 +2,7 @@ import axios, { AxiosResponse, AxiosError, InternalAxiosRequestConfig } from "ax
 import { Cookies } from "react-cookie";
 import { useToast } from "@chakra-ui/react";
 import { useUserStore, useModuleStore } from "@/stores";
-import { router } from "@/router";
+import router from "@/router";
 
 interface ExtendInternalAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry: boolean;
