@@ -6,3 +6,9 @@ export interface IModule {
   default_view: string | null;
   status_active: boolean;
 }
+
+export interface FormInput {
+  name: string;
+  icon: string;
+  default_view: string;
+}

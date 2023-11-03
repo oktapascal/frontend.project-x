@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/utils";
-import { IModule } from "@/types";
+import { IModule } from "@/types/IModule";
 
 export default function useFetchModules() {
   const { data, isLoading, error } = useQuery({

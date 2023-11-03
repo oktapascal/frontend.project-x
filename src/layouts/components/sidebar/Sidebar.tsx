@@ -5,7 +5,7 @@ import { useModuleStore } from "@/stores";
 import { axiosInstance } from "@/utils";
 import { SidebarParentApp, SidebarChildApp } from "./components";
 import { SidebarProps } from "./types/types";
-import { IMenu, IMenuChild, IMenuParent } from "@/types";
+import { IMenu, IMenuChild, IMenuParent } from "@/types/IMenu";
 
 export default function Sidebar({ onCloseAllSidebar, onCloseSidebar, onOpenChildSidebar, isOpenChildSidebar, isOpenParentSidebar }: SidebarProps) {
   const [parentMenus, setParentMenus] = useState<IMenuParent[]>([]);

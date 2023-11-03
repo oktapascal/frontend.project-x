@@ -4,6 +4,7 @@ import { Layout } from "@/layouts";
 
 const MainPage = lazy(() => import("../pages/main/Page.tsx"));
 const ModulesListPage = lazy(() => import("../pages/settings/modules/Page.tsx"));
+const ModulesCreatePage = lazy(() => import("../pages/settings/modules/Form.tsx"));
 
 export default function ProtectedRoutes(): RouteObject {
   return {
@@ -16,6 +17,10 @@ export default function ProtectedRoutes(): RouteObject {
       {
         path: "/settings/modules",
         element: <ModulesListPage />,
+      },
+      {
+        path: "/settings/modules/create",
+        element: <ModulesCreatePage />,
       },
       {
         path: "/settings/*",

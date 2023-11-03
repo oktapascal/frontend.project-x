@@ -64,10 +64,12 @@ axiosInstance.interceptors.response.use(
           const response = request.data as CredentialsResponse;
 
           cookies.set("session-token", response.access_token, {
+            path: "/",
             maxAge: 900, // 7 menit
           });
 
           cookies.set("session-refresh-token", response.refresh_token, {
+            path: "/",
             maxAge: 604800, // 7 hari
           });
 

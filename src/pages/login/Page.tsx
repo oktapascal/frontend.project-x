@@ -19,7 +19,7 @@ import {
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { axiosInstance } from "@/utils";
 import { useUserStore } from "@/stores";
-import { FormError, FormInput, LoginResponse } from "@/types";
+import { FormError, FormInput, LoginResponse } from "@/types/ILogin";
 import Background from "@/assets/images/background-login.webp";
 import Logo from "@/assets/images/logo.webp";
 import { BackgroundOverlay } from "./components";
@@ -35,7 +35,7 @@ export default function Page() {
     handleSubmit,
     setError,
     formState: { errors, isSubmitting, isSubmitted },
-  } = useForm({
+  } = useForm<FormInput>({
     defaultValues: {
       username: "",
       password: "",
@@ -62,10 +62,12 @@ export default function Page() {
       const response = request.data as LoginResponse;
 
       setSessionCookie("session-token", response.access_token, {
+        path: "/",
         maxAge: 900, // 15 menit
       });
 
       setSessionRefreshCookie("session-refresh-token", response.refresh_token, {
+        path: "/",
         maxAge: 604800, // 7 hari
       });
 
