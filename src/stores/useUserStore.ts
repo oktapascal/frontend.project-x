@@ -1,5 +1,6 @@
+import superjson from "superjson";
 import { create } from "zustand";
-import { persist, createJSONStorage, devtools } from "zustand/middleware";
+import { PersistStorage, StorageValue, persist } from "zustand/middleware";
 import { IUser } from "@/types";
 
 interface IState extends IUser {}
@@ -20,23 +21,25 @@ const initialState: IState = {
   },
 };
 
-const useUserStore = create<IState & IActions>()(
-  devtools(
-    persist(
-      (set) => ({
-        ...initialState,
-        update: (state: IState) => set(state),
-        reset: () => {
-          set(initialState);
-        },
-      }),
-      {
-        name: "session-user",
-        storage: createJSONStorage(() => localStorage),
-      }
-    ),
-    { enabled: true }
+const storage: PersistStorage<IState> = {
+  getItem: (name: string) => {
+    const data = localStorage.getItem(name);
+
+    if (!data) return null;
+
+    return superjson.parse(data);
+  },
+  setItem: (name: string, value: StorageValue<IState>) => localStorage.setItem(name, superjson.stringify(value)),
+  removeItem: (name: string) => localStorage.removeItem(name),
+};
+
+export default create<IState & IActions>()(
+  persist(
+    (set) => ({
+      ...initialState,
+      update: (state: IState) => set(state),
+      reset: () => set(initialState),
+    }),
+    { name: "session-user", storage }
   )
 );
-
-export default useUserStore;

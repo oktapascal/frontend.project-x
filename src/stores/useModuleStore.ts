@@ -1,5 +1,6 @@
+import superjson from "superjson";
 import { create } from "zustand";
-import { devtools, persist, createJSONStorage } from "zustand/middleware";
+import { PersistStorage, StorageValue, persist } from "zustand/middleware";
 
 interface IState {
   module_id: string | null;
@@ -14,21 +15,25 @@ const initialState: IState = {
   module_id: null,
 };
 
-const useModuleStore = create<IState & IActions>()(
-  devtools(
-    persist(
-      (set) => ({
-        ...initialState,
-        update: (state: IState) => set(state),
-        reset: () => set(initialState),
-      }),
-      {
-        name: "session-module",
-        storage: createJSONStorage(() => localStorage),
-      }
-    ),
-    { enabled: true }
+const storage: PersistStorage<IState> = {
+  getItem: (name: string) => {
+    const data = localStorage.getItem(name);
+
+    if (!data) return null;
+
+    return superjson.parse(data);
+  },
+  setItem: (name: string, value: StorageValue<IState>) => localStorage.setItem(name, superjson.stringify(value)),
+  removeItem: (name: string) => localStorage.removeItem(name),
+};
+
+export default create<IState & IActions>()(
+  persist(
+    (set) => ({
+      ...initialState,
+      update: (data) => set(data),
+      reset: () => set(initialState),
+    }),
+    { name: "session-module", storage }
   )
 );
-
-export default useModuleStore;
