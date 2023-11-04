@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { NavLink } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   ColumnDef,
@@ -29,7 +30,7 @@ import {
 import { ButtonIcon } from "@/components/buttons";
 import { DataTable, DataTableController, DataTableSearch, DataTableRowNotFound, DataTableRowLoading } from "@/components/datatables";
 import { useFetchModules } from "@/features/modules";
-import { IModule } from "@/types";
+import { IModule } from "@/types/IModule";
 
 type MetaTypes = {
   width: string;
@@ -165,7 +166,14 @@ export default function Page() {
                   />
                 </Box>
                 <Box>
-                  <Button backgroundColor="#2563eb" color="#ffffff" _hover={{ backgroundColor: "#4338ca" }} _active={{ backgroundColor: "#3730a3" }}>
+                  <Button
+                    as={NavLink}
+                    to="/settings/modules/create"
+                    backgroundColor="#2563eb"
+                    color="#ffffff"
+                    _hover={{ backgroundColor: "#4338ca" }}
+                    _active={{ backgroundColor: "#3730a3" }}
+                  >
                     Tambah
                   </Button>
                 </Box>

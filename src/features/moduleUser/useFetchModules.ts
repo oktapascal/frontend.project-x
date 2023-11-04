@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/utils";
-import { IModulesUser } from "@/types";
+import { IModulesUser } from "@/types/IModuleUser";
 
 export default function useModules() {
   const { data, isLoading, error } = useQuery({
@@ -11,6 +11,7 @@ export default function useModules() {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       });
 
       return result.data as IModulesUser[];

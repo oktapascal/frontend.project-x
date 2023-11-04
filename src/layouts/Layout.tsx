@@ -2,7 +2,7 @@ import { Suspense, useEffect, useRef } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
 import { LoadingPage } from "@/components/others";
-import { useUserStore } from "@/stores";
+import { useUserStore, useModuleStore } from "@/stores";
 import { SignOutAlert } from "@/components/alerts";
 import { Header, Sidebar } from "./components";
 
@@ -12,6 +12,7 @@ export default function Layout() {
   const navRef = useRef(useNavigate());
 
   const user_id = useUserStore((state) => state.user_id);
+  const module_id = useModuleStore((state) => state.module_id);
 
   const { isOpen: isOpenAlert, onOpen: onOpenAlert, onClose: onCloseAlert } = useDisclosure();
   const { isOpen: isOpenParentSidebar, onOpen: onOpenParentSidebar, onClose: onCloseParentSidebar } = useDisclosure();
@@ -48,7 +49,7 @@ export default function Layout() {
     <div className={pathname === "/login" ? "none" : pathname === "/main" ? "bg-main" : "bg-private"}>
       {user_id !== null && <Header onOpenAlert={onOpenAlert} onToggleSidebar={onToggleSidebar} />}
 
-      {pathname !== "/main" && (
+      {pathname !== "/main" && module_id !== null && (
         <Sidebar
           isOpenParentSidebar={isOpenParentSidebar}
           isOpenChildSidebar={isOpenChildSidebar}
