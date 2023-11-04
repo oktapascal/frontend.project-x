@@ -1,4 +1,4 @@
-import { IMenu, IMenuChild, IMenuParent } from "@/types";
+import { IMenu, IMenuChild, IMenuParent } from "@/types/IMenu";
 
 export interface SidebarProps {
   isOpenParentSidebar: boolean;

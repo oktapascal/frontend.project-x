@@ -29,8 +29,7 @@ export default function Form() {
   const {
     control,
     handleSubmit,
-    setError,
-    formState: { errors, isSubmitting, isSubmitted },
+    formState: { errors, isSubmitting },
   } = useForm<FormInput>({
     defaultValues: {
       name: "",
@@ -41,6 +40,10 @@ export default function Form() {
 
   const onBackFromForm = () => {
     navigate("/settings/modules");
+  };
+
+  const onSubmit: SubmitHandler<FormInput> = (data) => {
+    alert(JSON.stringify(data));
   };
 
   return (
@@ -78,7 +81,7 @@ export default function Form() {
         </CardHeader>
         <Divider color="#a3a3a3" />
         <CardBody>
-          <form id="module-form" noValidate>
+          <form id="module-form" onSubmit={handleSubmit(onSubmit)} noValidate>
             <VStack>
               <FormControl isInvalid={!!errors.name}>
                 <FormLabel>Nama Module</FormLabel>
