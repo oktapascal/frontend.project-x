@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { useSignal } from "@preact/signals-react";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import {
   AlertDialog,
@@ -31,9 +30,6 @@ export default function SignOutAlert({ isOpen, onClose }: Props) {
 
   const toast = useToast();
 
-  const [, , removeCookieSessionToken] = useCookies(["session-token"]);
-  const [, , removeCookieSessionRefreshToken] = useCookies(["session-refresh-token"]);
-
   const resetUser = useUserStore((state) => state.reset);
   const resetModule = useModuleStore((state) => state.reset);
 
@@ -48,6 +44,7 @@ export default function SignOutAlert({ isOpen, onClose }: Props) {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       }
     );
 
@@ -56,9 +53,6 @@ export default function SignOutAlert({ isOpen, onClose }: Props) {
     if (response.status === 200) {
       resetUser();
       resetModule();
-
-      removeCookieSessionToken("session-token", { path: "/" });
-      removeCookieSessionRefreshToken("session-refresh-token", { path: "/" });
 
       toast({
         title: "Kamu berhasil keluar",

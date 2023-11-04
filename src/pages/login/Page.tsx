@@ -1,7 +1,6 @@
 import { AxiosError } from "axios";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
 import {
   Box,
   Button,
@@ -42,9 +41,6 @@ export default function Page() {
     },
   });
 
-  const [, setSessionCookie] = useCookies(["session-token"]);
-  const [, setSessionRefreshCookie] = useCookies(["session-refresh-token"]);
-
   useEffect(() => {
     document.title = "Project-X | Login";
     if (user_id !== null) navRef.current("/main", { replace: true });
@@ -57,19 +53,10 @@ export default function Page() {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       });
 
       const response = request.data as LoginResponse;
-
-      setSessionCookie("session-token", response.access_token, {
-        path: "/",
-        maxAge: 900, // 15 menit
-      });
-
-      setSessionRefreshCookie("session-refresh-token", response.refresh_token, {
-        path: "/",
-        maxAge: 604800, // 7 hari
-      });
 
       updateUserStore(response.user);
     } catch (error) {

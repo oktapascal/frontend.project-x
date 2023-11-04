@@ -1,21 +1,18 @@
 import axios, { AxiosResponse, AxiosError, InternalAxiosRequestConfig } from "axios";
-import { Cookies } from "react-cookie";
-import { useToast } from "@chakra-ui/react";
+import { createStandaloneToast } from "@chakra-ui/react";
 import { useUserStore, useModuleStore } from "@/stores";
+import { fetchRequestToken } from "@/features/refresh";
 import router from "@/router";
 
 interface ExtendInternalAxiosRequestConfig extends InternalAxiosRequestConfig {
-  _retry: boolean;
+  "X-NO-RETRY": string;
 }
 
-interface CredentialsResponse {
-  access_token: string;
-  refresh_token: string;
-}
+const { toast } = createStandaloneToast();
+
+const NO_RETRY_HEADER = "X-NO-RETRY";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-const cookies = new Cookies();
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -23,8 +20,6 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-    if (cookies.get("session-token")) config.headers["Authorization"] = `Bearer ${cookies.get("session-token")}`;
-
     if (import.meta.env.DEV) console.info(`[request] [${JSON.stringify(config)}]`);
 
     return config;
@@ -43,54 +38,25 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error: AxiosError) => {
-    const originalRequest = error.config as ExtendInternalAxiosRequestConfig;
+    const originalRequest = error?.config as ExtendInternalAxiosRequestConfig;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
+    if (error?.response?.status === 401 && !originalRequest.headers[NO_RETRY_HEADER]) {
+      try {
+        const { access_token } = await fetchRequestToken();
 
-      if (cookies.get("session-refresh-token")) {
-        try {
-          const request = await axiosInstance.patch(
-            "/auth/refresh",
-            {},
-            {
-              headers: {
-                Accept: "application/json",
-                Authorization: `Bearer ${cookies.get("session-refresh-token")}`,
-              },
-            }
-          );
+        originalRequest.headers[NO_RETRY_HEADER] = "true";
+        originalRequest.headers["Authorization"] = `Bearer ${access_token}`;
 
-          const response = request.data as CredentialsResponse;
-
-          cookies.set("session-token", response.access_token, {
-            path: "/",
-            maxAge: 900, // 7 menit
-          });
-
-          cookies.set("session-refresh-token", response.refresh_token, {
-            path: "/",
-            maxAge: 604800, // 7 hari
-          });
-
-          originalRequest.headers["Authorization"] = `Bearer ${response.access_token}`;
-
-          return axiosInstance(originalRequest);
-        } catch {
-          useModuleStore().reset();
-          useUserStore().reset();
-
-          useToast({ title: "Your token was expired, please login again", status: "error", variant: "solid" });
-
-          router.navigate("/login");
-        }
-      } else {
-        useModuleStore().reset();
-        useUserStore().reset();
-
-        useToast({ title: "Your token was expired, please login again", status: "error", variant: "solid" });
+        return axiosInstance(originalRequest);
+      } catch (_error) {
+        useUserStore.getState().reset();
+        useModuleStore.getState().reset();
 
         router.navigate("/login");
+
+        toast({ title: "Your token was expired, please login again", status: "error", variant: "solid", position: "top" });
+
+        return Promise.reject(_error);
       }
     }
 
