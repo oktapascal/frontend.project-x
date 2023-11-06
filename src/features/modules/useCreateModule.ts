@@ -3,7 +3,7 @@ import { axiosInstance } from "@/utils";
 import { FormInput } from "@/types/IModule";
 
 export default function useCreateModule() {
-  const mutation = useMutation({
+  return useMutation({
     mutationFn: async (request: FormInput) => {
       const result = await axiosInstance.post(
         "/module/save",
@@ -14,6 +14,4 @@ export default function useCreateModule() {
       return result.data;
     },
   });
-
-  return { ...mutation };
 }
