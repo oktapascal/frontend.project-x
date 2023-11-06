@@ -15,13 +15,9 @@ import {
 } from "@chakra-ui/react";
 import { axiosInstance } from "@/utils";
 import { useUserStore, useModuleStore } from "@/stores";
+import { SignOutAlertProps } from "./types";
 
-interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export default function SignOutAlert({ isOpen, onClose }: Props) {
+export default function SignOutAlert({ isOpen, onClose }: SignOutAlertProps) {
   const isLoading = useSignal<boolean>(false);
 
   const cancelRef = useRef<HTMLButtonElement>(null);
