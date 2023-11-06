@@ -1,7 +1,6 @@
 import { AxiosError } from "axios";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
 import {
   Box,
   Button,
@@ -20,6 +19,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { axiosInstance } from "@/utils";
 import { useUserStore } from "@/stores";
 import { FormError, FormInput, LoginResponse } from "@/types/ILogin";
+import { FormError, FormInput, LoginResponse } from "@/types/ILogin";
 import Background from "@/assets/images/background-login.webp";
 import Logo from "@/assets/images/logo.webp";
 import { BackgroundOverlay } from "./components";
@@ -36,14 +36,12 @@ export default function Page() {
     setError,
     formState: { errors, isSubmitting, isSubmitted },
   } = useForm<FormInput>({
+  } = useForm<FormInput>({
     defaultValues: {
       username: "",
       password: "",
     },
   });
-
-  const [, setSessionCookie] = useCookies(["session-token"]);
-  const [, setSessionRefreshCookie] = useCookies(["session-refresh-token"]);
 
   useEffect(() => {
     document.title = "Project-X | Login";
@@ -57,19 +55,10 @@ export default function Page() {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       });
 
       const response = request.data as LoginResponse;
-
-      setSessionCookie("session-token", response.access_token, {
-        path: "/",
-        maxAge: 900, // 15 menit
-      });
-
-      setSessionRefreshCookie("session-refresh-token", response.refresh_token, {
-        path: "/",
-        maxAge: 604800, // 7 hari
-      });
 
       updateUserStore(response.user);
     } catch (error) {

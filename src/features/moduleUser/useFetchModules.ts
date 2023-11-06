@@ -11,6 +11,7 @@ export default function useModules() {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       });
 
       return result.data as IModulesUser[];

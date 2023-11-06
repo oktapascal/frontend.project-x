@@ -30,7 +30,7 @@ import {
 import { ButtonIcon } from "@/components/buttons";
 import { DataTable, DataTableController, DataTableSearch, DataTableRowNotFound, DataTableRowLoading } from "@/components/datatables";
 import { useFetchModules } from "@/features/modules";
-import { IModule } from "@/types";
+import { IModule } from "@/types/IModule";
 
 type MetaTypes = {
   width: string;
