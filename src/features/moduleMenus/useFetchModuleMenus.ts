@@ -3,7 +3,7 @@ import { axiosInstance } from "@/utils";
 import { IMenu } from "@/types/IMenu";
 
 export default function useFetchModuleMenus(module_id: string | null) {
-  const { data } = useQuery({
+  return useQuery({
     queryKey: ["fetch.menus", module_id],
     queryFn: async () => {
       const result = await axiosInstance.get(`/modules-menu/${module_id}`, {
@@ -14,6 +14,4 @@ export default function useFetchModuleMenus(module_id: string | null) {
       return result.data as IMenu[];
     },
   });
-
-  return { data };
 }
