@@ -1,17 +1,6 @@
-import type { ReactNode } from "react";
 import { Button, Card, CardHeader, CardBody, Center, Container, Divider, Flex, Heading, HStack } from "@chakra-ui/react";
 import { BackFromFormAlert } from "@/components/alerts";
-
-interface FormMasterProps {
-  formID: string;
-  title: string;
-  children: ReactNode;
-  isOpen: boolean;
-  isDisabled: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-  onExitForm: () => void;
-}
+import { FormMasterProps } from "./types";
 
 export default function FormMaster({ formID, title, children, isOpen, isDisabled, onOpen, onClose, onExitForm }: FormMasterProps) {
   return (
