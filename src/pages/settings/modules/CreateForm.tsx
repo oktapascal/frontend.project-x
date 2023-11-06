@@ -13,13 +13,13 @@ export default function CreateForm() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { mutate } = useCreateModule();
+  const { mutate, isPending } = useCreateModule();
 
   const {
     control,
     handleSubmit,
     setError,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormInput>({
     defaultValues: {
       name: "",
@@ -58,7 +58,7 @@ export default function CreateForm() {
       formID={FORM_ID}
       title="Tambah Data Module"
       isOpen={isOpen}
-      isDisabled={isSubmitting}
+      isDisabled={isPending}
       onClose={onClose}
       onExitForm={onExitForm}
       onOpen={onOpen}
@@ -70,7 +70,7 @@ export default function CreateForm() {
             <Controller
               name="name"
               control={control}
-              render={({ field }) => <Input type="text" placeholder="Nama Module..." autoComplete="off" isReadOnly={isSubmitting} {...field} />}
+              render={({ field }) => <Input type="text" placeholder="Nama Module..." autoComplete="off" isReadOnly={isPending} {...field} />}
             />
             <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
           </FormControl>
@@ -79,7 +79,7 @@ export default function CreateForm() {
             <Controller
               name="icon"
               control={control}
-              render={({ field }) => <Input type="text" placeholder="Icon Module..." autoComplete="off" isReadOnly={isSubmitting} {...field} />}
+              render={({ field }) => <Input type="text" placeholder="Icon Module..." autoComplete="off" isReadOnly={isPending} {...field} />}
             />
             <FormErrorMessage>{errors.icon?.message}</FormErrorMessage>
           </FormControl>
@@ -88,7 +88,7 @@ export default function CreateForm() {
             <Controller
               name="default_view"
               control={control}
-              render={({ field }) => <Input type="text" placeholder="Default View..." autoComplete="off" isReadOnly={isSubmitting} {...field} />}
+              render={({ field }) => <Input type="text" placeholder="Default View..." autoComplete="off" isReadOnly={isPending} {...field} />}
             />
             <FormErrorMessage>{errors.default_view?.message}</FormErrorMessage>
           </FormControl>
