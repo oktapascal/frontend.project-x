@@ -46,7 +46,7 @@ export default function BackFromFormAlert({ isOpen, onClose, onCallback }: Props
               _hover={{ backgroundColor: "#004fcd" }}
               _active={{ backgroundColor: "#0046b6" }}
             >
-              Keluar
+              Kembali
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
