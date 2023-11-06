@@ -3,7 +3,7 @@ import { axiosInstance } from "@/utils";
 import { IModule } from "@/types/IModule";
 
 export default function useFetchModules() {
-  const { data, isLoading, error } = useQuery({
+  return useQuery({
     queryKey: ["fetch.moduleMenus"],
     queryFn: async () => {
       const result = await axiosInstance.get("/module/all", {
@@ -17,6 +17,4 @@ export default function useFetchModules() {
       return result.data as IModule[];
     },
   });
-
-  return { data, isLoading, error };
 }
