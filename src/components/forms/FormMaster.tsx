@@ -7,12 +7,13 @@ interface FormMasterProps {
   title: string;
   children: ReactNode;
   isOpen: boolean;
+  isDisabled: boolean;
   onOpen: () => void;
   onClose: () => void;
   onExitForm: () => void;
 }
 
-export default function FormMaster({ formID, title, children, isOpen, onOpen, onClose, onExitForm }: FormMasterProps) {
+export default function FormMaster({ formID, title, children, isOpen, isDisabled, onOpen, onClose, onExitForm }: FormMasterProps) {
   return (
     <>
       <Container>
@@ -29,6 +30,7 @@ export default function FormMaster({ formID, title, children, isOpen, onOpen, on
                   <Center>
                     <Button
                       form={formID}
+                      isDisabled={isDisabled}
                       type="submit"
                       size="sm"
                       backgroundColor="#2563eb"

@@ -12,3 +12,11 @@ export interface FormInput {
   icon: string;
   default_view: string;
 }
+
+interface FieldError extends Partial<FormInput> {}
+
+export interface FormError {
+  error: string;
+  statusCode: number;
+  message: FieldError[];
+}

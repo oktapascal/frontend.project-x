@@ -5,10 +5,7 @@ export interface FormInput {
   password: string;
 }
 
-interface FieldError {
-  username?: string;
-  password?: string;
-}
+interface FieldError extends Partial<FormInput> {}
 
 export interface FormError {
   error: string;
