@@ -19,7 +19,6 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { axiosInstance } from "@/utils";
 import { useUserStore } from "@/stores";
 import { FormError, FormInput, LoginResponse } from "@/types/ILogin";
-import { FormError, FormInput, LoginResponse } from "@/types/ILogin";
 import Background from "@/assets/images/background-login.webp";
 import Logo from "@/assets/images/logo.webp";
 import { BackgroundOverlay } from "./components";
@@ -35,7 +34,6 @@ export default function Page() {
     handleSubmit,
     setError,
     formState: { errors, isSubmitting, isSubmitted },
-  } = useForm<FormInput>({
   } = useForm<FormInput>({
     defaultValues: {
       username: "",
