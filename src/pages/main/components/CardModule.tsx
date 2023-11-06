@@ -14,7 +14,7 @@ export default function CardModule({ label, icon, module_id }: Props) {
   const updateModule = useModuleStore((state) => state.update);
 
   const onClickCard = (module_id: string) => {
-    updateModule({ module_id });
+    updateModule(module_id);
 
     router.navigate("/settings/modules", { replace: true });
   };

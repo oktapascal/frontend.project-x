@@ -26,7 +26,7 @@ export default function SuccessCreateAlert({ id, isOpen, onClose, onCallback }: 
           </AlertDialogHeader>
           <AlertDialogBody>
             <Text>
-              Data berhasil disimpan dengan kode : <b>${id}</b>
+              Data berhasil disimpan dengan kode : <b>{id}</b>
             </Text>
           </AlertDialogBody>
           <AlertDialogFooter>

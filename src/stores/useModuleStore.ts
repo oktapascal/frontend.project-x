@@ -7,7 +7,7 @@ interface IState {
 }
 
 interface IActions {
-  update: (data: IState) => void;
+  update: (data: string) => void;
   reset: () => void;
 }
 
@@ -31,7 +31,7 @@ export default create<IState & IActions>()(
   persist(
     (set) => ({
       ...initialState,
-      update: (data) => set(data),
+      update: (data) => set({ module_id: data }),
       reset: () => set(initialState),
     }),
     { name: "session-module", storage }

@@ -30,6 +30,7 @@ import {
 import { ButtonIcon } from "@/components/buttons";
 import { DataTable, DataTableController, DataTableSearch, DataTableRowNotFound, DataTableRowLoading } from "@/components/datatables";
 import { useFetchModules } from "@/features/modules";
+import { usePrimaryKeyStore } from "@/stores";
 import { IModule } from "@/types/IModule";
 
 type MetaTypes = {
@@ -39,6 +40,8 @@ type MetaTypes = {
 
 export default function Page() {
   const { data, isLoading, error } = useFetchModules();
+
+  const primaryKey = usePrimaryKeyStore((state) => state.key);
 
   useEffect(() => {
     document.title = "Project-X | Modules Data";
@@ -233,19 +236,22 @@ export default function Page() {
                 ) : getRowModel().rows.length === 0 ? (
                   <DataTableRowNotFound colSpan={3} />
                 ) : (
-                  getRowModel().rows.map((row) => (
-                    <Tr key={row.id}>
-                      {row.getVisibleCells().map((cell) => {
-                        const meta = cell.column.columnDef.meta as MetaTypes;
+                  getRowModel().rows.map((row) => {
+                    const isLastUpdate = row.original.module_id === primaryKey;
+                    return (
+                      <Tr key={row.id} backgroundColor={isLastUpdate ? "#e5e5e5" : ""}>
+                        {row.getVisibleCells().map((cell) => {
+                          const meta = cell.column.columnDef.meta as MetaTypes;
 
-                        return (
-                          <Td key={cell.id} textAlign={meta.textAlign}>
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                          </Td>
-                        );
-                      })}
-                    </Tr>
-                  ))
+                          return (
+                            <Td key={cell.id} textAlign={meta.textAlign}>
+                              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            </Td>
+                          );
+                        })}
+                      </Tr>
+                    );
+                  })
                 )
               }
             />

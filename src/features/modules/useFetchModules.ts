@@ -4,7 +4,7 @@ import { IModule } from "@/types/IModule";
 
 export default function useFetchModules() {
   return useQuery({
-    queryKey: ["fetch.moduleMenus"],
+    queryKey: ["fetch.modules"],
     queryFn: async () => {
       const result = await axiosInstance.get("/module/all", {
         headers: {
