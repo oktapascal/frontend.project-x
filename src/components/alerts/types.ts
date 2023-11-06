@@ -9,4 +9,6 @@ export interface SignOutAlertProps {
   onClose: () => void;
 }
 
-export interface SuccessCreateAlertProps extends BackFromFormAlertProps {}
+export interface SuccessCreateAlertProps extends BackFromFormAlertProps {
+  id: string;
+}

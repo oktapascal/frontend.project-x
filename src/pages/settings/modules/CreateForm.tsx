@@ -1,4 +1,5 @@
 import { AxiosError } from "axios";
+import { useEffect } from "react";
 import { FormControl, FormLabel, Input, FormErrorMessage, VStack, useDisclosure } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -8,6 +9,10 @@ import { useCreateModule } from "@/features/modules";
 
 export default function CreateForm() {
   const FORM_ID = "module-form";
+
+  useEffect(() => {
+    document.title = "Project-X | Modules Form";
+  }, []);
 
   const navigate = useNavigate();
 

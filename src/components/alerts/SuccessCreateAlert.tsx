@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { SuccessCreateAlertProps } from "./types";
 
-export default function SuccessCreateAlert({ isOpen, onClose, onCallback }: SuccessCreateAlertProps) {
+export default function SuccessCreateAlert({ id, isOpen, onClose, onCallback }: SuccessCreateAlertProps) {
   const cancelRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -25,7 +25,9 @@ export default function SuccessCreateAlert({ isOpen, onClose, onCallback }: Succ
             </Heading>
           </AlertDialogHeader>
           <AlertDialogBody>
-            <Text>Semua perubahan tidak akan disimpan</Text>
+            <Text>
+              Data berhasil disimpan dengan kode : <b>${id}</b>
+            </Text>
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose} type="button">

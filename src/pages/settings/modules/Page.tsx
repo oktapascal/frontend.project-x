@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import {
@@ -39,6 +39,10 @@ type MetaTypes = {
 
 export default function Page() {
   const { data, isLoading, error } = useFetchModules();
+
+  useEffect(() => {
+    document.title = "Project-X | Modules Data";
+  }, []);
 
   const [globalFilter, setGlobalFilter] = useState<string>("");
 
