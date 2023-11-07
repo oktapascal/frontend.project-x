@@ -4,7 +4,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import { LoadingPage } from "@/components/others";
 import { useUserStore, useModuleStore } from "@/stores";
 import { SignOutAlert } from "@/components/alerts";
-import { Header, Sidebar } from "./components";
+import { Header, Sidebar } from "@/layouts/components";
 
 export default function Layout() {
   const { pathname } = useLocation();

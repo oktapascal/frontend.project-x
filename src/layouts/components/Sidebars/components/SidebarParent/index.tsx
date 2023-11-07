@@ -1,6 +1,6 @@
 import { Button, List, ListItem, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { SidebarParentAppProps } from "../types/types";
+import { SidebarParentAppProps } from "./interface";
 import styles from "../styles/sidebar-parent-app.module.css";
 
 const framerSidebarBackground = {
