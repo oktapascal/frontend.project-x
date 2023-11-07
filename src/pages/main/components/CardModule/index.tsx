@@ -1,15 +1,9 @@
 import router from "@/router";
 import { Box, Card, CardBody, Flex, Center, Text } from "@chakra-ui/react";
 import { useModuleStore } from "@/stores";
+import { CardModuleProps } from "@/pages/main/components/CardModule/interface";
 
-interface Props {
-  label: string;
-  icon: string;
-  module_id: string;
-  default_view?: string | null;
-}
-
-export default function CardModule({ label, icon, module_id }: Props) {
+export default function CardModule({ label, icon, module_id }: CardModuleProps) {
   const moduleId = useModuleStore((state) => state.module_id);
   const updateModule = useModuleStore((state) => state.update);
 

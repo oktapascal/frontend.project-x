@@ -4,7 +4,7 @@ import { useModuleStore } from "@/stores";
 import { useFetchModuleMenus } from "@/features/moduleMenus";
 import { SidebarParentApp, SidebarChildApp } from "./components";
 import { SidebarProps } from "./types/types";
-import { IMenu, IMenuChild, IMenuParent } from "@/types/IMenu";
+import { IMenu, IMenuChild, IMenuParent } from "@/interfaces/IMenu";
 
 export default function Sidebar({ onCloseAllSidebar, onCloseSidebar, onOpenChildSidebar, isOpenChildSidebar, isOpenParentSidebar }: SidebarProps) {
   const [parentMenus, setParentMenus] = useState<IMenuParent[]>([]);

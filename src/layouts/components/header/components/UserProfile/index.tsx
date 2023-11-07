@@ -1,8 +1,8 @@
 import { Button, Flex, Image, Menu, MenuButton, MenuDivider, MenuList, MenuItem, Text } from "@chakra-ui/react";
-import { NavbarAppProps } from "../types/types";
+import { UserProfileProps } from "@/layouts/components/Header/components/UserProfile/interface";
 import avatar from "@/assets/images/avatar.webp";
 
-export default function UserProfile({ onOpenAlert, username }: Partial<NavbarAppProps>) {
+export default function UserProfile({ onOpenAlert, username }: UserProfileProps) {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<i className="ri-arrow-down-s-fill icon-small" />} minWidth="9.37rem">

@@ -15,10 +15,10 @@ import {
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import { ButtonIcon } from "@/components/buttons";
-import UserProfile from "./UserProfile";
-import ListModules from "./ListModules";
+import { NavbarAppProps } from "@/layouts/components/Header/components/NavbarApp/interface";
+import UserProfile from "@/layouts/components/Header/components/UserProfile";
+import ListModules from "@/layouts/components/Header/components/ListModules";
 import Logo from "@/assets/images/logo.webp";
-import { NavbarAppProps } from "../types/types";
 
 export default function NavbarApp({ username, onOpenAlert, onToggleSidebar }: NavbarAppProps) {
   const { isOpen, onToggle, onClose } = useDisclosure();

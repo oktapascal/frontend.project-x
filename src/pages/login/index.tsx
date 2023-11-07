@@ -18,10 +18,10 @@ import {
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { axiosInstance } from "@/utils";
 import { useUserStore } from "@/stores";
-import { FormError, FormInput, LoginResponse } from "@/types/ILogin";
+import { FormError, FormInput, LoginResponse } from "@/interfaces/ILogin";
 import Background from "@/assets/images/background-login.webp";
 import Logo from "@/assets/images/logo.webp";
-import { BackgroundOverlay } from "./components";
+import { BackgroundOverlay } from "@/pages/login/components";
 
 export default function Page() {
   const user_id = useUserStore((state) => state.user_id);

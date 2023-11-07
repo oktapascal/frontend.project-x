@@ -1,5 +1,5 @@
 import { IconButton, Tooltip } from "@chakra-ui/react";
-import { ButtonIconProps } from "./types";
+import { ButtonIconProps } from "./interface";
 
 export default function ButtonIcon({ label, icon, tooltipPlacement, backgroundColor = "transparent", onClick }: ButtonIconProps) {
   return (

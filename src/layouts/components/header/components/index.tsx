@@ -1,2 +1,2 @@
-export { default as NavbarApp } from "./NavbarApp";
-export { default as NavbarHome } from "./NavbarHome";
+export { default as NavbarApp } from "@/layouts/components/Header/components/NavbarApp";
+export { default as NavbarHome } from "@/layouts/components/Header/components/NavbarHome";

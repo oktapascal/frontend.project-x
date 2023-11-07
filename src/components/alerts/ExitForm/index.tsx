@@ -10,9 +10,9 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { BackFromFormAlertProps } from "./types";
+import { ExitFormAlertProps } from "./interface";
 
-export default function BackFromFormAlert({ isOpen, onClose, onCallback }: BackFromFormAlertProps) {
+export default function BackFromFormAlert({ isOpen, onClose, onCallback }: ExitFormAlertProps) {
   const cancelRef = useRef<HTMLButtonElement>(null);
 
   return (

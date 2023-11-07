@@ -4,9 +4,9 @@ import { FormControl, FormLabel, Input, FormErrorMessage, VStack, useDisclosure 
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
-import { SuccessCreateAlert } from "@/components/alerts";
+import { SuccessSaveAlert } from "@/components/alerts";
 import { FormMaster } from "@/components/forms";
-import { FormInput, FormError } from "@/types/IModule";
+import { FormInput, FormError } from "@/interfaces/IModule";
 import { useCreateModule } from "@/features/modules";
 import { usePrimaryKeyStore } from "@/stores";
 
@@ -120,12 +120,7 @@ export default function CreateForm() {
           </VStack>
         </form>
       </FormMaster>
-      <SuccessCreateAlert
-        id={primaryKey}
-        isOpen={isOpenSuccessCreateAlert}
-        onClose={onCloseSuccessCreateAlert}
-        onCallback={onCallbackSuccessCreate}
-      />
+      <SuccessSaveAlert id={primaryKey} isOpen={isOpenSuccessCreateAlert} onClose={onCloseSuccessCreateAlert} onCallback={onCallbackSuccessCreate} />
     </>
   );
 }

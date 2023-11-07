@@ -34,7 +34,7 @@ import { ButtonIcon } from "@/components/buttons";
 import { DataTable, DataTableController, DataTableSearch, DataTableRowNotFound, DataTableRowLoading } from "@/components/datatables";
 import { useFetchModules, useDeleteModule } from "@/features/modules";
 import { usePrimaryKeyStore } from "@/stores";
-import { IModule } from "@/types/IModule";
+import { IModule } from "@/interfaces/IModule";
 
 interface MetaTypes {
   width: string;

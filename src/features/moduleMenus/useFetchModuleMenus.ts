@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/utils";
-import { IMenu } from "@/types/IMenu";
+import { IMenu } from "@/interfaces/IMenu";
 
 export default function useFetchModuleMenus(module_id: string | null) {
   return useQuery({

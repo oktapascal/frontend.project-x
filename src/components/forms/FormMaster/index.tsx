@@ -1,6 +1,6 @@
 import { Button, Card, CardHeader, CardBody, Center, Container, Divider, Flex, Heading, HStack } from "@chakra-ui/react";
-import { BackFromFormAlert } from "@/components/alerts";
-import { FormMasterProps } from "./types";
+import { ExitFormAlert } from "@/components/alerts";
+import { FormMasterProps } from "./interface";
 
 export default function FormMaster({ formID, title, children, isOpen, isDisabled, onOpen, onClose, onExitForm }: FormMasterProps) {
   return (
@@ -43,7 +43,7 @@ export default function FormMaster({ formID, title, children, isOpen, isDisabled
           <CardBody>{children}</CardBody>
         </Card>
       </Container>
-      <BackFromFormAlert isOpen={isOpen} onClose={onClose} onCallback={onExitForm} />
+      <ExitFormAlert isOpen={isOpen} onClose={onClose} onCallback={onExitForm} />
     </>
   );
 }

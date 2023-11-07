@@ -1,8 +1,8 @@
 import { Button, Center, Flex, Image } from "@chakra-ui/react";
 import Logo from "@/assets/images/logo.webp";
-import { HeaderProps } from "../types/types";
+import { NavbarHomeProps } from "@/layouts/components/Header/components/NavbarHome/interface";
 
-export default function NavbarHome({ onOpenAlert }: Partial<HeaderProps>) {
+export default function NavbarHome({ onOpenAlert }: NavbarHomeProps) {
   return (
     <nav className="shadow-md bg-white-80 px-4 py-2">
       <Flex flexDirection="row">

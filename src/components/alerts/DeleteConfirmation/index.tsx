@@ -10,7 +10,7 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { DeleteConfirmationAlertPros } from "./types";
+import { DeleteConfirmationAlertPros } from "./interface";
 
 export default function DeleteConfirmationAlert({ id, isOpen, onClose, onCallback }: DeleteConfirmationAlertPros) {
   const cancelRef = useRef<HTMLButtonElement>(null);

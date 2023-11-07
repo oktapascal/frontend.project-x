@@ -1,12 +1,8 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import { IModulesUser } from "@/types/IModuleUser";
 import { CardModule } from "@/pages/main/components";
+import { ListModulesProps } from "@/pages/main/components/ListModules/interface";
 
-interface Props {
-  modules?: IModulesUser[];
-}
-
-export default function ListModules({ modules }: Props) {
+export default function ListModules({ modules }: ListModulesProps) {
   if (!modules) return <div>no data</div>;
 
   return (
