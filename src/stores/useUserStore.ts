@@ -1,7 +1,7 @@
 import superjson from "superjson";
 import { create } from "zustand";
 import { PersistStorage, StorageValue, persist } from "zustand/middleware";
-import { IUser } from "@/types/IUser";
+import { IUser } from "@/interfaces/IUser";
 
 interface IState extends IUser {}
 

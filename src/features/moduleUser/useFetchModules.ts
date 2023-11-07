@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/utils";
-import { IModulesUser } from "@/types/IModuleUser";
+import { IModulesUser } from "@/interfaces/IModuleUser";
 
 export default function useModules() {
   return useQuery({
