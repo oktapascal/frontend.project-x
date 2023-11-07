@@ -1,5 +1,5 @@
 import { Table, Thead, Tbody } from "@chakra-ui/react";
-import { DataTableProps } from "./types";
+import { DataTableProps } from "@/components/tables/DataTableClient/interface";
 
 export default function DataTable({ tablehead, tablebody }: DataTableProps) {
   return (

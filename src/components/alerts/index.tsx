@@ -1,4 +1,4 @@
-export { default as SignOutAlert } from "./SignOut";
-export { default as ExitFormAlert } from "./ExitForm";
-export { default as SuccessSaveAlert } from "./SuccessSave";
-export { default as DeleteConfirmationAlert } from "./DeleteConfirmation";
+export { default as SignOutAlert } from "@/components/alerts/SignOut";
+export { default as ExitFormAlert } from "@/components/alerts/ExitForm";
+export { default as SuccessSaveAlert } from "@/components/alerts/SuccessSave";
+export { default as DeleteConfirmationAlert } from "@/components/alerts/DeleteConfirmation";

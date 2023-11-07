@@ -1,2 +1,2 @@
-export { default as OnlyDekstopAccess } from "./OnlyDekstopAccess";
-export { default as LoadingPage } from "./LoadingPage";
+export { default as OnlyDekstopAccess } from "@/components/others/OnlyDekstopAccess";
+export { default as LoadingPage } from "@/components/others/LoadingPage";
