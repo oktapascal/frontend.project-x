@@ -1,16 +1,5 @@
-import { TableState } from "@tanstack/react-table";
 import { Box, HStack, Text, Select, IconButton } from "@chakra-ui/react";
-
-interface Props {
-  getState: () => TableState;
-  getPageCount: () => number;
-  getCanPreviousPage: () => boolean;
-  getCanNextPage: () => boolean;
-  nextPage: () => void;
-  previousPage: () => void;
-  setPageSize: (size: number) => void;
-  setPageIndex: (index: number) => void;
-}
+import { DataTableControllerProps } from "./types";
 
 export default function DataTableController({
   getPageCount,
@@ -21,7 +10,7 @@ export default function DataTableController({
   previousPage,
   setPageSize,
   setPageIndex,
-}: Props) {
+}: DataTableControllerProps) {
   return (
     <Box>
       <HStack spacing={3}>

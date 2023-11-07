@@ -1,13 +1,8 @@
 import { useState, useEffect } from "react";
 import { Box, Input } from "@chakra-ui/react";
+import { DataTableSearchProps } from "./types";
 
-interface Props {
-  value: string | number;
-  onChange: (value: string | number) => void;
-  debounce?: number;
-}
-
-export default function DataTableSearch({ value: initialValue, debounce = 500, onChange }: Props) {
+export default function DataTableSearch({ value: initialValue, debounce = 500, onChange }: DataTableSearchProps) {
   const [value, setValue] = useState(initialValue);
 
   useEffect(() => {

@@ -10,9 +10,9 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { BackFromFormAlertProps } from "./types";
+import { DeleteConfirmationAlertPros } from "./types";
 
-export default function BackFromFormAlert({ isOpen, onClose, onCallback }: BackFromFormAlertProps) {
+export default function DeleteConfirmationAlert({ id, isOpen, onClose, onCallback }: DeleteConfirmationAlertPros) {
   const cancelRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -21,11 +21,14 @@ export default function BackFromFormAlert({ isOpen, onClose, onCallback }: BackF
         <AlertDialogContent>
           <AlertDialogHeader>
             <Heading as="h6" fontSize="1.25rem">
-              Keluar Form ?
+              Hapus Data ?
             </Heading>
           </AlertDialogHeader>
           <AlertDialogBody>
-            <Text>Semua perubahan tidak akan disimpan</Text>
+            <Text>
+              Data akan terhapus secara permanen. <br />
+              ID Data : <b>{id}</b>
+            </Text>
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose} type="button">
@@ -41,7 +44,7 @@ export default function BackFromFormAlert({ isOpen, onClose, onCallback }: BackF
               _hover={{ backgroundColor: "#004fcd" }}
               _active={{ backgroundColor: "#0046b6" }}
             >
-              Kembali
+              Hapus
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

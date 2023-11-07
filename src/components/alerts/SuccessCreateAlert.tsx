@@ -10,9 +10,9 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { BackFromFormAlertProps } from "./types";
+import { SuccessCreateAlertProps } from "./types";
 
-export default function BackFromFormAlert({ isOpen, onClose, onCallback }: BackFromFormAlertProps) {
+export default function SuccessCreateAlert({ id, isOpen, onClose, onCallback }: SuccessCreateAlertProps) {
   const cancelRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -25,11 +25,13 @@ export default function BackFromFormAlert({ isOpen, onClose, onCallback }: BackF
             </Heading>
           </AlertDialogHeader>
           <AlertDialogBody>
-            <Text>Semua perubahan tidak akan disimpan</Text>
+            <Text>
+              Data berhasil disimpan dengan kode : <b>{id}</b>
+            </Text>
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose} type="button">
-              Batal
+              Buat Data Baru
             </Button>
             <Button
               ref={cancelRef}
@@ -41,7 +43,7 @@ export default function BackFromFormAlert({ isOpen, onClose, onCallback }: BackF
               _hover={{ backgroundColor: "#004fcd" }}
               _active={{ backgroundColor: "#0046b6" }}
             >
-              Kembali
+              Lihat Data
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

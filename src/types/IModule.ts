@@ -12,3 +12,20 @@ export interface FormInput {
   icon: string;
   default_view: string;
 }
+
+interface FieldError extends Partial<FormInput> {}
+
+export interface FormError {
+  error: string;
+  statusCode: number;
+  message: FieldError[];
+}
+
+export interface FormResponse {
+  id: number;
+  module_id: string;
+  name: string;
+  status_active: boolean;
+  module_icon: string;
+  default_view: string;
+}

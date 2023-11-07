@@ -1,10 +1,7 @@
 import { Spinner, Tr, Td } from "@chakra-ui/react";
+import { DataTableRowLoadingProps } from "./types";
 
-interface Props {
-  colSpan: number;
-}
-
-export default function LoadingRow({ colSpan }: Props) {
+export default function LoadingRow({ colSpan }: DataTableRowLoadingProps) {
   return (
     <Tr>
       <Td textAlign="center" colSpan={colSpan}>

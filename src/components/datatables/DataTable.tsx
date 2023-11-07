@@ -1,12 +1,7 @@
-import { ReactNode } from "react";
 import { Table, Thead, Tbody } from "@chakra-ui/react";
+import { DataTableProps } from "./types";
 
-interface Props {
-  tablehead: ReactNode;
-  tablebody: ReactNode;
-}
-
-export default function DataTable({ tablehead, tablebody }: Props) {
+export default function DataTable({ tablehead, tablebody }: DataTableProps) {
   return (
     <Table variant="simple">
       <Thead position="sticky" top={0} zIndex={5} backgroundColor="#2563eb">
