@@ -31,7 +31,7 @@ import {
 } from "@chakra-ui/react";
 import { DeleteConfirmationAlert } from "@/components/alerts";
 import { ButtonIcon } from "@/components/buttons";
-import { DataTable, DataTableController, DataTableSearch, DataTableRowNotFound, DataTableRowLoading } from "@/components/datatables";
+import { DataTableClient, DataTableClientController, DataTableClientSearch, TableRowLoading, TableRowNotFound } from "@/components/tables";
 import { useFetchModules, useDeleteModule } from "@/features/modules";
 import { usePrimaryKeyStore } from "@/stores";
 import { IModule } from "@/interfaces/IModule";
@@ -223,7 +223,7 @@ export default function Page() {
           <Divider />
           <CardBody paddingBottom={0}>
             <Flex flexDirection="row" justifyContent="space-between">
-              <DataTableController
+              <DataTableClientController
                 getState={getState}
                 getPageCount={getPageCount}
                 getCanNextPage={getCanNextPage}
@@ -233,10 +233,10 @@ export default function Page() {
                 setPageSize={onSetPageSize}
                 setPageIndex={onSetPageIndex}
               />
-              <DataTableSearch value={globalFilter} onChange={(value) => setGlobalFilter(String(value))} />
+              <DataTableClientSearch value={globalFilter} onChange={(value) => setGlobalFilter(String(value))} />
             </Flex>
             <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 12.6rem)">
-              <DataTable
+              <DataTableClient
                 tablehead={getHeaderGroups().map((headerGroup) => (
                   <Tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
@@ -264,9 +264,9 @@ export default function Page() {
                 ))}
                 tablebody={
                   isLoading ? (
-                    <DataTableRowLoading colSpan={3} />
+                    <TableRowLoading colSpan={3} />
                   ) : getRowModel().rows.length === 0 ? (
-                    <DataTableRowNotFound colSpan={3} />
+                    <TableRowNotFound colSpan={3} />
                   ) : (
                     getRowModel().rows.map((row) => {
                       const isLastUpdate = row.original.module_id === primaryKey;

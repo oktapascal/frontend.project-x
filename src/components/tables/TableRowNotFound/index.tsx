@@ -1,7 +1,7 @@
 import { Tr, Td } from "@chakra-ui/react";
-import { DataTableRowNotFoundProps } from "./types";
+import { TableRowNotFoundProps } from "@/components/tables/TableRowNotFound/interface";
 
-export default function DataTableRowNotFound({ colSpan }: DataTableRowNotFoundProps) {
+export default function DataTableRowNotFound({ colSpan }: TableRowNotFoundProps) {
   return (
     <Tr>
       <Td textAlign="center" color="#a3a3a3" fontSize="0.95rem" fontWeight="semibold" colSpan={colSpan}>

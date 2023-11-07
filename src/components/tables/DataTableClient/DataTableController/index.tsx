@@ -1,5 +1,5 @@
 import { Box, HStack, Text, Select, IconButton } from "@chakra-ui/react";
-import { DataTableControllerProps } from "./types";
+import { DataTableControllerProps } from "@/components/tables/DataTableClient/DataTableController/interface";
 
 export default function DataTableController({
   getPageCount,

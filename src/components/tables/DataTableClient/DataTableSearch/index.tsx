@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box, Input } from "@chakra-ui/react";
-import { DataTableSearchProps } from "./types";
+import { DataTableSearchProps } from "@/components/tables/DataTableClient/DataTableSearch/interface";
 
 export default function DataTableSearch({ value: initialValue, debounce = 500, onChange }: DataTableSearchProps) {
   const [value, setValue] = useState(initialValue);
