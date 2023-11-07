@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { axiosInstance } from "@/utils";
 import { useUserStore, useModuleStore } from "@/stores";
-import { SignOutAlertProps } from "./interface";
+import { SignOutAlertProps } from "@/components/alerts/SignOut/interface";
 
 export default function SignOutAlert({ isOpen, onClose }: SignOutAlertProps) {
   const isLoading = useSignal<boolean>(false);

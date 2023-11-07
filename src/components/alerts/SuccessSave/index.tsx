@@ -10,7 +10,7 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { SuccessSaveAlertProps } from "./interface";
+import { SuccessSaveAlertProps } from "@/components/alerts/SuccessSave/interface";
 
 export default function SuccessCreateAlert({ id, isOpen, onClose, onCallback }: SuccessSaveAlertProps) {
   const cancelRef = useRef<HTMLButtonElement>(null);

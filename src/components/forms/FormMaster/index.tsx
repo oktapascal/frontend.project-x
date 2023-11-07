@@ -1,6 +1,6 @@
 import { Button, Card, CardHeader, CardBody, Center, Container, Divider, Flex, Heading, HStack } from "@chakra-ui/react";
 import { ExitFormAlert } from "@/components/alerts";
-import { FormMasterProps } from "./interface";
+import { FormMasterProps } from "@/components/forms/FormMaster/interface";
 
 export default function FormMaster({ formID, title, children, isOpen, isDisabled, onOpen, onClose, onExitForm }: FormMasterProps) {
   return (
