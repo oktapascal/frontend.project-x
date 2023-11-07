@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "@/utils";
-import { FormInput, FormResponse } from "@/types/IModule";
+import { FormInput, FormResponse } from "@/interfaces/IModule";
 
 export default function useCreateModule() {
   return useMutation({
