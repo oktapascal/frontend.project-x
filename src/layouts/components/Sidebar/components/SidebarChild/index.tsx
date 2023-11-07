@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { List, ListItem, Text } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
-import { SidebarChildAppProps } from "./interface";
-import styles from "../styles/sidebar-child-app.module.css";
+import { SidebarChildAppProps } from "@/layouts/components/Sidebar/components/SidebarChild/interface";
+import styles from "@/layouts/components/Sidebar/components/SidebarChild/styles/sidebar-child-app.module.css";
 
 const framerSidebarPanel = {
   initial: { x: "-100%" },

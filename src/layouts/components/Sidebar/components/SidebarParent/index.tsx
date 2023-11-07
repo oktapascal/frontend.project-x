@@ -1,7 +1,7 @@
 import { Button, List, ListItem, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { SidebarParentAppProps } from "./interface";
-import styles from "../styles/sidebar-parent-app.module.css";
+import { SidebarParentAppProps } from "@/layouts/components/Sidebar/components/SidebarParent/interface";
+import styles from "@/layouts/components/Sidebar/components/SidebarParent/styles/sidebar-parent-app.module.css";
 
 const framerSidebarBackground = {
   initial: { opacity: 0 },
