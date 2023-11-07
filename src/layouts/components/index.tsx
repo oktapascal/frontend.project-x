@@ -1,2 +1,2 @@
-export { default as Header } from "@/layouts/components/Headers";
-export { default as Sidebar } from "@/layouts/components/Sidebars";
+export { default as Header } from "@/layouts/components/Header";
+export { default as Sidebar } from "@/layouts/components/Sidebar";
