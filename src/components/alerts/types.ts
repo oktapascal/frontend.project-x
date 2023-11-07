@@ -12,3 +12,5 @@ export interface SignOutAlertProps {
 export interface SuccessCreateAlertProps extends BackFromFormAlertProps {
   id: string | number | null;
 }
+
+export interface DeleteConfirmationAlertPros extends SuccessCreateAlertProps {}
