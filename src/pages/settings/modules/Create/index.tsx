@@ -9,7 +9,7 @@ import { FormGroup, FormMaster } from "@/components/forms";
 import { FormInput, FormError } from "@/interfaces/IModule";
 import { useCreateModule } from "@/features/modules";
 
-export default function CreateForm() {
+export default function CreateModulePage() {
   const FORM_ID = "module-form";
 
   const [moduleId, setModuleId] = useState<string | null>(null);

@@ -39,7 +39,7 @@ interface MetaTypes {
   textAlign: ResponsiveValue<"center" | "end" | "justify" | "left" | "match-parent" | "right" | "start">;
 }
 
-export default function Page() {
+export default function ReadModulePage() {
   const queryClient = useQueryClient();
 
   const location = useLocation();
