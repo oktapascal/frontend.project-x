@@ -1,1 +1,1 @@
-export { default as useFetchModules } from "./useFetchModules";
+export { default as useFetchModules } from "@/features/moduleUser/useFetchModules";

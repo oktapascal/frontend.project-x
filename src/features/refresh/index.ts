@@ -1,1 +1,1 @@
-export { default as fetchRequestToken } from "./fetchToken";
+export { default as fetchRequestToken } from "@/features/refresh/fetchToken";

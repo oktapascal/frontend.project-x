@@ -8,7 +8,7 @@ export default function useCreateModule() {
       const result = await axiosInstance.post(
         "/module/save",
         { ...request },
-        { headers: { Accept: "application/json", "Content-Type": "application/json" } }
+        { headers: { Accept: "application/json", "Content-Type": "application/json" }, withCredentials: true }
       );
 
       return result.data as FormResponse;

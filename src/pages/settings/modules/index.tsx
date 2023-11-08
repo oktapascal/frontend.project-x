@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   ColumnDef,
@@ -32,7 +32,6 @@ import { DeleteConfirmationAlert } from "@/components/alerts";
 import { ButtonIcon } from "@/components/buttons";
 import { DataTableClient, DataTableClientController, DataTableClientSearch, TableRowLoading, TableRowNotFound } from "@/components/tables";
 import { useFetchModules, useDeleteModule } from "@/features/modules";
-import { usePrimaryKeyStore } from "@/stores";
 import { IModule } from "@/interfaces/IModule";
 
 interface MetaTypes {
@@ -43,10 +42,10 @@ interface MetaTypes {
 export default function Page() {
   const queryClient = useQueryClient();
 
+  const location = useLocation();
+
   const { data, isLoading, error } = useFetchModules();
   const { mutate } = useDeleteModule();
-
-  const primaryKey = usePrimaryKeyStore((state) => state.key);
 
   const toast = useToast();
   const { isOpen: isOpenDeleteConfirmationAlert, onOpen: onOpenDeleteConfirmationAlert, onClose: onCloseDeleteConfirmationAlert } = useDisclosure();
@@ -267,7 +266,7 @@ export default function Page() {
                   <TableRowNotFound colSpan={3} />
                 ) : (
                   getRowModel().rows.map((row) => {
-                    const isLastUpdate = row.original.module_id === primaryKey;
+                    const isLastUpdate = row.original.module_id === location.state?.module_id;
                     return (
                       <Tr key={row.id} backgroundColor={isLastUpdate ? "#e5e5e5" : ""}>
                         {row.getVisibleCells().map((cell) => {

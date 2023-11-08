@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { useSignal } from "@preact/signals-react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   AlertDialog,
@@ -18,7 +17,7 @@ import { useUserStore, useModuleStore } from "@/stores";
 import { SignOutAlertProps } from "@/components/alerts/SignOut/interface";
 
 export default function SignOutAlert({ isOpen, onClose }: SignOutAlertProps) {
-  const isLoading = useSignal<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const cancelRef = useRef<HTMLButtonElement>(null);
 
@@ -30,7 +29,7 @@ export default function SignOutAlert({ isOpen, onClose }: SignOutAlertProps) {
   const resetModule = useModuleStore((state) => state.reset);
 
   const onSignOut = async () => {
-    isLoading.value = true;
+    setLoading(true);
 
     const response = await axiosInstance.patch(
       "/auth/logout",
@@ -44,7 +43,7 @@ export default function SignOutAlert({ isOpen, onClose }: SignOutAlertProps) {
       }
     );
 
-    isLoading.value = false;
+    setLoading(false);
 
     if (response.status === 200) {
       resetUser();
@@ -83,7 +82,7 @@ export default function SignOutAlert({ isOpen, onClose }: SignOutAlertProps) {
               marginLeft="0.5rem"
               backgroundColor="#0058e4"
               color="#ffffff"
-              disabled={isLoading.value}
+              disabled={isLoading}
               _hover={{ backgroundColor: "#004fcd" }}
               _active={{ backgroundColor: "#0046b6" }}
             >

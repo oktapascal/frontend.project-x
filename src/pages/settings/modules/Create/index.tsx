@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Input, VStack, useDisclosure } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -8,13 +8,11 @@ import { SuccessSaveAlert } from "@/components/alerts";
 import { FormGroup, FormMaster } from "@/components/forms";
 import { FormInput, FormError } from "@/interfaces/IModule";
 import { useCreateModule } from "@/features/modules";
-import { usePrimaryKeyStore } from "@/stores";
 
 export default function CreateForm() {
   const FORM_ID = "module-form";
 
-  const primaryKey = usePrimaryKeyStore((state) => state.key);
-  const updatePrimaryKey = usePrimaryKeyStore((state) => state.update);
+  const [moduleId, setModuleId] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -40,7 +38,7 @@ export default function CreateForm() {
   });
 
   const onExitForm = () => {
-    navigate("/settings/modules");
+    navigate("/settings/modules", { state: { module_id: moduleId } });
   };
 
   const onCallbackSuccessCreate = () => {
@@ -66,9 +64,9 @@ export default function CreateForm() {
         }
       },
       onSuccess: (result) => {
+        setModuleId(result.module_id);
         reset();
         onOpenSuccessCreateAlert();
-        updatePrimaryKey(result.module_id);
       },
     });
   };
@@ -114,7 +112,7 @@ export default function CreateForm() {
           </VStack>
         </form>
       </FormMaster>
-      <SuccessSaveAlert id={primaryKey} isOpen={isOpenSuccessCreateAlert} onClose={onCloseSuccessCreateAlert} onCallback={onCallbackSuccessCreate} />
+      <SuccessSaveAlert id={moduleId} isOpen={isOpenSuccessCreateAlert} onClose={onCloseSuccessCreateAlert} onCallback={onCallbackSuccessCreate} />
     </>
   );
 }

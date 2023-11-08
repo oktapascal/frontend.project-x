@@ -1,1 +1,1 @@
-export { default as useFetchModuleMenus } from "./useFetchModuleMenus";
+export { default as useFetchModuleMenus } from "@/features/moduleMenus/useFetchModuleMenus";
