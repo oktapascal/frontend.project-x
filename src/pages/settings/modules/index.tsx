@@ -24,7 +24,6 @@ import {
   Tr,
   Th,
   Td,
-  TableContainer,
   ResponsiveValue,
   useDisclosure,
   useToast,
@@ -235,59 +234,57 @@ export default function Page() {
               />
               <DataTableClientSearch value={globalFilter} onChange={(value) => setGlobalFilter(String(value))} />
             </Flex>
-            <TableContainer overflowY="auto" marginTop="0.5rem" maxHeight="calc(100vh - 12.6rem)">
-              <DataTableClient
-                tablehead={getHeaderGroups().map((headerGroup) => (
-                  <Tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      const meta = header.column.columnDef.meta as MetaTypes;
+            <DataTableClient
+              tablehead={getHeaderGroups().map((headerGroup) => (
+                <Tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    const meta = header.column.columnDef.meta as MetaTypes;
 
-                      return (
-                        <Th
-                          key={header.id}
-                          width={meta.width}
-                          textAlign={meta.textAlign}
-                          color="#ffffff"
-                          className={header.column.getCanSort() ? "select-none cursor-pointer" : ""}
-                          onClick={header.column.getToggleSortingHandler()}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          {!header.column.getIsSorted() ? null : header.column.getIsSorted().toString() === "asc" ? (
-                            <i className="ri-arrow-drop-up-fill icon-extra-small" />
-                          ) : (
-                            <i className="ri-arrow-drop-down-fill icon-extra-small" />
-                          )}
-                        </Th>
-                      );
-                    })}
-                  </Tr>
-                ))}
-                tablebody={
-                  isLoading ? (
-                    <TableRowLoading colSpan={3} />
-                  ) : getRowModel().rows.length === 0 ? (
-                    <TableRowNotFound colSpan={3} />
-                  ) : (
-                    getRowModel().rows.map((row) => {
-                      const isLastUpdate = row.original.module_id === primaryKey;
-                      return (
-                        <Tr key={row.id} backgroundColor={isLastUpdate ? "#e5e5e5" : ""}>
-                          {row.getVisibleCells().map((cell) => {
-                            const meta = cell.column.columnDef.meta as MetaTypes;
+                    return (
+                      <Th
+                        key={header.id}
+                        width={meta.width}
+                        textAlign={meta.textAlign}
+                        color="#ffffff"
+                        className={header.column.getCanSort() ? "select-none cursor-pointer" : ""}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {!header.column.getIsSorted() ? null : header.column.getIsSorted().toString() === "asc" ? (
+                          <i className="ri-arrow-drop-up-fill icon-extra-small" />
+                        ) : (
+                          <i className="ri-arrow-drop-down-fill icon-extra-small" />
+                        )}
+                      </Th>
+                    );
+                  })}
+                </Tr>
+              ))}
+              tablebody={
+                isLoading ? (
+                  <TableRowLoading colSpan={3} />
+                ) : getRowModel().rows.length === 0 ? (
+                  <TableRowNotFound colSpan={3} />
+                ) : (
+                  getRowModel().rows.map((row) => {
+                    const isLastUpdate = row.original.module_id === primaryKey;
+                    return (
+                      <Tr key={row.id} backgroundColor={isLastUpdate ? "#e5e5e5" : ""}>
+                        {row.getVisibleCells().map((cell) => {
+                          const meta = cell.column.columnDef.meta as MetaTypes;
 
-                            return (
-                              <Td key={cell.id} textAlign={meta.textAlign}>
-                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                              </Td>
-                            );
-                          })}
-                        </Tr>
-                      );
-                    })
-                  )
-                }
-              />
-            </TableContainer>
+                          return (
+                            <Td key={cell.id} textAlign={meta.textAlign}>
+                              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            </Td>
+                          );
+                        })}
+                      </Tr>
+                    );
+                  })
+                )
+              }
+            />
           </CardBody>
         </Card>
       </Box>
