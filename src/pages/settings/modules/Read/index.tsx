@@ -31,6 +31,7 @@ import {
 import { DeleteConfirmationAlert } from "@/components/alerts";
 import { ButtonIcon } from "@/components/buttons";
 import { DataTableClient, DataTableClientController, DataTableClientSearch, TableRowLoading, TableRowNotFound } from "@/components/tables";
+import { InfoModal } from "@/pages/settings/modules/Read/components";
 import { useFetchModules, useDeleteModule } from "@/features/modules";
 import { IModule } from "@/interfaces/IModule";
 
@@ -49,6 +50,7 @@ export default function ReadModulePage() {
 
   const toast = useToast();
   const { isOpen: isOpenDeleteConfirmationAlert, onOpen: onOpenDeleteConfirmationAlert, onClose: onCloseDeleteConfirmationAlert } = useDisclosure();
+  const { isOpen: isOpenInfoModal, onOpen: onOpenInfoModal, onClose: onCloseInfoModal } = useDisclosure();
 
   const [globalFilter, setGlobalFilter] = useState<string>("");
   const [moduleId, setModuleId] = useState<string>("");
@@ -74,6 +76,15 @@ export default function ReadModulePage() {
       onOpenDeleteConfirmationAlert();
     },
     [onOpenDeleteConfirmationAlert]
+  );
+
+  const onShowInfoModal = useCallback(
+    (module_id: string) => {
+      setModuleId(module_id);
+
+      onOpenInfoModal();
+    },
+    [onOpenInfoModal]
   );
 
   const columns = useMemo<ColumnDef<IModule>[]>(() => {
@@ -113,7 +124,8 @@ export default function ReadModulePage() {
               <ButtonIcon
                 label="Show Data"
                 tooltipPlacement="bottom"
-                icon={<i className="ri-information-fill icon-extra-small" onClick={() => alert(JSON.stringify(row.original))} />}
+                icon={<i className="ri-information-fill icon-extra-small" />}
+                onClick={() => onShowInfoModal(row.original.module_id)}
               />
             </Box>
             <Box>
@@ -136,7 +148,7 @@ export default function ReadModulePage() {
         ),
       },
     ];
-  }, [onDeleteConfirmation]);
+  }, [onDeleteConfirmation, onShowInfoModal]);
 
   const defaultData = useMemo(() => [], []);
 
@@ -291,6 +303,7 @@ export default function ReadModulePage() {
         onClose={onCloseDeleteConfirmationAlert}
         onCallback={onDeleteData}
       />
+      {isOpenInfoModal && <InfoModal moduleId={moduleId} isOpen={isOpenInfoModal} onClose={onCloseInfoModal} />}
     </>
   );
 }
