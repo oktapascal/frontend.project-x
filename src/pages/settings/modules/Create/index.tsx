@@ -1,11 +1,11 @@
 import { AxiosError } from "axios";
 import { useEffect } from "react";
-import { FormControl, FormLabel, Input, FormErrorMessage, VStack, useDisclosure } from "@chakra-ui/react";
+import { Input, VStack, useDisclosure } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import { SuccessSaveAlert } from "@/components/alerts";
-import { FormMaster } from "@/components/forms";
+import { FormGroup, FormMaster } from "@/components/forms";
 import { FormInput, FormError } from "@/interfaces/IModule";
 import { useCreateModule } from "@/features/modules";
 import { usePrimaryKeyStore } from "@/stores";
@@ -90,33 +90,27 @@ export default function CreateForm() {
       >
         <form id={FORM_ID} onSubmit={handleSubmit(onSubmit)} noValidate>
           <VStack>
-            <FormControl isInvalid={!!errors.name}>
-              <FormLabel>Nama Module</FormLabel>
+            <FormGroup label="Nama Module" isInvalid={!!errors.name} errorMessage={errors.name?.message}>
               <Controller
                 name="name"
                 control={control}
                 render={({ field }) => <Input type="text" placeholder="Nama Module..." autoComplete="off" isReadOnly={isPending} {...field} />}
               />
-              <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
-            </FormControl>
-            <FormControl isInvalid={!!errors.icon}>
-              <FormLabel>Icon Module</FormLabel>
+            </FormGroup>
+            <FormGroup label="Icon Module" isInvalid={!!errors.icon} errorMessage={errors.icon?.message}>
               <Controller
                 name="icon"
                 control={control}
                 render={({ field }) => <Input type="text" placeholder="Icon Module..." autoComplete="off" isReadOnly={isPending} {...field} />}
               />
-              <FormErrorMessage>{errors.icon?.message}</FormErrorMessage>
-            </FormControl>
-            <FormControl isInvalid={!!errors.default_view}>
-              <FormLabel>Default View</FormLabel>
+            </FormGroup>
+            <FormGroup label="Default View" isInvalid={!!errors.default_view} errorMessage={errors.default_view?.message}>
               <Controller
                 name="default_view"
                 control={control}
                 render={({ field }) => <Input type="text" placeholder="Default View..." autoComplete="off" isReadOnly={isPending} {...field} />}
               />
-              <FormErrorMessage>{errors.default_view?.message}</FormErrorMessage>
-            </FormControl>
+            </FormGroup>
           </VStack>
         </form>
       </FormMaster>
