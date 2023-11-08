@@ -63,7 +63,7 @@ export default function Page() {
           status: "success",
         });
         onCloseDeleteConfirmationAlert();
-        queryClient.invalidateQueries({ queryKey: [] });
+        queryClient.invalidateQueries({ queryKey: ["fetch.modules"] });
       },
     });
   };
