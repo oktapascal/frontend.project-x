@@ -72,7 +72,7 @@ export default function CreateModulePage() {
   };
 
   useEffect(() => {
-    document.title = "Project-X | Modules Form";
+    document.title = "Project-X | Modules Create Form";
   }, []);
 
   return (
