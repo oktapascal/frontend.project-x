@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useUserStore } from "@/stores";
-import { HeaderProps } from "@/layouts/components/Header/interface";
-import { NavbarApp, NavbarHome } from "@/layouts/components/Header/components";
+import { HeaderProps } from "@/layouts/LayoutApp/components/Header/interface";
+import { NavbarApp, NavbarHome } from "@/layouts/LayoutApp//components/Header/components";
 
 export default function Header({ onOpenAlert, onToggleSidebar }: HeaderProps) {
   const { pathname } = useLocation();

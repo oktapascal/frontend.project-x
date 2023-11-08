@@ -1,6 +1,6 @@
 import { Button, Center, Flex, Image } from "@chakra-ui/react";
 import Logo from "@/assets/images/logo.webp";
-import { NavbarHomeProps } from "@/layouts/components/Header/components/NavbarHome/interface";
+import { NavbarHomeProps } from "@/layouts/LayoutApp/components/Header/components/NavbarHome/interface";
 
 export default function NavbarHome({ onOpenAlert }: NavbarHomeProps) {
   return (

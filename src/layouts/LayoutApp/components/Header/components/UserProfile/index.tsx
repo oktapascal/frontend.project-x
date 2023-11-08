@@ -1,5 +1,5 @@
 import { Button, Flex, Image, Menu, MenuButton, MenuDivider, MenuList, MenuItem, Text } from "@chakra-ui/react";
-import { UserProfileProps } from "@/layouts/components/Header/components/UserProfile/interface";
+import { UserProfileProps } from "@/layouts//LayoutApp/components/Header/components/UserProfile/interface";
 import avatar from "@/assets/images/avatar.webp";
 
 export default function UserProfile({ onOpenAlert, username }: UserProfileProps) {

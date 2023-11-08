@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useModuleStore } from "@/stores";
 import { useFetchModuleMenus } from "@/features/moduleMenus";
-import { SidebarChildApp, SidebarParentApp } from "@/layouts/components/Sidebar/components";
-import { SidebarProps } from "@/layouts/components/Sidebar/interface";
+import { SidebarChildApp, SidebarParentApp } from "@/layouts/LayoutApp/components/Sidebar/components";
+import { SidebarProps } from "@/layouts/LayoutApp/components/Sidebar/interface";
 import { IMenu, IMenuChild, IMenuParent } from "@/interfaces/IMenu";
 
 export default function Sidebar({ onCloseAllSidebar, onCloseSidebar, onOpenChildSidebar, isOpenChildSidebar, isOpenParentSidebar }: SidebarProps) {
