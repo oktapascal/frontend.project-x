@@ -3,7 +3,7 @@ import { RouteObject, Navigate } from "react-router-dom";
 import { Layout } from "@/layouts";
 
 const MainPage = lazy(() => import("../pages/main"));
-const ModulesListPage = lazy(() => import("../pages/settings/modules/Read"));
+const ModulesListPage = lazy(() => import("../pages/settings/modules"));
 const ModulesCreatePage = lazy(() => import("../pages/settings/modules/Create"));
 
 export default function ProtectedRoutes(): RouteObject {
