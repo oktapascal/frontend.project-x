@@ -108,33 +108,31 @@ export default function ReadModulePage() {
           textAlign: "center",
         },
         cell: ({ row }) => (
-          <>
-            <HStack justifyContent="center">
-              <Box>
-                <ButtonIcon
-                  label="Show Data"
-                  tooltipPlacement="bottom"
-                  icon={<i className="ri-information-fill icon-extra-small" onClick={() => alert(JSON.stringify(row.original))} />}
-                />
-              </Box>
-              <Box>
-                <ButtonIcon
-                  label="Edit Data"
-                  tooltipPlacement="bottom"
-                  icon={<i className="ri-edit-box-line icon-extra-small" />}
-                  onClick={() => alert(JSON.stringify(row.original))}
-                />
-              </Box>
-              <Box>
-                <ButtonIcon
-                  label="Delete Data"
-                  tooltipPlacement="bottom"
-                  icon={<i className="ri-delete-bin-5-fill icon-extra-small" />}
-                  onClick={() => onDeleteConfirmation(row.original.module_id)}
-                />
-              </Box>
-            </HStack>
-          </>
+          <HStack justifyContent="center">
+            <Box>
+              <ButtonIcon
+                label="Show Data"
+                tooltipPlacement="bottom"
+                icon={<i className="ri-information-fill icon-extra-small" onClick={() => alert(JSON.stringify(row.original))} />}
+              />
+            </Box>
+            <Box>
+              <ButtonIcon
+                label="Edit Data"
+                tooltipPlacement="bottom"
+                icon={<i className="ri-edit-box-line icon-extra-small" />}
+                onClick={() => alert(JSON.stringify(row.original))}
+              />
+            </Box>
+            <Box>
+              <ButtonIcon
+                label="Delete Data"
+                tooltipPlacement="bottom"
+                icon={<i className="ri-delete-bin-5-fill icon-extra-small" />}
+                onClick={() => onDeleteConfirmation(row.original.module_id)}
+              />
+            </Box>
+          </HStack>
         ),
       },
     ];
