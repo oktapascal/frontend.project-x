@@ -1,10 +1,13 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Table, Tbody, Tr, Td } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import { InfoModalProps } from "@/pages/settings/modules/Read/components/InfoModal/interface";
+import { ModuleData } from "@/pages/settings/modules/Read/components/InfoModal/components";
 import { LoadingData } from "@/components/others";
 import { useFetchModule } from "@/features/modules";
 
 export default function ModuleInfoModal({ moduleId, isOpen, onClose }: InfoModalProps) {
-  const { data, isLoading } = useFetchModule(moduleId);
+  const { data, isLoading, error } = useFetchModule(moduleId);
+
+  if (error) return <div>unknown error {error.message}</div>;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -12,28 +15,7 @@ export default function ModuleInfoModal({ moduleId, isOpen, onClose }: InfoModal
       <ModalContent>
         <ModalHeader>Data Module {moduleId}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          {isLoading ? (
-            <LoadingData />
-          ) : (
-            <Table>
-              <Tbody>
-                <Tr>
-                  <Td>ID Module</Td>
-                  <Td>{moduleId}</Td>
-                </Tr>
-                <Tr>
-                  <Td>Nama Module</Td>
-                  <Td>{data?.name}</Td>
-                </Tr>
-                <Tr>
-                  <Td>Default View</Td>
-                  <Td>{data?.default_view}</Td>
-                </Tr>
-              </Tbody>
-            </Table>
-          )}
-        </ModalBody>
+        <ModalBody>{isLoading ? <LoadingData /> : <ModuleData data={data} />}</ModalBody>
       </ModalContent>
     </Modal>
   );
