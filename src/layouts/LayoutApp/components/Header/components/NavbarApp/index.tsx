@@ -41,6 +41,9 @@ export default function NavbarApp({ username, onOpenAlert, onToggleSidebar }: Na
               <ButtonIcon label="Notification" tooltipPlacement="bottom" icon={<i className="ri-notification-2-fill icon-small" />} />
             </Center>
             <Center>
+              <ButtonIcon label="Ticket" tooltipPlacement="bottom" icon={<i className="ri-coupon-fill icon-small" />} />
+            </Center>
+            <Center>
               <ButtonIcon label="New Tab" tooltipPlacement="bottom" icon={<i className="ri-file-copy-line icon-small" />} />
             </Center>
             <Center>
